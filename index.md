@@ -1,10 +1,4 @@
----
-layout: home
-title: "VLA 기반 사족 로봇 자율 네비게이션 시스템"
-description: "Unitree Go2와 InternVLA-N1-DualVLN을 결합한 자연어 명령 기반 로봇 시스템"
----
-
-# VLA 기반 사족 로봇 자율 네비게이션 시스템
+# "VLA 기반 사족 로봇 자율 네비게이션 시스템"
 
 ## 프로젝트 개요
 
