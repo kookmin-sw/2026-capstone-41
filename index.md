@@ -59,9 +59,10 @@ title: Capstone 41
   }
 
   .page-shell {
-    width: min(100%, 1680px);
-    margin: 0 auto;
-    padding: 28px 20px 88px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   .hero {
@@ -71,11 +72,11 @@ title: Capstone 41
     grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
     gap: 36px;
     align-items: center;
-    padding: 44px;
-    border: 1px solid var(--line);
-    border-radius: 32px;
+    padding: 44px 32px;
+    border: 0;
+    border-radius: 0;
     background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.72));
-    box-shadow: var(--shadow);
+    box-shadow: none;
   }
 
   .hero::before,
@@ -222,12 +223,12 @@ title: Capstone 41
   }
 
   .section {
-    margin-top: 28px;
-    padding: 34px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-xl);
+    margin-top: 16px;
+    padding: 36px 32px;
+    border: 0;
+    border-radius: 0;
     background: var(--panel);
-    box-shadow: var(--shadow);
+    box-shadow: none;
     backdrop-filter: blur(12px);
   }
 
@@ -571,13 +572,13 @@ title: Capstone 41
 
   @media (max-width: 720px) {
     .page-shell {
-      padding-inline: 14px;
+      padding-inline: 0;
     }
 
     .hero,
     .section {
-      padding: 20px;
-      border-radius: 22px;
+      padding: 20px 16px;
+      border-radius: 0;
     }
 
     .feature-grid,
