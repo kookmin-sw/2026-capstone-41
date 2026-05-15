@@ -127,7 +127,7 @@ img {
   align-items: start;
   max-width: none;
   width: 100%;
-  padding-right: 0;
+  padding-inline: clamp(16px, 4vw, 64px);
 }
 
 .kicker {
@@ -141,7 +141,7 @@ img {
 .hero h1 {
   margin: 0;
   max-width: none;
-  font-size: clamp(3rem, 7vw, 6.8rem);
+  font-size: clamp(2.35rem, 4.8vw, 5.2rem);
   line-height: 0.94;
   letter-spacing: -0.05em;
   background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
@@ -154,7 +154,7 @@ img {
   margin: 26px 0 0;
   max-width: 88ch;
   color: rgba(245, 245, 245, 0.82);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .hero-meta {
@@ -720,6 +720,7 @@ img {
 
   .hero h1 {
     max-width: none;
+    font-size: clamp(2.2rem, 10vw, 3.8rem);
   }
 
   .hero-lead {
