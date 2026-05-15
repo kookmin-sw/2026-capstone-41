@@ -397,27 +397,22 @@ title: Capstone 41
     font-size: 0.96rem;
   }
 
-    .team-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scrollbar-width: thin;
+      .team-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
   }
 
-    .member {
-    border-radius: 24px;
+      .member {
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid var(--line);
     background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
     display: grid;
     min-height: 100%;
-    flex: 0 0 calc((100% - 60px) / 6);
-    min-width: 180px;
   }
 
-  .member img {
+    .member img {
     width: 100%;
     display: block;
     aspect-ratio: 1 / 1;
@@ -425,48 +420,42 @@ title: Capstone 41
     border-bottom: 1px solid var(--line);
   }
 
-    .member .body {
-    padding: 14px;
+      .member .body {
+    padding: 12px;
     display: grid;
-    gap: 8px;
+    gap: 6px;
   }
 
-    .member h3 {
+      .member h3 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.96rem;
   }
 
-    .member .role {
-    display: block;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    overflow: hidden;
+      .member .role {
+    display: none;
   }
 
-    .member p {
+      .member p {
     margin: 0;
     color: var(--muted);
-    line-height: 1.55;
-    font-size: 0.84rem;
+    line-height: 1.5;
+    font-size: 0.8rem;
   }
 
-    .member .link {
+      .member .link {
     margin-top: 2px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 8px 10px;
-    border-radius: 12px;
+    padding: 7px 9px;
+    border-radius: 11px;
     border: 1px solid var(--line);
     background: #fff;
     color: var(--text);
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
   }
 
   .references ol {
@@ -819,11 +808,11 @@ title: Capstone 41
     </div>
   </section>
 
-    <section class="section" id="team">
+      <section class="section" id="team">
     <div class="section-head">
       <div>
         <h2>팀 구성과 역할</h2>
-        <p>팀원 사진과 GitHub 링크만 먼저 두고, 역할은 일단 비워 둔 상태입니다. 나중에 원하는 역할명으로 바로 채울 수 있습니다.</p>
+        <p>여섯 명이 한 줄로 보이도록 다시 맞췄습니다. 역할은 비워 두고, 이름과 GitHub 링크만 먼저 배치했습니다.</p>
       </div>
     </div>
 
@@ -890,7 +879,7 @@ title: Capstone 41
     </div>
 
     <div class="footer-note">
-      팀원이 더 늘어나면 카드만 복제하면 됩니다. 각 카드의 GitHub 링크는 개인 계정에 맞게 바꾸면 바로 연동됩니다.
+      팀이 6명이라면 이 배치가 가장 깔끔합니다. 화면이 좁아지면 자동으로 줄이 바뀌도록 다시 조정할 수 있습니다.
     </div>
   </section>
 
