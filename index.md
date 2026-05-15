@@ -948,17 +948,17 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
+            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
           </div>
-          <h3>유리안</h3>
+          <h3>조유빈</h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="#">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
+            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
           </div>
-          <h3>조유빈</h3>
+          <h3>유리안</h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="#">GitHub</a>
         </article>
