@@ -539,6 +539,19 @@ img {
 
 .timeline-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  position: relative;
+  gap: 22px;
+  padding-top: 18px;
+}
+
+.timeline-grid::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0.45), rgba(155, 92, 255, 0.45));
 }
 
 .timeline-card,
@@ -560,6 +573,23 @@ img {
   background: #fff;
 }
 
+.timeline-card {
+  position: relative;
+  padding-top: 28px;
+}
+
+.timeline-card::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  box-shadow: 0 0 0 5px rgba(255, 79, 117, 0.08);
+}
+
 .timeline-card h3,
 .stack-card h3,
 .contact-card h3,
@@ -567,6 +597,11 @@ img {
 .impact-card h3 {
   margin: 0 0 10px;
   font-size: 1.15rem;
+}
+
+.timeline-card h3 {
+  margin-bottom: 14px;
+  font-size: 1.5rem;
 }
 
 .timeline-card p,
@@ -577,6 +612,19 @@ img {
   margin: 0;
   color: inherit;
   opacity: 0.78;
+}
+
+.timeline-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  color: inherit;
+  opacity: 0.86;
+}
+
+.timeline-list li {
+  line-height: 1.5;
 }
 
 .stack-grid {
@@ -702,6 +750,11 @@ img {
   .contact-grid,
   .refs-grid {
     grid-template-columns: 1fr;
+  }
+
+  .timeline-grid::before {
+    left: 0;
+    right: 0;
   }
 
   .team-grid {
@@ -1014,15 +1067,32 @@ img {
       <div class="timeline-grid">
         <article class="timeline-card">
           <h3>3월</h3>
-          <p>프로젝트 방향성 결정, ROS2/Zenoh 무선 통신 셋업, InternVLA·LOVON 재현, 1차 시연 발표를 진행했다.</p>
+          <ul class="timeline-list">
+            <li>방향성 결정</li>
+            <li>ROS2 / Zenoh</li>
+            <li>InternVLA·LOVON 재현</li>
+            <li>1차 시연</li>
+          </ul>
         </article>
         <article class="timeline-card">
           <h3>4월</h3>
-          <p>InternVLA에 Following을 결합하는 방향성을 확정하고, LOVON 일부 구조 차용·디블러링·LiDAR SLAM 기반 자율 Backtracking을 구현했다.</p>
+          <ul class="timeline-list">
+            <li>Following 결합</li>
+            <li>LOVON 일부 구조 차용</li>
+            <li>디블러링</li>
+            <li>LiDAR SLAM Backtracking</li>
+          </ul>
         </article>
         <article class="timeline-card">
           <h3>5월</h3>
-          <p>Pointing 기능 추가, 전체 코드 병합, ROSA에 Qwen3.5-4B 연결, ROS2 도구 개선, Task Planner 통합 후 정량 평가와 논문 초안 작성에 들어갔다.</p>
+          <ul class="timeline-list">
+            <li>Pointing 추가</li>
+            <li>전체 코드 병합</li>
+            <li>ROSA + Qwen3.5-4B</li>
+            <li>ROS2 도구 개선</li>
+            <li>Task Planner 통합</li>
+            <li>정량 평가 / 논문 초안</li>
+          </ul>
         </article>
       </div>
     </div>
