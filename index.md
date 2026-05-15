@@ -511,16 +511,6 @@ img {
   border-color: rgba(31, 31, 31, 0.08);
 }
 
-.team-note {
-  margin-top: 14px;
-  color: rgba(245, 245, 245, 0.68);
-  font-size: 0.92rem;
-}
-
-.light .team-note {
-  color: rgba(31, 31, 31, 0.58);
-}
-
 .timeline-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -777,7 +767,6 @@ img {
       <div class="section-head">
         <div>
           <h2>프로젝트의 의의</h2>
-          <p>기존 index.md의 마지막 해설 문단도 누락하지 않고 그대로 유지했다.</p>
         </div>
       </div>
       <div class="impact-grid">
@@ -802,7 +791,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Overview</h2>
-          <p>PDF 5페이지처럼 큰 이미지와 텍스트를 좌우로 배치한 구조로, 기존 프로젝트 소개를 그대로 살려 재구성했다.</p>
         </div>
       </div>
       <div class="split">
@@ -846,7 +834,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Hardware</h2>
-          <p>사용한 하드웨어를 카드형으로 정리했다. 얇은 경계선과 절제된 hover 효과만 적용해 과한 랜딩페이지 느낌을 피했다.</p>
         </div>
       </div>
       <div class="hardware-grid">
@@ -895,7 +882,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Architecture</h2>
-          <p>아직 최종 아키텍처 이미지가 없어, 나중에 쉽게 교체할 수 있는 placeholder 박스를 먼저 넣어두었다.</p>
         </div>
       </div>
       <div class="arch-grid">
@@ -906,7 +892,6 @@ img {
         </div>
         <div class="copy">
           <h3>시스템 아키텍처</h3>
-          <p>아키텍처 섹션은 현재는 텍스트와 placeholder로 구성했지만, 완성된 다이어그램이 들어오면 그대로 교체할 수 있게 단순한 구조로 유지했다.</p>
           <ul class="arch-list">
             <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
             <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
@@ -924,7 +909,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Team</h2>
-          <p>기존 index.md에 있던 팀원 이름은 유지했고, 역할과 GitHub 링크는 나중에 바로 채울 수 있도록 placeholder로 남겼다.</p>
         </div>
       </div>
       <div class="team-grid">
@@ -1061,7 +1045,6 @@ img {
           <a class="gh" href="#">GitHub</a>
         </article>
       </div>
-      <div class="team-note">역할과 GitHub 링크는 나중에 바로 채울 수 있도록 비워두었다.</div>
     </div>
   </section>
 
@@ -1070,7 +1053,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Timeline</h2>
-          <p>기존 index.md의 일정 설명을 그대로 유지하면서, PDF 9페이지처럼 grid 느낌으로 정리했다.</p>
         </div>
       </div>
       <div class="timeline-grid">
@@ -1095,7 +1077,6 @@ img {
       <div class="section-head">
         <div>
           <h2>Tech Stack</h2>
-          <p>기존 파일의 하드웨어, 모델, 소프트웨어, 미들웨어, 시뮬레이션 항목을 빠짐없이 유지했다.</p>
         </div>
       </div>
       <div class="stack-grid">
@@ -1150,7 +1131,6 @@ img {
       <div class="section-head">
         <div>
           <h2>References</h2>
-          <p>본 프로젝트의 핵심 기반이 된 4개의 논문 및 기술 문서를 유지했다.</p>
         </div>
       </div>
       <article class="ref-card">
