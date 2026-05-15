@@ -925,7 +925,7 @@ img {
           </div>
           <h3>임민석</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/dla020501" target="_blank" rel="noreferrer">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
@@ -933,7 +933,7 @@ img {
           </div>
           <h3>조원영</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/Reveroftrillion" target="_blank" rel="noreferrer">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
@@ -941,7 +941,7 @@ img {
           </div>
           <h3>정유진</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/alicex-x02" target="_blank" rel="noreferrer">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
@@ -949,7 +949,7 @@ img {
           </div>
           <h3>성재승</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/Sung-Jae-Seong" target="_blank" rel="noreferrer">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
@@ -957,7 +957,7 @@ img {
           </div>
           <h3>조유빈</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/yubincho3" target="_blank" rel="noreferrer">GitHub</a>
         </article>
         <article class="team-card">
           <div class="avatar">
@@ -965,7 +965,7 @@ img {
           </div>
           <h3>유리안</h3>
           <p class="role">Role TBD</p>
-          <a class="gh" href="#">GitHub</a>
+          <a class="gh" href="https://github.com/ryurian001" target="_blank" rel="noreferrer">GitHub</a>
         </article>
       </div>
     </div>
