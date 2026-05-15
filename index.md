@@ -538,21 +538,22 @@ img {
 }
 
 .timeline-grid {
-  grid-template-columns: 1fr 88px 1fr;
+  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr);
+  grid-template-rows: repeat(3, auto);
   position: relative;
-  gap: 0;
-  padding: 22px 0 18px;
+  gap: 56px 0;
+  padding: 24px 0 20px;
 }
 
 .timeline-grid::before {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 2px;
+  bottom: 2px;
   left: 50%;
   width: 2px;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(255, 79, 117, 0.2), rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.85), rgba(155, 92, 255, 0.2));
+  background: linear-gradient(180deg, rgba(255, 79, 117, 0.22), rgba(255, 79, 117, 0.88), rgba(155, 92, 255, 0.9), rgba(155, 92, 255, 0.22));
 }
 
 .timeline-card,
@@ -576,40 +577,80 @@ img {
 
 .timeline-card {
   position: relative;
-  max-width: 520px;
-  padding-top: 28px;
+  max-width: 540px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   margin: 0;
+  box-shadow: none;
 }
 
 .timeline-card::before {
   content: "";
   position: absolute;
-  top: 8px;
+  top: 18px;
   width: 12px;
   height: 12px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-  box-shadow: 0 0 0 5px rgba(255, 79, 117, 0.08);
+  box-shadow: 0 0 0 6px rgba(255, 79, 117, 0.08), 0 0 18px rgba(155, 92, 255, 0.16);
 }
 
-.timeline-card:nth-child(odd) {
+.timeline-card::after {
+  content: "";
+  position: absolute;
+  top: 23px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0), rgba(255, 79, 117, 0.75), rgba(155, 92, 255, 0.75));
+}
+
+.timeline-card:nth-child(1) {
   grid-column: 1;
+  grid-row: 1;
   justify-self: end;
   text-align: right;
 }
 
-.timeline-card:nth-child(odd)::before {
-  right: -47px;
+.timeline-card:nth-child(1)::before {
+  right: -46px;
 }
 
-.timeline-card:nth-child(even) {
+.timeline-card:nth-child(1)::after {
+  right: -44px;
+  width: 36px;
+}
+
+.timeline-card:nth-child(2) {
   grid-column: 3;
+  grid-row: 2;
   justify-self: start;
   text-align: left;
 }
 
-.timeline-card:nth-child(even)::before {
-  left: -47px;
+.timeline-card:nth-child(2)::before {
+  left: -46px;
+}
+
+.timeline-card:nth-child(2)::after {
+  left: -44px;
+  width: 36px;
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0.75), rgba(155, 92, 255, 0.75), rgba(155, 92, 255, 0));
+}
+
+.timeline-card:nth-child(3) {
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: end;
+  text-align: right;
+}
+
+.timeline-card:nth-child(3)::before {
+  right: -46px;
+}
+
+.timeline-card:nth-child(3)::after {
+  right: -44px;
+  width: 36px;
 }
 
 .timeline-card h3,
@@ -622,8 +663,9 @@ img {
 }
 
 .timeline-card h3 {
-  margin-bottom: 14px;
-  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-size: 1.28rem;
+  letter-spacing: 0.01em;
 }
 
 .timeline-card p,
@@ -640,24 +682,26 @@ img {
   margin: 0;
   padding-left: 18px;
   display: grid;
-  gap: 8px;
+  gap: 9px;
   color: inherit;
   opacity: 0.86;
 }
 
-.timeline-card:nth-child(odd) .timeline-list {
+.timeline-list li {
+  line-height: 1.5;
+}
+
+.timeline-card:nth-child(1) .timeline-list,
+.timeline-card:nth-child(3) .timeline-list {
   justify-content: end;
   padding-left: 0;
   padding-right: 18px;
   list-style-position: inside;
 }
 
-.timeline-card:nth-child(odd) .timeline-list li {
+.timeline-card:nth-child(1) .timeline-list li,
+.timeline-card:nth-child(3) .timeline-list li {
   text-align: right;
-}
-
-.timeline-list li {
-  line-height: 1.5;
 }
 
 .stack-grid {
@@ -788,6 +832,9 @@ img {
   .timeline-grid {
     padding-left: 26px;
     padding-right: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 28px;
   }
 
   .timeline-grid::before {
@@ -799,6 +846,7 @@ img {
   .timeline-card:nth-child(odd),
   .timeline-card:nth-child(even) {
     grid-column: auto;
+    grid-row: auto;
     justify-self: stretch;
     text-align: left;
     max-width: none;
@@ -809,6 +857,14 @@ img {
   .timeline-card:nth-child(even)::before {
     left: -23px;
     right: auto;
+  }
+
+  .timeline-card::after,
+  .timeline-card:nth-child(odd)::after,
+  .timeline-card:nth-child(even)::after {
+    left: -21px;
+    right: auto;
+    width: 24px;
   }
 
   .timeline-card:nth-child(odd) .timeline-list {
