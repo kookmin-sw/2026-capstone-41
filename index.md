@@ -479,10 +479,12 @@ img {
   border-color: rgba(31, 31, 31, 0.08);
 }
 
-.avatar svg {
+.avatar img {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .team-card h3 {
@@ -914,21 +916,7 @@ img {
       <div class="team-grid">
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ff4f75" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#9b5cff" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g1)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g1)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/임민석.png" alt="임민석 profile photo">
           </div>
           <h3>임민석</h3>
           <p class="role">Role TBD</p>
@@ -936,21 +924,7 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ff8a4c" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#ff4f75" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g2)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g2)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/조원영.png" alt="조원영 profile photo">
           </div>
           <h3>조원영</h3>
           <p class="role">Role TBD</p>
@@ -958,21 +932,7 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#9b5cff" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#5ec3ff" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g3)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g3)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/정유진.jpg" alt="정유진 profile photo">
           </div>
           <h3>정유진</h3>
           <p class="role">Role TBD</p>
@@ -980,21 +940,7 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#4fd1c5" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#9b5cff" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g4)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g4)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/성재승.jpg" alt="성재승 profile photo">
           </div>
           <h3>성재승</h3>
           <p class="role">Role TBD</p>
@@ -1002,21 +948,7 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ff4f75" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#4fd1c5" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g5)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g5)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
           </div>
           <h3>유리안</h3>
           <p class="role">Role TBD</p>
@@ -1024,21 +956,7 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Member placeholder avatar">
-              <defs>
-                <linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#f6c95d" stop-opacity="0.95" />
-                  <stop offset="100%" stop-color="#ff4f75" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-              <rect width="400" height="400" fill="#0f0f13"/>
-              <circle cx="200" cy="150" r="76" fill="url(#g6)" opacity="0.35"/>
-              <circle cx="200" cy="186" r="48" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M96 344c14-68 68-102 104-102s90 34 104 102" fill="#f5f5f5" opacity="0.92"/>
-              <path d="M104 132h192" stroke="url(#g6)" stroke-width="6" opacity="0.45"/>
-              <circle cx="136" cy="122" r="7" fill="#f5f5f5"/>
-              <circle cx="264" cy="122" r="7" fill="#f5f5f5"/>
-            </svg>
+            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
           </div>
           <h3>조유빈</h3>
           <p class="role">Role TBD</p>
