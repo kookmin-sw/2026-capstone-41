@@ -1,0 +1,26 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFCFE"/>
+      <stop offset="1" stop-color="#FFF7ED"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="36" fill="url(#bg)"/>
+  <circle cx="600" cy="380" r="170" fill="#F59E0B" fill-opacity="0.12"/>
+  <circle cx="600" cy="380" r="110" fill="#10B981" fill-opacity="0.12"/>
+  <rect x="426" y="156" width="348" height="404" rx="40" fill="white" stroke="#FED7AA" stroke-width="3"/>
+  <rect x="500" y="194" width="200" height="72" rx="24" fill="#081225" fill-opacity="0.9"/>
+  <rect x="518" y="286" width="164" height="176" rx="30" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="3"/>
+  <circle cx="600" cy="376" r="54" fill="#2457FF" fill-opacity="0.20"/>
+  <circle cx="600" cy="376" r="30" fill="#2457FF"/>
+  <path d="M600 270V194" stroke="#081225" stroke-width="14" stroke-linecap="round"/>
+  <path d="M600 482V562" stroke="#081225" stroke-width="14" stroke-linecap="round"/>
+  <path d="M510 376H426" stroke="#081225" stroke-width="14" stroke-linecap="round"/>
+  <path d="M690 376H774" stroke="#081225" stroke-width="14" stroke-linecap="round"/>
+  <path d="M540 316L476 262" stroke="#10B981" stroke-width="10" stroke-linecap="round"/>
+  <path d="M660 316L724 262" stroke="#F59E0B" stroke-width="10" stroke-linecap="round"/>
+  <path d="M540 436L476 500" stroke="#2457FF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M660 436L724 500" stroke="#10B981" stroke-width="10" stroke-linecap="round"/>
+  <text x="80" y="92" fill="#1E293B" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700">LIDAR / SLAM</text>
+  <text x="80" y="132" fill="#475569" font-size="20" font-family="Arial, Helvetica, sans-serif">placeholder illustration</text>
+</svg>

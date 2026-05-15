@@ -1,0 +1,10 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" rx="48" fill="#EFFBF7"/>
+  <circle cx="450" cy="338" r="170" fill="#10B981" fill-opacity="0.16"/>
+  <circle cx="450" cy="320" r="122" fill="#0F172A"/>
+  <circle cx="404" cy="306" r="20" fill="#DDFEF0"/>
+  <circle cx="496" cy="306" r="20" fill="#DDFEF0"/>
+  <path d="M406 356C432 382 468 382 494 356" stroke="#DDFEF0" stroke-width="12" stroke-linecap="round"/>
+  <rect x="284" y="548" width="332" height="168" rx="84" fill="#10B981"/>
+  <text x="450" y="786" text-anchor="middle" fill="#1E293B" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">TEAM 2</text>
+</svg>

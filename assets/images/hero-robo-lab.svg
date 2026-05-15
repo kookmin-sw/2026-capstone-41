@@ -1,0 +1,43 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="140" y1="120" x2="1040" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2457FF"/>
+      <stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 280) rotate(145) scale(360 260)">
+      <stop stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#DCE9FF" stop-opacity="0.12"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="900" rx="44" fill="#081225"/>
+  <circle cx="270" cy="180" r="180" fill="#2457FF" fill-opacity="0.18"/>
+  <circle cx="980" cy="180" r="160" fill="#10B981" fill-opacity="0.18"/>
+  <circle cx="940" cy="720" r="200" fill="#F59E0B" fill-opacity="0.10"/>
+  <rect x="86" y="88" width="1028" height="724" rx="34" fill="url(#g2)" stroke="white" stroke-opacity="0.14"/>
+  <path d="M190 640C320 540 412 520 562 570C698 618 787 608 930 490" stroke="url(#g1)" stroke-width="20" stroke-linecap="round"/>
+  <path d="M208 670C344 574 430 556 576 604C714 650 804 640 946 524" stroke="white" stroke-opacity="0.24" stroke-width="6" stroke-linecap="round"/>
+  <g transform="translate(450 230)">
+    <circle cx="150" cy="120" r="112" fill="white" fill-opacity="0.92"/>
+    <circle cx="150" cy="120" r="84" fill="#DDE8FF"/>
+    <circle cx="114" cy="110" r="18" fill="#081225"/>
+    <circle cx="186" cy="110" r="18" fill="#081225"/>
+    <path d="M122 154C138 171 162 171 178 154" stroke="#081225" stroke-width="10" stroke-linecap="round"/>
+    <rect x="92" y="16" width="116" height="28" rx="14" fill="#2457FF"/>
+    <rect x="24" y="178" width="52" height="34" rx="17" fill="#10B981"/>
+    <rect x="224" y="178" width="52" height="34" rx="17" fill="#F59E0B"/>
+    <rect x="64" y="250" width="172" height="30" rx="15" fill="#081225" fill-opacity="0.70"/>
+    <rect x="36" y="288" width="228" height="16" rx="8" fill="#FFFFFF" fill-opacity="0.78"/>
+  </g>
+  <g opacity="0.92">
+    <rect x="154" y="154" width="150" height="86" rx="24" fill="#FFFFFF" fill-opacity="0.92"/>
+    <rect x="172" y="176" width="114" height="12" rx="6" fill="#2457FF"/>
+    <rect x="172" y="202" width="82" height="12" rx="6" fill="#10B981"/>
+    <rect x="878" y="154" width="150" height="86" rx="24" fill="#FFFFFF" fill-opacity="0.92"/>
+    <rect x="896" y="176" width="114" height="12" rx="6" fill="#2457FF"/>
+    <rect x="896" y="202" width="82" height="12" rx="6" fill="#10B981"/>
+    <rect x="154" y="650" width="150" height="86" rx="24" fill="#FFFFFF" fill-opacity="0.92"/>
+    <rect x="172" y="672" width="114" height="12" rx="6" fill="#2457FF"/>
+    <rect x="172" y="698" width="82" height="12" rx="6" fill="#10B981"/>
+  </g>
+  <text x="86" y="844" fill="white" fill-opacity="0.9" font-size="34" font-family="Arial, Helvetica, sans-serif" letter-spacing="1">CAPSTONE 41 / ROBOTICS INTRO PAGE</text>
+</svg>
