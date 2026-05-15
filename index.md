@@ -1,120 +1,992 @@
-﻿# VLA 기반 사족 로봇 통합 자율 시스템
-
-## 프로젝트 개요
-
-본 프로젝트는 **Unitree Go2** 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 **InternVLA-N1-DualVLN**을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.
-
-기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 **로봇 본체별 환경 차이**를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.
-
+﻿---
+title: Capstone 41
 ---
 
-## 4가지 핵심 기능
+<style>
+  :root {
+    --bg: #eef3f8;
+    --bg-2: #f7fafc;
+    --panel: rgba(255, 255, 255, 0.82);
+    --panel-strong: #ffffff;
+    --text: #101828;
+    --muted: #5b6475;
+    --line: rgba(16, 24, 40, 0.09);
+    --accent: #2457ff;
+    --accent-2: #10b981;
+    --accent-3: #f59e0b;
+    --shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
+    --radius-xl: 30px;
+    --radius-lg: 22px;
+    --radius-md: 18px;
+  }
 
-단일 task 시연에 그치지 않고, 네 가지 기능을 하나의 파이프라인으로 통합했다.
+  html {
+    scroll-behavior: smooth;
+  }
 
-### Navigation
-자연어 명령을 받아 환경 내 목표 지점까지 자율 주행한다. InternVLA-N1-DualVLN이 카메라 이미지와 명령을 동시에 해석해 pixel goal을 출력하면, 로봇이 그에 맞춰 이동한다.
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(36, 87, 255, 0.13), transparent 28%),
+      radial-gradient(circle at top right, rgba(16, 185, 129, 0.13), transparent 26%),
+      linear-gradient(180deg, #f7fafc 0%, #eef3f8 40%, #f9fbfd 100%);
+    color: var(--text);
+    font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+  }
 
-### Pointing
-이미지 위 특정 객체를 지시하면 로봇이 해당 객체로 향한다. 객체 지시 정보를 pixel goal로 변환해 InternVLA에 전달하는 방식이다.
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-### Following
-사람이나 물체를 지속적으로 추종한다. YOLO 객체 검출 결과를 pixel goal 입력으로 사용하며, LOVON의 일부 구조를 차용해 모션 블러·저속 추종 환경에서도 안정적으로 동작하도록 개선했다.
+  /* Override the Slate theme's centered content column. */
+  #main_content_wrap,
+  #main_content_wrap .inner,
+  #main_content,
+  .inner,
+  .wrapper,
+  .outer {
+    max-width: none !important;
+    width: 100% !important;
+  }
 
-### Backtracking
-LiDAR SLAM 기반 closed-loop 제어로 과거에 지나온 경로를 자동으로 되짚어 돌아온다. 
+  #main_content_wrap .inner,
+  #main_content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+  }
 
----
+  .page-shell {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
 
-## 시스템 아키텍처
+  .hero {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
+    gap: 36px;
+    align-items: center;
+    padding: 44px 32px;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.72));
+    box-shadow: none;
+  }
 
-- **베이스 모델 — InternVLA-N1-DualVLN**: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.
-- **LOVON 부분 결합**: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.
-- **LiDAR SLAM Runner**: 실시간 SLAM 기반 closed-loop 제어로 안전한 자율 백트래킹을 제공한다.
-- **ROSA Agent + Qwen3.5-4B**: 자연어 명령을 tool 단위로 분해하고, 4종 기능을 상황에 맞게 호출하는 LLM 에이전트다.
-- **YOLO 입력단**: VLA를 통째로 재학습하지 않고도 신규 task를 추가할 수 있도록 객체 검출 결과를 pixel goal 형태로 모델에 주입한다.
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(8px);
+    pointer-events: none;
+  }
 
----
+  .hero::before {
+    width: 220px;
+    height: 220px;
+    background: rgba(36, 87, 255, 0.10);
+    top: -70px;
+    right: -60px;
+  }
 
-## 팀 구성과 역할
+  .hero::after {
+    width: 180px;
+    height: 180px;
+    background: rgba(16, 185, 129, 0.10);
+    bottom: -60px;
+    left: 22%;
+  }
 
-| 팀원 | 담당 영역 |
-|---|---|
-| **임민석** | TODO |
-| **조원영** | TODO |
-| **정유진** | TODO |
-| **성재승** | TODO |
-| **유리안** | TODO |
-| **조유빈** | TODO |
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(36, 87, 255, 0.08);
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
 
----
+  .hero h1 {
+    margin: 16px 0 14px;
+    font-size: clamp(2.1rem, 5vw, 4.2rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+  }
 
-## 진행 타임라인
+  .hero p.lead {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 1.04rem;
+    line-height: 1.8;
+  }
 
-### 3월 — 환경 구축 및 베이스라인 탐색
-프로젝트 방향성 결정, ROS2/Zenoh 무선 통신 셋업, InternVLA·LOVON 재현, 1차 시연 발표를 진행했다.
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
 
-### 4월 — 핵심 기능 구현
-InternVLA에 Following을 결합하는 방향성을 확정하고, LOVON 일부 구조 차용·디블러링·LiDAR SLAM 기반 자율 Backtracking을 구현했다.
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
 
-### 5월 — 통합·평가·논문화
-Pointing 기능 추가, 전체 코드 병합, ROSA에 Qwen3.5-4B 연결, ROS2 도구 개선, Task Planner 통합 후 정량 평가와 논문 초안 작성에 들어갔다.
+  .btn:hover {
+    transform: translateY(-2px);
+  }
 
----
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #466cff);
+    color: #fff;
+    box-shadow: 0 16px 30px rgba(36, 87, 255, 0.28);
+  }
 
-## 기술 스택
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
 
-**하드웨어**
-- Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)
-- Intel RealSense D435 (RGB-D 카메라)
-- RTX 3090
+  .hero-stack {
+    display: grid;
+    gap: 14px;
+  }
 
-**모델·AI**
-- InternVLA-N1-DualVLN (메인 VLA)
-- LOVON (일부 구조 차용)
-- Qwen3.5-4B (vLLM 서빙, ROSA agent의 LLM)
-- YOLO (객체 검출)
+  .hero-card {
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+  }
 
-**소프트웨어**
-- Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크
-- vLLM — Qwen3.5-4B LLM 서빙
-- OpenCV / NumPy — 이미지 처리·디블러링·SLAM 후처리·좌표 연산
-- ROS 2 — 로봇 미들웨어 (노드 간 토픽·서비스 통신)
-- TensorRT — System1 추론 속도(주기) 향상
+  .hero-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
-**미들웨어·로봇 제어**
-- Zenoh-bridge ROS2 DDS (무선 통신 브릿지)
-- Unitree API
-- LiDAR SLAM Runner (자체 closed-loop 백트래킹)
+  .hero-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
 
-**시뮬레이션·툴**
-- NVIDIA Isaac Sim (Embodiment gap 검증)
-- 3D 프린팅 (RealSense 마운트)
+  .hero-card,
+  .mini,
+  .feature,
+  .device,
+  .member,
+  .arch-card,
+  .note {
+    height: 100%;
+  }
 
----
+  .mini {
+    padding: 16px;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+  }
 
-## 레퍼런스
+  .mini strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1.02rem;
+  }
 
-본 프로젝트의 핵심 기반이 된 4개의 논문 및 기술 문서다.
+  .mini span {
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: 0.96rem;
+  }
 
-[1] M. Wei, C. Wan, J. Peng, *et al.*, "Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation," *arXiv preprint* arXiv:2512.08186, 2025. \[[arXiv](https://arxiv.org/abs/2512.08186)\] \[[HuggingFace](https://huggingface.co/InternRobotics/InternVLA-N1-DualVLN)\]
+  .section {
+    margin-top: 16px;
+    padding: 36px 32px;
+    border: 0;
+    border-radius: 0;
+    background: var(--panel);
+    box-shadow: none;
+    backdrop-filter: blur(12px);
+  }
 
-[2] D. Peng, J. Cao, Q. Zhang, and J. Ma, "LOVON: Legged Open-Vocabulary Object Navigator," *arXiv preprint* arXiv:2507.06747, July 2025. \[[arXiv](https://arxiv.org/abs/2507.06747)\]
+  .section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
 
-[3] R. Royce, M. Kaufmann, J. Becktor, *et al.*, "Enabling Novel Mission Operations and Interactions with ROSA: The Robot Operating System Agent," *arXiv preprint* arXiv:2410.06472, October 2024. \[[arXiv](https://arxiv.org/abs/2410.06472)\] \[[GitHub](https://github.com/nasa-jpl/rosa)\]
+  .section-head h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    letter-spacing: -0.03em;
+  }
 
-[4] Qwen Team, "Qwen3.5: Towards Native Multimodal Agents," *Qwen Blog*, February 2026. \[[Blog](https://qwen.ai/blog?id=qwen3.5)\] \[[HuggingFace](https://huggingface.co/Qwen/Qwen3.5-4B)\]
+  .section-head p {
+    margin: 0;
+    max-width: 84ch;
+    color: var(--muted);
+    line-height: 1.7;
+  }
 
----
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
 
-## 프로젝트의 의의
+  .stat {
+    padding: 18px;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.76);
+  }
 
-### 1. 소형 사족 로봇 환경에 대한 VLA Foundation Model의 적응
-대규모 시뮬레이션 데이터로 학습된 최신 VLA Foundation Model은 일반적으로 휴머노이드급 시점이나 고품질 RGB-D 환경을 가정하기 때문에, 시점 높이가 낮고 카메라 사양이 제한된 소형 사족 로봇에 그대로 배포하면 성능이 저하되는 본질적 한계를 지닌다. 본 프로젝트는 LOVON의 핵심 모듈을 InternVLA-N1-DualVLN 내부에 선택적으로 통합함으로써, **Foundation Model을 통째로 재학습하지 않고도 소형 사족 로봇 본체에 적응(domain adaptation)시키는 실용적 경로**를 제시했다. 이는 최신 대규모 VLA 모델을 저비용 로봇 플랫폼에 이식하려는 후속 연구·개발에 직접 활용 가능한 방법론적 기여로 평가된다.
+  .stat .num {
+    display: block;
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
 
-### 2. 단일 task 시연을 넘어선 멀티태스크 통합 파이프라인
-오픈소스 InternVLA의 공개 시연이 단일 navigation task에 머물러 있는 것과 달리, 본 시스템은 **Navigation, Pointing, Following, Backtracking 4종 task를 ROSA 기반 LLM 에이전트 위에 단일 파이프라인으로 통합**했다. 특히 LiDAR SLAM closed-loop 기반 자율 백트래킹은 InternVLA가 본래 다루지 않는 기능을 시스템 레벨에서 확장한 사례로, foundation model을 응용 task로 확장하는 구체적 설계 예시를 제공한다.
+  .stat .label {
+    margin-top: 6px;
+    display: block;
+    color: var(--muted);
+    line-height: 1.5;
+  }
 
-### 3. 자연어 기반 원격 로봇 운용 인터페이스
-자체 개발한 **Go2 Monitor 웹 인터페이스**와 **Zenoh-bridge 기반 무선 ROS2 통신 스택**을 결합함으로써, **인터넷 연결만 있으면 원격지에서도 로봇의 실시간 카메라 피드를 확인하고 자연어 명령을 전송·실행**시킬 수 있는 구조를 완성했다. 이는 사족 로봇의 활용 범위를 연구실 데모를 넘어 **사람의 직접 접근이 제한되는 원격지·위험 환경·무인 시설** 등 실제 운용 시나리오로 확장할 수 있는 기반을 제공하며, 비전문가도 자연어만으로 로봇을 운용할 수 있다는 점에서 HRI(Human-Robot Interaction) 측면의 진입 장벽을 크게 낮춘 기여로 평가된다.
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .feature {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,249,252,0.95));
+  }
+
+  .feature img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .feature .body {
+    padding: 18px;
+  }
+
+  .feature h3 {
+    margin: 0 0 8px;
+    font-size: 1.08rem;
+  }
+
+  .feature p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.96rem;
+  }
+
+  .architecture-layout {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .arch-card {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(244,247,252,0.98));
+  }
+
+  .arch-card img {
+    width: 100%;
+    display: block;
+  }
+
+  .arch-notes {
+    display: grid;
+    gap: 14px;
+  }
+
+  .note {
+    padding: 18px;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.84);
+  }
+
+  .note strong {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 1.02rem;
+  }
+
+  .note span {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .device-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .device {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.9);
+  }
+
+  .device img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .device .body {
+    padding: 18px;
+  }
+
+  .device h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+  }
+
+  .device p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.96rem;
+  }
+
+      .team-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+      .member {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+    display: grid;
+    min-height: 100%;
+  }
+
+    .member img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+
+      .member .body {
+    padding: 12px;
+    display: grid;
+    gap: 6px;
+  }
+
+      .member h3 {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+      .member .role {
+    display: none;
+  }
+
+      .member p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.8rem;
+  }
+
+      .member .link {
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 7px 9px;
+    border-radius: 11px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  .references ol {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .footer-note {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .overview-grid,
+  .timeline-grid,
+  .stack-grid,
+  .impact-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .overview-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+
+  .timeline-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stack-grid,
+  .impact-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stats-grid > *,
+  .feature-grid > *,
+  .device-grid > *,
+  .team-grid > *,
+  .overview-grid > *,
+  .timeline-grid > *,
+  .stack-grid > *,
+  .impact-grid > * {
+    min-height: 100%;
+  }
+
+  .text-panel {
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.84);
+    height: 100%;
+  }
+
+  .text-panel h3 {
+    margin: 0 0 10px;
+    font-size: 1.08rem;
+  }
+
+  .text-panel p,
+  .text-panel li {
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .text-panel ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .timeline-month {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(36, 87, 255, 0.08);
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.88rem;
+  }
+
+  .text-panel .desc {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 1024px) {
+    .hero,
+    .architecture-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .device-grid,
+    .team-grid,
+    .stats-grid,
+    .overview-grid,
+    .timeline-grid,
+    .stack-grid,
+    .impact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .page-shell {
+      padding-inline: 0;
+    }
+
+    .hero,
+    .section {
+      padding: 20px 16px;
+      border-radius: 0;
+    }
+
+    .feature-grid,
+    .device-grid,
+    .team-grid,
+    .stats-grid,
+    .hero-mini-grid,
+    .overview-grid,
+    .timeline-grid,
+    .stack-grid,
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-head {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+</style>
+
+<main class="page-shell">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Capstone Project 41 쨌 Vision-Language-Action Robotics</span>
+      <h1>VLA 湲곕컲 ?ъ” 濡쒕큸<br>?듯빀 ?먯쑉 ?쒖뒪??/h1>
+      <p class="lead">
+        蹂??꾨줈?앺듃??<strong>Unitree Go2</strong> ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 Vision-Language-Action
+        紐⑤뜽??<strong>InternVLA-N1-DualVLN</strong>???댁떇?? ?먯뿰??紐낅졊留뚯쑝濡?濡쒕큸??        ?쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍?먯꽌 ?먯쑉 二쇳뻾?섎룄濡?留뚮뱶??寃껋쓣 紐⑺몴濡??⑸땲??
+        湲곗〈 VLA 紐⑤뜽???섍꼍 ?몄감瑜?蹂댁셿?섍린 ?꾪빐 LOVON, ROSA, LiDAR SLAM, YOLO瑜??④퍡
+        ??뼱 ?섎굹???듯빀 ?뚯씠?꾨씪?몄쑝濡?援ъ꽦?덉뒿?덈떎.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#overview">?꾨줈?앺듃 媛쒖슂</a>
+        <a class="btn btn-secondary" href="#architecture">?쒖뒪???꾪궎?띿쿂</a>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="num">4</span>
+          <span class="label">?듭떖 ?쒖뒪??br>Navigation, Pointing, Following, Backtracking</span>
+        </div>
+        <div class="stat">
+          <span class="num">1</span>
+          <span class="label">怨듯넻 VLA 湲곕컲<br>?щ윭 ?쒖뒪?щ? ?⑥씪 ?뚯씠?꾨씪?몄쑝濡??곌껐</span>
+        </div>
+        <div class="stat">
+          <span class="num">3+</span>
+          <span class="label">二쇱슂 ?섎뱶?⑥뼱<br>Go2, D435, LiDAR ??/span>
+        </div>
+        <div class="stat">
+          <span class="num">100%</span>
+          <span class="label">援먯껜 媛??援ъ“<br>?대?吏, 留곹겕, ??븷???쎄쾶 ?낅뜲?댄듃</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stack">
+      <div class="hero-card">
+        <img src="image/go2.jpg" alt="Unitree Go2 ?ъ쭊">
+      </div>
+      <div class="hero-mini-grid">
+        <div class="mini">
+          <strong>???꾩슂?쒓?</strong>
+          <span>?대㉧?몄씠?쒕굹 怨좎젙??移대찓???섍꼍??留욎떠吏?VLA 紐⑤뜽???ъ” 濡쒕큸??洹몃?濡??곕㈃ ?깅뒫???⑥뼱吏묐땲??</span>
+        </div>
+        <div class="mini">
+          <strong>?대뼸寃??닿껐?섎굹</strong>
+          <span>LOVON 援ъ“ ?쇰?? ROSA ?먯씠?꾪듃瑜?寃고빀???섍꼍 ?몄감瑜?以꾩씠怨?task 遺꾪빐瑜??덉젙?뷀빀?덈떎.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="overview">
+    <div class="section-head">
+      <div>
+        <h2>?꾨줈?앺듃 媛쒖슂</h2>
+        <p>?먮옒 ?뚭컻 ?섏씠吏???듭떖 ?댁슜?????쎄린 ?쎄쾶 ?뺣━??踰꾩쟾?낅땲?? 湲??ㅻ챸? 臾몃떒?쇰줈, ?듭떖 ?ъ씤?몃뒗 移대뱶濡??섎댋?듬땲??</p>
+      </div>
+    </div>
+
+    <div class="overview-grid">
+      <div class="text-panel">
+        <h3>臾댁뾿??留뚮뱾?덈굹</h3>
+        <p>
+          蹂??꾨줈?앺듃??Unitree Go2 ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 VLA 紐⑤뜽??InternVLA-N1-DualVLN??          ?댁떇?섏뿬, ?щ엺??留먰븯???먯뿰??紐낅졊留뚯쑝濡?濡쒕큸???쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍??          ?먯쑉 二쇳뻾?섎룄濡?援ы쁽???듯빀 ?먯쑉 ?쒖뒪?쒖엯?덈떎.
+        </p>
+        <p class="desc">
+          ?⑥닚??紐⑤뜽??遺숈씠???곗꽌 ?앸굹吏 ?딄퀬, ROSA ?먯씠?꾪듃瑜??듯빐 紐낅졊??遺꾪빐?섍퀬,
+          LOVON ?쇰? 援ъ“瑜?李⑥슜??濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠瑜?以꾩씠硫? LiDAR SLAM怨?YOLO瑜?          ?④퍡 ?ъ슜???ㅽ솚寃?二쇳뻾 ?덉젙?깆쓣 ?믪??듬땲??
+        </p>
+      </div>
+      <div class="text-panel">
+        <h3>???섎?媛 ?덈굹</h3>
+        <p>
+          湲곗〈 VLA 紐⑤뜽?ㅼ? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?移대찓???섍꼍???꾩젣濡?留뚮뱾?댁졇 ?덉뼱,
+          ?묒? ?ъ” 濡쒕큸泥섎읆 蹂몄껜媛 ?ㅻⅨ ?섍꼍??洹몃?濡???린硫??깅뒫???⑥뼱吏묐땲??
+        </p>
+        <p class="desc">
+          ?곕━???대윭??濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠瑜?蹂댁젙?섍린 ?꾪빐 LOVON 援ъ“瑜?InternVLA?
+          寃고빀?섍퀬, ROSA ?먯씠?꾪듃瑜??듯빐 紐낅졊??遺꾪빐?섎뒗 諛⑹떇?쇰줈 ?쒖뒪???덈꺼 媛쒖꽑???섑뻾?덉뒿?덈떎.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="section-head">
+      <div>
+        <h2>?듭떖 湲곕뒫</h2>
+        <p>?⑥씪 task ?쒖뿰???꾨땲?? ??媛吏 湲곕뒫???섎굹???뚯씠?꾨씪?몄쑝濡??듯빀??寃껋씠 ?듭떖?낅땲??</p>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature">
+        <img src="assets/images/feature-navigation.svg" alt="Navigation 湲곕뒫 ?대?吏">
+        <div class="body">
+          <h3>Navigation</h3>
+          <p>?먯뿰??紐낅졊??諛쏆븘 ?섍꼍 ??紐⑺몴 吏?먭퉴吏 ?먯쑉 二쇳뻾?⑸땲?? InternVLA-N1-DualVLN??移대찓???대?吏? 紐낅졊???숈떆???댁꽍??pixel goal??異쒕젰?섎㈃, 濡쒕큸??洹몄뿉 留욎떠 ?대룞?⑸땲??</p>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="assets/images/feature-pointing.svg" alt="Pointing 湲곕뒫 ?대?吏">
+        <div class="body">
+          <h3>Pointing</h3>
+          <p>?대?吏 ???뱀젙 媛앹껜瑜?吏?쒗븯硫?濡쒕큸???대떦 媛앹껜濡??ν빀?덈떎. 媛앹껜 吏???뺣낫瑜?pixel goal濡?蹂?섑빐 InternVLA???꾨떖?섎뒗 諛⑹떇?낅땲??</p>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="assets/images/feature-following.svg" alt="Following 湲곕뒫 ?대?吏">
+        <div class="body">
+          <h3>Following</h3>
+          <p>?щ엺?대굹 臾쇱껜瑜?吏?띿쟻?쇰줈 異붿쥌?⑸땲?? YOLO 媛앹껜 寃異?寃곌낵瑜?pixel goal ?낅젰?쇰줈 ?ъ슜?섎ŉ, LOVON???쇰? 援ъ“瑜?李⑥슜??紐⑥뀡 釉붾윭? ???異붿쥌 ?섍꼍?먯꽌???덉젙?곸쑝濡??숈옉?섎룄濡?媛쒖꽑?덉뒿?덈떎.</p>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="assets/images/feature-backtracking.svg" alt="Backtracking 湲곕뒫 ?대?吏">
+        <div class="body">
+          <h3>Backtracking</h3>
+          <p>LiDAR SLAM 湲곕컲 closed-loop ?쒖뼱濡?怨쇨굅??吏?섏삩 寃쎈줈瑜??먮룞?쇰줈 ?섏쭦???뚯븘?듬땲?? ?ㅻ궡 ?먯쑉二쇳뻾?먯꽌 ?덉젙?깆쓣 ?믪씠???듭떖 湲곕뒫?낅땲??</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="architecture">
+    <div class="section-head">
+      <div>
+        <h2>?쒖뒪???꾪궎?띿쿂</h2>
+        <p>?ㅼ젣 ?꾪궎?띿쿂 ?대?吏瑜??섏쨷??援먯껜?????덈룄濡??꾩떆 ?먮━瑜?留덈젴?덉뒿?덈떎. ?ㅻⅨ履??ㅻ챸? 蹂??꾨줈?앺듃??二쇱슂 紐⑤뱢???붿빟???댁슜?낅땲??</p>
+      </div>
+    </div>
+
+    <div class="architecture-layout">
+      <div class="arch-card">
+        <img src="assets/images/architecture-placeholder.svg" alt="?쒖뒪???꾪궎?띿쿂 ?꾩떆 ?대?吏">
+      </div>
+      <div class="arch-notes">
+        <div class="note">
+          <strong>踰좎씠??紐⑤뜽: InternVLA-N1-DualVLN</strong>
+          <span>System1(??섏? ?쒖뼱) + System2(怨좎닔以 ?섏궗寃곗젙)??dual-system 援ъ“瑜?媛吏?VLA foundation model???쒖슜?⑸땲??</span>
+        </div>
+        <div class="note">
+          <strong>LOVON 遺遺?寃고빀</strong>
+          <span>LOVON 紐⑤뜽 ?꾩껜瑜?洹몃?濡??곗? ?딄퀬, 援ъ“? 紐⑤뜽 ?쇰?瑜?李⑥슜??InternVLA ?대???寃고빀?덉뒿?덈떎.</span>
+        </div>
+        <div class="note">
+          <strong>蹂댁“ 紐⑤뱢</strong>
+          <span>LiDAR SLAM Runner, ROSA Agent + Qwen3.5-4B, YOLO ?낅젰?⑥쓣 ?④퍡 ?곌껐??4媛吏 ?쒖뒪?щ? ?섎굹???먮쫫?쇰줈 留뚮벊?덈떎.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>?쒖뒪??援ъ꽦 ?붿냼</h2>
+        <p>?뚭컻 ?섏씠吏?먯꽌 媛??湲멸퀬 ?깅뵳?댁?湲??ъ슫 遺遺꾩씠?? 移대뱶濡??섎닠???듭떖留?蹂댁씠寃??뺣━?덉뒿?덈떎.</p>
+      </div>
+    </div>
+
+    <div class="impact-grid">
+      <div class="text-panel">
+        <h3>踰좎씠??紐⑤뜽</h3>
+        <p>InternVLA-N1-DualVLN? System1怨?System2瑜?寃고빀??dual-system VLA foundation model?대ŉ, 蹂??꾨줈?앺듃??二쇰맂 異붾줎 ?붿쭊?낅땲??</p>
+      </div>
+      <div class="text-panel">
+        <h3>?됰룞 遺꾪빐</h3>
+        <p>ROSA Agent???먯뿰??紐낅졊??tool ?⑥쐞濡?遺꾪빐??Navigation, Pointing, Following, Backtracking 以??꾩슂??湲곕뒫???몄텧?⑸땲??</p>
+      </div>
+      <div class="text-panel">
+        <h3>?쒓컖 ?낅젰</h3>
+        <p>YOLO 寃곌낵瑜?pixel goal ?뺥깭濡?二쇱엯?? VLA瑜??꾩껜 ?ы븰?듯븯吏 ?딆븘???덈줈??task瑜?異붽??????덈룄濡??ㅺ퀎?덉뒿?덈떎.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="equipment">
+    <div class="section-head">
+      <div>
+        <h2>?ъ슜 ?λ퉬? 紐⑤뜽</h2>
+        <p>?섎뱶?⑥뼱, 紐⑤뜽, ?꾨젅?꾩썙?щ? ???붾㈃??臾띠뼱 蹂댁뿬二쇰㈃ 罹≪뒪???뚭컻 ?섏씠吏???ㅻ뱷?μ씠 ??醫뗭븘吏묐땲??</p>
+      </div>
+    </div>
+
+    <div class="device-grid">
+      <article class="device">
+        <img src="image/go2.jpg" alt="Unitree Go2 ?ъ쭊">
+        <div class="body">
+          <h3>Unitree Go2</h3>
+          <p>二쇳뻾 ?뚮옯?쇱쑝濡??ъ슜?섎뒗 4議?蹂댄뻾 濡쒕큸?낅땲?? ?댁옣 Jetson Orin怨??댁옣 LiDAR瑜??쒖슜???ㅽ솚寃??먯쑉 二쇳뻾???섑뻾?⑸땲??</p>
+        </div>
+      </article>
+
+      <article class="device">
+        <img src="assets/images/realsense-d435-placeholder.svg" alt="Intel RealSense D435 ?꾩떆 ?대?吏">
+        <div class="body">
+          <h3>Intel RealSense D435</h3>
+          <p>RGB-D ?낅젰???꾪븳 移대찓?쇱엯?덈떎. 媛앹껜 ?몄떇, 嫄곕━ 異붿젙, ?쒓컖 ?뺣낫 ?섏쭛, ?붾툝?щ쭅 ?뚯씠?꾨씪?몄뿉 ?쒖슜?⑸땲??</p>
+        </div>
+      </article>
+
+      <article class="device">
+        <img src="assets/images/lidar-placeholder.svg" alt="LiDAR ?꾩떆 ?대?吏">
+        <div class="body">
+          <h3>LiDAR / SLAM</h3>
+          <p>?ㅼ떆媛?SLAM 湲곕컲 closed-loop ?쒖뼱瑜??듯빐 怨쇨굅 寃쎈줈瑜?蹂듭썝?섍퀬, ?먯쑉 Backtracking 湲곕뒫???덉젙?곸쑝濡??섑뻾?⑸땲??</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+      <section class="section" id="team">
+    <div class="section-head">
+      <div>
+        <h2>팀 구성과 역할</h2>
+        <p>여섯 명이 한 줄로 보이도록 다시 맞췄습니다. 역할은 비워 두고, 이름과 GitHub 링크만 먼저 배치했습니다.</p>
+      </div>
+    </div>
+
+    <div class="team-grid">
+      <article class="member">
+        <img src="assets/images/avatar-1.svg" alt="팀원 1 프로필 사진">
+        <div class="body">
+          <h3>임민석</h3>
+          <span class="role"></span>
+          <p>전체 일정 관리, 발표 구성, 시스템 통합, 최종 정리를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-1" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-2.svg" alt="팀원 2 프로필 사진">
+        <div class="body">
+          <h3>조원영</h3>
+          <span class="role"></span>
+          <p>Go2 제어, 주행 로직, 센서 연결 및 실기기 테스트를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-2" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-3.svg" alt="팀원 3 프로필 사진">
+        <div class="body">
+          <h3>정유진</h3>
+          <span class="role"></span>
+          <p>VLA 모델 적용, 프롬프트 설계, 객체 인식 및 행동 생성 파트를 맡습니다.</p>
+          <a class="link" href="https://github.com/your-github-id-3" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-4.svg" alt="팀원 4 프로필 사진">
+        <div class="body">
+          <h3>성재승</h3>
+          <span class="role"></span>
+          <p>LiDAR SLAM, 경로 복원, 자율 Backtracking 모듈을 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-4" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-1.svg" alt="팀원 5 프로필 사진">
+        <div class="body">
+          <h3>유리안</h3>
+          <span class="role"></span>
+          <p>ROSA Agent와 Qwen3.5-4B 연동, tool 분해, 자연어 인터페이스를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-5" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-2.svg" alt="팀원 6 프로필 사진">
+        <div class="body">
+          <h3>조유빈</h3>
+          <span class="role"></span>
+          <p>발표 자료, 페이지 디자인, 문서 정리와 자료 아카이빙을 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-6" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="footer-note">
+      팀이 6명이라면 이 배치가 가장 깔끔합니다. 화면이 좁아지면 자동으로 줄이 바뀌도록 다시 조정할 수 있습니다.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>吏꾪뻾 ??꾨씪??/h2>
+        <p>?먮낯 ?섏씠吏???덈뜕 ?붾퀎 吏꾪뻾 ?댁뿭??議곌툑 ??蹂닿린 醫뗪쾶 ?뺣━?덉뒿?덈떎.</p>
+      </div>
+    </div>
+
+    <div class="timeline-grid">
+      <div class="text-panel">
+        <span class="timeline-month">3??/span>
+        <h3>?섍꼍 援ъ텞 諛?踰좎씠?ㅻ씪???먯깋</h3>
+        <p class="desc">?꾨줈?앺듃 諛⑺뼢??寃곗젙, ROS2/Zenoh 臾댁꽑 ?듭떊 ?뗭뾽, InternVLA쨌LOVON ?ы쁽, 1李??쒖뿰 諛쒗몴瑜?吏꾪뻾?덉뒿?덈떎.</p>
+      </div>
+      <div class="text-panel">
+        <span class="timeline-month">4??/span>
+        <h3>?듭떖 湲곕뒫 援ы쁽</h3>
+        <p class="desc">InternVLA??Following??寃고빀?섎뒗 諛⑺뼢?깆쓣 ?뺤젙?섍퀬, LOVON ?쇰? 援ъ“ 李⑥슜, ?붾툝?щ쭅, LiDAR SLAM 湲곕컲 ?먯쑉 Backtracking??援ы쁽?덉뒿?덈떎.</p>
+      </div>
+      <div class="text-panel">
+        <span class="timeline-month">5??/span>
+        <h3>?듯빀쨌?됯?쨌?쇰Ц??/h3>
+        <p class="desc">Pointing 湲곕뒫 異붽?, ?꾩껜 肄붾뱶 蹂묓빀, ROSA??Qwen3.5-4B ?곌껐, ROS2 ?꾧뎄 媛쒖꽑, Task Planner ?듯빀 ???뺣웾 ?됯?? ?쇰Ц 珥덉븞 ?묒꽦???ㅼ뼱媛붿뒿?덈떎.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>湲곗닠 ?ㅽ깮</h2>
+        <p>?댁슜??留롮븘 蹂댁뿬???ㅼ젣濡쒕뒗 ?섎뱶?⑥뼱, 紐⑤뜽, ?뚰봽?몄썾?? 誘몃뱾?⑥뼱, ?쒕??덉씠???뺣룄濡?臾띠뼱??蹂대㈃ ?댄빐媛 ?쎌뒿?덈떎.</p>
+      </div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="text-panel">
+        <h3>?섎뱶?⑥뼱</h3>
+        <ul>
+          <li>Unitree Go2: 4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</li>
+          <li>Intel RealSense D435: RGB-D 移대찓??/li>
+          <li>RTX 3090: ?숈뒿 諛?異붾줎??GPU</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h3>紐⑤뜽쨌AI</h3>
+        <ul>
+          <li>InternVLA-N1-DualVLN: 硫붿씤 VLA</li>
+          <li>LOVON: ?쇰? 援ъ“ 李⑥슜</li>
+          <li>Qwen3.5-4B: ROSA agent??LLM</li>
+          <li>YOLO: 媛앹껜 寃異?/li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h3>?뚰봽?몄썾??/h3>
+        <ul>
+          <li>Python + PyTorch</li>
+          <li>vLLM</li>
+          <li>OpenCV / NumPy</li>
+          <li>ROS 2</li>
+          <li>TensorRT</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>?꾨줈?앺듃???섏쓽</h2>
+        <p>?먮옒 臾몄꽌???ㅼそ???덈뜕 ?쇰Ц???ㅻ챸???뚭컻 ?섏씠吏 ?ㅼ쑝濡??ㅼ떆 ?뺣━?덉뒿?덈떎.</p>
+      </div>
+    </div>
+
+    <div class="impact-grid">
+      <div class="text-panel">
+        <h3>1. ?뚰삎 ?ъ” 濡쒕큸 ?섍꼍??????곸쓳</h3>
+        <p>?洹쒕え ?쒕??덉씠???곗씠?곕줈 ?숈뒿??VLA 紐⑤뜽? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?RGB-D ?섍꼍??媛?뺥빀?덈떎. 蹂??꾨줈?앺듃??LOVON???듭떖 紐⑤뱢??InternVLA-N1-DualVLN ?대????좏깮?곸쑝濡??듯빀?? ?뚰삎 ?ъ” 濡쒕큸 蹂몄껜???곸쓳?섎뒗 ?ㅼ슜??寃쎈줈瑜??쒖떆?덉뒿?덈떎.</p>
+      </div>
+      <div class="text-panel">
+        <h3>2. ?⑥씪 task瑜??섏뼱??硫?고깭?ㅽ겕 ?듯빀</h3>
+        <p>Navigation, Pointing, Following, Backtracking 4醫?task瑜?ROSA 湲곕컲 LLM ?먯씠?꾪듃 ?꾩뿉 ?섎굹???뚯씠?꾨씪?몄쑝濡?臾띠뿀?듬땲?? ?대? ?듯빐 foundation model???ㅼ젣 task?먯꽌 ?대뼸寃??뺤옣?????덈뒗吏 蹂댁뿬以띾땲??</p>
+      </div>
+      <div class="text-panel">
+        <h3>3. ?먯쑉 濡쒕큸 ?쒖뒪?쒖쓽 ?명꽣?섏씠??/h3>
+        <p>Go2 Monitor ?명꽣?섏씠?ㅼ? Zenoh-bridge 湲곕컲 臾댁꽑 ROS2 ?듭떊??寃고빀?? ?꾩옣 ?곌껐留뚯쑝濡?濡쒕큸 ?곹깭瑜??뺤씤?섍퀬 紐낅졊???꾩넚쨌?ㅽ뻾?????덈뒗 援ъ“瑜?留뚮뱾?덉뒿?덈떎. ?대뒗 HRI 愿?먯뿉?쒕룄 以묒슂??湲곕컲???⑸땲??</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section references">
+    <div class="section-head">
+      <div>
+        <h2>李멸퀬 臾명뿄</h2>
+        <p>?듭떖 ?쇰Ц怨?湲곗닠 臾몄꽌???꾨옒泥섎읆 吏㏐쾶 ?뺣━???먮㈃ ?뚭컻 ?섏씠吏媛 ??臾닿굅??蹂댁엯?덈떎.</p>
+      </div>
+    </div>
+
+    <ol>
+      <li>M. Wei, C. Wan, J. Peng, et al., "Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation," arXiv:2512.08186, 2025.</li>
+      <li>D. Peng, J. Cao, Q. Zhang, and J. Ma, "LOVON: Legged Open-Vocabulary Object Navigator," arXiv:2507.06747, July 2025.</li>
+      <li>R. Royce, M. Kaufmann, J. Becktor, et al., "Enabling Novel Mission Operations and Interactions with ROSA: The Robot Operating System Agent," arXiv:2410.06472, October 2024.</li>
+      <li>Qwen Team, "Qwen3.5: Towards Native Multimodal Agents," Qwen Blog, February 2026.</li>
+    </ol>
+  </section>
+</main>
 
