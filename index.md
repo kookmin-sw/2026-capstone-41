@@ -505,15 +505,36 @@ img {
 
 .team-card .gh {
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 12px;
-  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.88rem;
+  font-weight: 600;
   color: inherit;
-  opacity: 0.84;
+  opacity: 0.92;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
 .light .team-card .gh {
-  border-color: rgba(31, 31, 31, 0.08);
+  border-color: rgba(31, 31, 31, 0.12);
+  background: rgba(31, 31, 31, 0.02);
+}
+
+.team-card .gh:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 79, 117, 0.45);
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0.12), rgba(155, 92, 255, 0.12));
+}
+
+.team-card .gh:focus-visible {
+  outline: 2px solid rgba(155, 92, 255, 0.7);
+  outline-offset: 2px;
 }
 
 .timeline-grid {
