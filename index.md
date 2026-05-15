@@ -537,174 +537,300 @@ img {
   outline-offset: 2px;
 }
 
-.timeline-grid {
-  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr);
-  grid-template-rows: repeat(3, auto);
-  position: relative;
-  gap: 56px 0;
-  padding: 24px 0 20px;
+.timeline-section {
+  background: #f8f6f2;
+  color: #0f1b2d;
 }
 
-.timeline-grid::before {
-  content: "";
+.timeline-shell {
+  padding-top: 8px;
+}
+
+.timeline-head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 12px;
+  margin-bottom: 42px;
+}
+
+.timeline-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-a);
+}
+
+.timeline-head h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #0f1b2d;
+}
+
+.timeline-head p {
+  margin: 0;
+  max-width: 60ch;
+  color: #666;
+}
+
+.timeline-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 100px minmax(0, 1fr);
+  grid-template-rows: repeat(3, auto);
+  row-gap: 88px;
+  padding: 12px 0 42px;
+}
+
+.timeline-axis {
   position: absolute;
-  top: 2px;
-  bottom: 2px;
+  top: 0;
+  bottom: 22px;
   left: 50%;
   width: 2px;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(255, 79, 117, 0.22), rgba(255, 79, 117, 0.88), rgba(155, 92, 255, 0.9), rgba(155, 92, 255, 0.22));
+  background: linear-gradient(180deg, rgba(255, 91, 138, 0.18), rgba(255, 91, 138, 0.92), rgba(155, 92, 255, 0.92), rgba(155, 92, 255, 0.18));
 }
 
-.timeline-card,
-.stack-card,
-.contact-card,
-.ref-card,
-.impact-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 22px;
-}
-
-.light .timeline-card,
-.light .stack-card,
-.light .contact-card,
-.light .ref-card,
-.light .impact-card {
-  border-color: rgba(31, 31, 31, 0.1);
-  background: #fff;
-}
-
-.timeline-card {
+.timeline-node {
   position: relative;
-  max-width: 540px;
+  z-index: 2;
+  justify-self: center;
+  width: 14px;
+  height: 14px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  box-shadow: 0 0 0 5px rgba(255, 91, 138, 0.08), 0 0 16px rgba(155, 92, 255, 0.16);
+}
+
+.timeline-node-1 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.timeline-node-2 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.timeline-node-3 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.timeline-entry {
+  position: relative;
+  max-width: 440px;
   padding: 0;
   border: 0;
   background: transparent;
-  margin: 0;
   box-shadow: none;
 }
 
-.timeline-card::before {
-  content: "";
-  position: absolute;
-  top: 18px;
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-  box-shadow: 0 0 0 6px rgba(255, 79, 117, 0.08), 0 0 18px rgba(155, 92, 255, 0.16);
-}
-
-.timeline-card::after {
-  content: "";
-  position: absolute;
-  top: 23px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 79, 117, 0), rgba(255, 79, 117, 0.75), rgba(155, 92, 255, 0.75));
-}
-
-.timeline-card:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1;
+.timeline-entry-1,
+.timeline-entry-3 {
   justify-self: end;
-  text-align: right;
+  text-align: left;
+  padding-right: 30px;
 }
 
-.timeline-card:nth-child(1)::before {
-  right: -46px;
-}
-
-.timeline-card:nth-child(1)::after {
-  right: -44px;
-  width: 36px;
-}
-
-.timeline-card:nth-child(2) {
-  grid-column: 3;
-  grid-row: 2;
+.timeline-entry-2 {
   justify-self: start;
   text-align: left;
+  padding-left: 30px;
 }
 
-.timeline-card:nth-child(2)::before {
-  left: -46px;
+.timeline-entry-1 {
+  grid-column: 1;
+  grid-row: 1;
 }
 
-.timeline-card:nth-child(2)::after {
-  left: -44px;
-  width: 36px;
-  background: linear-gradient(90deg, rgba(255, 79, 117, 0.75), rgba(155, 92, 255, 0.75), rgba(155, 92, 255, 0));
+.timeline-entry-2 {
+  grid-column: 3;
+  grid-row: 2;
 }
 
-.timeline-card:nth-child(3) {
+.timeline-entry-3 {
   grid-column: 1;
   grid-row: 3;
-  justify-self: end;
-  text-align: right;
 }
 
-.timeline-card:nth-child(3)::before {
-  right: -46px;
+.timeline-entry::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 91, 138, 0), rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8));
 }
 
-.timeline-card:nth-child(3)::after {
-  right: -44px;
-  width: 36px;
+.timeline-entry-1::after,
+.timeline-entry-3::after {
+  right: -20px;
+  width: 44px;
 }
 
-.timeline-card h3,
-.stack-card h3,
-.contact-card h3,
-.ref-card h3,
-.impact-card h3 {
-  margin: 0 0 10px;
-  font-size: 1.15rem;
+.timeline-entry-2::after {
+  left: -20px;
+  width: 44px;
+  background: linear-gradient(90deg, rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8), rgba(155, 92, 255, 0));
 }
 
-.timeline-card h3 {
-  margin-bottom: 12px;
-  font-size: 1.28rem;
-  letter-spacing: 0.01em;
+.timeline-entry-inner {
+  display: grid;
+  gap: 12px;
 }
 
-.timeline-card p,
-.stack-card p,
-.contact-card p,
-.ref-card p,
-.impact-card p {
+.timeline-entry h3 {
   margin: 0;
-  color: inherit;
-  opacity: 0.78;
+  display: inline-grid;
+  gap: 10px;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f1b2d;
+}
+
+.timeline-title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-title-row svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  opacity: 0.9;
+  flex: 0 0 auto;
+}
+
+.timeline-entry h3::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(15, 27, 45, 0.28), rgba(255, 91, 138, 0.74), rgba(155, 92, 255, 0.74));
+}
+
+.timeline-entry-3 h3 {
+  color: var(--accent-b);
+}
+
+.timeline-entry-3 h3::after {
+  background: linear-gradient(90deg, rgba(15, 27, 45, 0.16), rgba(255, 91, 138, 0.68), rgba(155, 92, 255, 0.82));
 }
 
 .timeline-list {
+  list-style: none;
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
   display: grid;
   gap: 9px;
-  color: inherit;
-  opacity: 0.86;
+  color: #2f2f2f;
 }
 
 .timeline-list li {
-  line-height: 1.5;
+  position: relative;
+  padding-left: 16px;
+  line-height: 1.55;
 }
 
-.timeline-card:nth-child(1) .timeline-list,
-.timeline-card:nth-child(3) .timeline-list {
-  justify-content: end;
-  padding-left: 0;
-  padding-right: 18px;
-  list-style-position: inside;
+.timeline-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  transform: translateY(-50%);
 }
 
-.timeline-card:nth-child(1) .timeline-list li,
-.timeline-card:nth-child(3) .timeline-list li {
-  text-align: right;
+.timeline-entry-3 .timeline-list li::before {
+  background: linear-gradient(90deg, var(--accent-b), var(--accent-a));
 }
 
-.stack-grid {
+.timeline-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid rgba(15, 27, 45, 0.35);
+  border-bottom: 2px solid rgba(15, 27, 45, 0.35);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (max-width: 900px) {
+  .timeline-head {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .timeline-stage {
+    grid-template-columns: 26px 1fr;
+    grid-template-rows: auto auto auto;
+    row-gap: 34px;
+    padding-left: 0;
+  }
+
+  .timeline-axis {
+    left: 12px;
+    transform: none;
+  }
+
+  .timeline-node {
+    justify-self: start;
+    margin-top: 14px;
+  }
+
+  .timeline-node-1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .timeline-node-2 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .timeline-node-3 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .timeline-entry,
+  .timeline-entry-1,
+  .timeline-entry-2,
+  .timeline-entry-3 {
+    grid-column: 2;
+    justify-self: stretch;
+    max-width: none;
+    padding-left: 18px;
+    padding-right: 0;
+  }
+
+  .timeline-entry-1,
+  .timeline-entry-3 {
+    text-align: left;
+  }
+
+  .timeline-entry::after {
+    left: -18px;
+    right: auto;
+    width: 26px;
+  }
+
+  .timeline-arrow {
+    left: 12px;
+  }
+}.stack-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1177,50 +1303,86 @@ img {
     </div>
   </section>
 
-  <section class="section light" id="timeline">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>Timeline</h2>
-        </div>
+    <section class="section light timeline-section" id="timeline">
+    <div class="page-shell timeline-shell">
+      <div class="timeline-head">
+        <p class="timeline-kicker">Timeline</p>
+        <h2>캡스톤 개발 타임라인</h2>
+        <p>3월부터 5월까지의 주요 개발 계획과 진행 과제</p>
       </div>
-      <div class="timeline-grid">
-        <article class="timeline-card">
-          <h3>3월</h3>
-          <ul class="timeline-list">
-            <li>방향성 결정</li>
-            <li>ROS2 / Zenoh</li>
-            <li>InternVLA / LOVON 재현</li>
-            <li>1차 시연</li>
-          </ul>
+
+      <div class="timeline-stage" aria-label="캡스톤 개발 타임라인">
+        <span class="timeline-axis" aria-hidden="true"></span>
+        <span class="timeline-node timeline-node-1" aria-hidden="true"></span>
+        <span class="timeline-node timeline-node-2" aria-hidden="true"></span>
+        <span class="timeline-node timeline-node-3" aria-hidden="true"></span>
+
+        <article class="timeline-entry timeline-entry-1">
+          <div class="timeline-entry-inner">
+            <h3>
+              <span class="timeline-title-row">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                </svg>
+                <span>3월</span>
+              </span>
+            </h3>
+            <ul class="timeline-list">
+              <li>방향성 결정</li>
+              <li>ROS2 / Zenoh</li>
+              <li>InternVLA / LOVON 재현</li>
+              <li>1차 시연</li>
+            </ul>
+          </div>
         </article>
-        <article class="timeline-card">
-          <h3>4월</h3>
-          <ul class="timeline-list">
-            <li>Following 결합</li>
-            <li>LOVON 일부 구조 차용</li>
-            <li>디블러링</li>
-            <li>LiDAR SLAM</li>
-            <li>Backtracking</li>
-          </ul>
+
+        <article class="timeline-entry timeline-entry-2">
+          <div class="timeline-entry-inner">
+            <h3>
+              <span class="timeline-title-row">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                </svg>
+                <span>4월</span>
+              </span>
+            </h3>
+            <ul class="timeline-list">
+              <li>Following 결합</li>
+              <li>LOVON 일부 구조 차용</li>
+              <li>디블러링</li>
+              <li>LiDAR SLAM</li>
+              <li>Backtracking</li>
+            </ul>
+          </div>
         </article>
-        <article class="timeline-card">
-          <h3>5월</h3>
-          <ul class="timeline-list">
-            <li>Pointing 추가</li>
-            <li>전체 코드 병합</li>
-            <li>ROSA + Qwen3.5-4B 연결</li>
-            <li>ROS2 도구 개선</li>
-            <li>Task Planner 통합</li>
-            <li>정량 평가</li>
-            <li>논문 초안</li>
-          </ul>
+
+        <article class="timeline-entry timeline-entry-3">
+          <div class="timeline-entry-inner">
+            <h3>
+              <span class="timeline-title-row">
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                </svg>
+                <span>5월</span>
+              </span>
+            </h3>
+            <ul class="timeline-list">
+              <li>Pointing 추가</li>
+              <li>전체 코드 병합</li>
+              <li>ROSA + Qwen3.5-4B 연결</li>
+              <li>ROS2 도구 개선</li>
+              <li>Task Planner 통합</li>
+              <li>정량 평가</li>
+              <li>논문 초안</li>
+            </ul>
+          </div>
         </article>
+
+        <div class="timeline-arrow" aria-hidden="true"></div>
       </div>
     </div>
   </section>
-
-  <section class="section dark" id="stack">
+<section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
