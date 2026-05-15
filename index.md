@@ -34,19 +34,19 @@ title: Capstone 41
   }
 
   .page-shell {
-    max-width: 1240px;
+    width: min(100%, 1520px);
     margin: 0 auto;
-    padding: 28px 20px 84px;
+    padding: 32px 28px 96px;
   }
 
   .hero {
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 28px;
+    grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
+    gap: 32px;
     align-items: center;
-    padding: 34px;
+    padding: 40px;
     border: 1px solid var(--line);
     border-radius: 32px;
     background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.72));
@@ -166,6 +166,16 @@ title: Capstone 41
     gap: 14px;
   }
 
+  .hero-card,
+  .mini,
+  .feature,
+  .device,
+  .member,
+  .arch-card,
+  .note {
+    height: 100%;
+  }
+
   .mini {
     padding: 16px;
     border-radius: 22px;
@@ -188,7 +198,7 @@ title: Capstone 41
 
   .section {
     margin-top: 28px;
-    padding: 28px;
+    padding: 34px;
     border: 1px solid var(--line);
     border-radius: var(--radius-xl);
     background: var(--panel);
@@ -212,7 +222,7 @@ title: Capstone 41
 
   .section-head p {
     margin: 0;
-    max-width: 58ch;
+    max-width: 84ch;
     color: var(--muted);
     line-height: 1.7;
   }
@@ -452,7 +462,7 @@ title: Capstone 41
   }
 
   .overview-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   }
 
   .timeline-grid {
@@ -464,11 +474,23 @@ title: Capstone 41
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .stats-grid > *,
+  .feature-grid > *,
+  .device-grid > *,
+  .team-grid > *,
+  .overview-grid > *,
+  .timeline-grid > *,
+  .stack-grid > *,
+  .impact-grid > * {
+    min-height: 100%;
+  }
+
   .text-panel {
-    padding: 20px;
+    padding: 24px;
     border-radius: 24px;
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.84);
+    height: 100%;
   }
 
   .text-panel h3 {
