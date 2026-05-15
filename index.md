@@ -443,6 +443,67 @@ title: Capstone 41
     line-height: 1.7;
   }
 
+  .overview-grid,
+  .timeline-grid,
+  .stack-grid,
+  .impact-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timeline-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stack-grid,
+  .impact-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .text-panel {
+    padding: 20px;
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.84);
+  }
+
+  .text-panel h3 {
+    margin: 0 0 10px;
+    font-size: 1.08rem;
+  }
+
+  .text-panel p,
+  .text-panel li {
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .text-panel ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .timeline-month {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(36, 87, 255, 0.08);
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.88rem;
+  }
+
+  .text-panel .desc {
+    margin-top: 10px;
+  }
+
   @media (max-width: 1024px) {
     .hero,
     .architecture-layout {
@@ -452,7 +513,11 @@ title: Capstone 41
     .feature-grid,
     .device-grid,
     .team-grid,
-    .stats-grid {
+    .stats-grid,
+    .overview-grid,
+    .timeline-grid,
+    .stack-grid,
+    .impact-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -472,7 +537,11 @@ title: Capstone 41
     .device-grid,
     .team-grid,
     .stats-grid,
-    .hero-mini-grid {
+    .hero-mini-grid,
+    .overview-grid,
+    .timeline-grid,
+    .stack-grid,
+    .impact-grid {
       grid-template-columns: 1fr;
     }
 
@@ -487,16 +556,18 @@ title: Capstone 41
   <section class="hero">
     <div>
       <span class="eyebrow">Capstone Project 41 · Vision-Language-Action Robotics</span>
-      <h1>캡스톤 소개 페이지를<br>조금 더 읽기 좋고, 보기 좋게</h1>
+      <h1>VLA 기반 사족 로봇<br>통합 자율 시스템</h1>
       <p class="lead">
-        이 페이지는 Unitree Go2 기반 자율 로봇 프로젝트를 소개하는 랜딩 페이지입니다.
-        핵심 기능, 시스템 아키텍처, 사용 장비, 팀 구성까지 한 화면에서 자연스럽게 볼 수 있도록
-        카드형 레이아웃과 이미지 중심 구조로 다시 설계했습니다.
+        본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action
+        모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식해, 자연어 명령만으로 로봇이
+        시각 정보를 해석하고 실제 환경에서 자율 주행하도록 만드는 것을 목표로 합니다.
+        기존 VLA 모델의 환경 편차를 보완하기 위해 LOVON, ROSA, LiDAR SLAM, YOLO를 함께
+        엮어 하나의 통합 파이프라인으로 구성했습니다.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#architecture">시스템 아키텍처 보기</a>
-        <a class="btn btn-secondary" href="#team">팀 구성 보기</a>
+        <a class="btn btn-primary" href="#overview">프로젝트 개요</a>
+        <a class="btn btn-secondary" href="#architecture">시스템 아키텍처</a>
       </div>
 
       <div class="stats-grid">
@@ -521,17 +592,53 @@ title: Capstone 41
 
     <div class="hero-stack">
       <div class="hero-card">
-        <img src="assets/images/hero-robo-lab.svg" alt="프로젝트 분위기를 보여주는 로봇 일러스트">
+        <img src="image/go2.jpg" alt="Unitree Go2 사진">
       </div>
       <div class="hero-mini-grid">
         <div class="mini">
-          <strong>한눈에 들어오는 구성</strong>
-          <span>기존의 긴 텍스트 중심 페이지를 카드와 이미지 중심으로 바꿨습니다.</span>
+          <strong>왜 필요한가</strong>
+          <span>휴머노이드나 고정된 카메라 환경에 맞춰진 VLA 모델을 사족 로봇에 그대로 쓰면 성능이 떨어집니다.</span>
         </div>
         <div class="mini">
-          <strong>교체 쉬운 임시 이미지</strong>
-          <span>아키텍처, 팀원 사진, 장비 이미지는 나중에 실사진으로 바로 교체할 수 있습니다.</span>
+          <strong>어떻게 해결하나</strong>
+          <span>LOVON 구조 일부와 ROSA 에이전트를 결합해 환경 편차를 줄이고 task 분해를 안정화합니다.</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="overview">
+    <div class="section-head">
+      <div>
+        <h2>프로젝트 개요</h2>
+        <p>원래 소개 페이지의 핵심 내용을 더 읽기 쉽게 정리한 버전입니다. 긴 설명은 문단으로, 핵심 포인트는 카드로 나눴습니다.</p>
+      </div>
+    </div>
+
+    <div class="overview-grid">
+      <div class="text-panel">
+        <h3>무엇을 만들었나</h3>
+        <p>
+          본 프로젝트는 Unitree Go2 사족 보행 로봇에 최신 VLA 모델인 InternVLA-N1-DualVLN을
+          이식하여, 사람이 말하는 자연어 명령만으로 로봇이 시각 정보를 해석하고 실제 환경을
+          자율 주행하도록 구현한 통합 자율 시스템입니다.
+        </p>
+        <p class="desc">
+          단순히 모델을 붙이는 데서 끝나지 않고, ROSA 에이전트를 통해 명령을 분해하고,
+          LOVON 일부 구조를 차용해 로봇 본체별 환경 차이를 줄이며, LiDAR SLAM과 YOLO를
+          함께 사용해 실환경 주행 안정성을 높였습니다.
+        </p>
+      </div>
+      <div class="text-panel">
+        <h3>왜 의미가 있나</h3>
+        <p>
+          기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어,
+          작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어집니다.
+        </p>
+        <p class="desc">
+          우리는 이러한 로봇 본체별 환경 차이를 보정하기 위해 LOVON 구조를 InternVLA와
+          결합하고, ROSA 에이전트를 통해 명령을 분해하는 방식으로 시스템 레벨 개선을 수행했습니다.
+        </p>
       </div>
     </div>
   </section>
@@ -540,7 +647,7 @@ title: Capstone 41
     <div class="section-head">
       <div>
         <h2>핵심 기능</h2>
-        <p>프로젝트가 무엇을 하는지 짧고 선명하게 보여주는 섹션입니다. 각 카드마다 이미지를 배치해서 설명이 더 빨리 읽히도록 구성했습니다.</p>
+        <p>단일 task 시연이 아니라, 네 가지 기능을 하나의 파이프라인으로 통합한 것이 핵심입니다.</p>
       </div>
     </div>
 
@@ -549,28 +656,28 @@ title: Capstone 41
         <img src="assets/images/feature-navigation.svg" alt="Navigation 기능 이미지">
         <div class="body">
           <h3>Navigation</h3>
-          <p>목표 지점을 입력하면 로봇이 환경을 이해하고 목적지까지 이동합니다.</p>
+          <p>자연어 명령을 받아 환경 내 목표 지점까지 자율 주행합니다. InternVLA-N1-DualVLN이 카메라 이미지와 명령을 동시에 해석해 pixel goal을 출력하면, 로봇이 그에 맞춰 이동합니다.</p>
         </div>
       </article>
       <article class="feature">
         <img src="assets/images/feature-pointing.svg" alt="Pointing 기능 이미지">
         <div class="body">
           <h3>Pointing</h3>
-          <p>특정 물체를 지목하면 해당 객체를 인식하고 관련 정보를 로봇 행동에 반영합니다.</p>
+          <p>이미지 위 특정 객체를 지시하면 로봇이 해당 객체로 향합니다. 객체 지시 정보를 pixel goal로 변환해 InternVLA에 전달하는 방식입니다.</p>
         </div>
       </article>
       <article class="feature">
         <img src="assets/images/feature-following.svg" alt="Following 기능 이미지">
         <div class="body">
           <h3>Following</h3>
-          <p>사람 또는 객체를 따라가며 주변 상황을 반영해 자연스럽게 주행합니다.</p>
+          <p>사람이나 물체를 지속적으로 추종합니다. YOLO 객체 검출 결과를 pixel goal 입력으로 사용하며, LOVON의 일부 구조를 차용해 모션 블러와 저속 추종 환경에서도 안정적으로 동작하도록 개선했습니다.</p>
         </div>
       </article>
       <article class="feature">
         <img src="assets/images/feature-backtracking.svg" alt="Backtracking 기능 이미지">
         <div class="body">
           <h3>Backtracking</h3>
-          <p>지나온 경로를 복원해 되돌아가며, 실내 자율주행 시 안정성을 높입니다.</p>
+          <p>LiDAR SLAM 기반 closed-loop 제어로 과거에 지나온 경로를 자동으로 되짚어 돌아옵니다. 실내 자율주행에서 안정성을 높이는 핵심 기능입니다.</p>
         </div>
       </article>
     </div>
@@ -580,7 +687,7 @@ title: Capstone 41
     <div class="section-head">
       <div>
         <h2>시스템 아키텍처</h2>
-        <p>나중에 실제 아키텍처 이미지를 넣을 수 있도록 임시 이미지를 먼저 배치했습니다. 원하는 시점에 이 이미지 파일만 교체하면 레이아웃은 그대로 유지됩니다.</p>
+        <p>실제 아키텍처 이미지를 나중에 교체할 수 있도록 임시 자리를 마련했습니다. 오른쪽 설명은 본 프로젝트의 주요 모듈을 요약한 내용입니다.</p>
       </div>
     </div>
 
@@ -590,17 +697,41 @@ title: Capstone 41
       </div>
       <div class="arch-notes">
         <div class="note">
-          <strong>왼쪽 큰 영역</strong>
-          <span>실제 아키텍처 다이어그램을 넣는 자리입니다. 발표 자료와 같은 비율로 교체하면 바로 사용 가능합니다.</span>
+          <strong>베이스 모델: InternVLA-N1-DualVLN</strong>
+          <span>System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 활용합니다.</span>
         </div>
         <div class="note">
-          <strong>오른쪽 보조 설명</strong>
-          <span>아래 설명 박스는 모델, ROS, SLAM, LLM 연동 구조를 짧게 정리하는 용도로 쓰면 좋습니다.</span>
+          <strong>LOVON 부분 결합</strong>
+          <span>LOVON 모델 전체를 그대로 쓰지 않고, 구조와 모델 일부를 차용해 InternVLA 내부에 결합했습니다.</span>
         </div>
         <div class="note">
-          <strong>업데이트 방식</strong>
-          <span>이미지 파일만 바꾸거나 SVG를 PNG로 교체해도 페이지 구조는 그대로 유지됩니다.</span>
+          <strong>보조 모듈</strong>
+          <span>LiDAR SLAM Runner, ROSA Agent + Qwen3.5-4B, YOLO 입력단을 함께 연결해 4가지 태스크를 하나의 흐름으로 만듭니다.</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>시스템 구성 요소</h2>
+        <p>소개 페이지에서 가장 길고 딱딱해지기 쉬운 부분이라, 카드로 나눠서 핵심만 보이게 정리했습니다.</p>
+      </div>
+    </div>
+
+    <div class="impact-grid">
+      <div class="text-panel">
+        <h3>베이스 모델</h3>
+        <p>InternVLA-N1-DualVLN은 System1과 System2를 결합한 dual-system VLA foundation model이며, 본 프로젝트의 주된 추론 엔진입니다.</p>
+      </div>
+      <div class="text-panel">
+        <h3>행동 분해</h3>
+        <p>ROSA Agent는 자연어 명령을 tool 단위로 분해해 Navigation, Pointing, Following, Backtracking 중 필요한 기능을 호출합니다.</p>
+      </div>
+      <div class="text-panel">
+        <h3>시각 입력</h3>
+        <p>YOLO 결과를 pixel goal 형태로 주입해, VLA를 전체 재학습하지 않아도 새로운 task를 추가할 수 있도록 설계했습니다.</p>
       </div>
     </div>
   </section>
@@ -609,7 +740,7 @@ title: Capstone 41
     <div class="section-head">
       <div>
         <h2>사용 장비와 모델</h2>
-        <p>Unitree Go2, 카메라, LiDAR 같은 실제 하드웨어 이미지를 넣어 주면 프로젝트가 훨씬 직관적으로 보입니다.</p>
+        <p>하드웨어, 모델, 프레임워크를 한 화면에 묶어 보여주면 캡스톤 소개 페이지의 설득력이 더 좋아집니다.</p>
       </div>
     </div>
 
@@ -618,7 +749,7 @@ title: Capstone 41
         <img src="image/go2.jpg" alt="Unitree Go2 사진">
         <div class="body">
           <h3>Unitree Go2</h3>
-          <p>주행 플랫폼으로 사용하는 4족 보행 로봇입니다. 실제 사진으로 교체하면 소개 페이지의 완성도가 크게 올라갑니다.</p>
+          <p>주행 플랫폼으로 사용하는 4족 보행 로봇입니다. 내장 Jetson Orin과 내장 LiDAR를 활용해 실환경 자율 주행을 수행합니다.</p>
         </div>
       </article>
 
@@ -626,7 +757,7 @@ title: Capstone 41
         <img src="assets/images/realsense-d435-placeholder.svg" alt="Intel RealSense D435 임시 이미지">
         <div class="body">
           <h3>Intel RealSense D435</h3>
-          <p>RGB-D 입력을 위한 카메라입니다. 객체 인식, 거리 추정, 시각 정보 수집에 활용됩니다.</p>
+          <p>RGB-D 입력을 위한 카메라입니다. 객체 인식, 거리 추정, 시각 정보 수집, 디블러링 파이프라인에 활용됩니다.</p>
         </div>
       </article>
 
@@ -634,7 +765,7 @@ title: Capstone 41
         <img src="assets/images/lidar-placeholder.svg" alt="LiDAR 임시 이미지">
         <div class="body">
           <h3>LiDAR / SLAM</h3>
-          <p>실내 위치 추정과 경로 복원에 사용되는 핵심 센서입니다. backtracking과 연동되면 설명이 더 잘 살아납니다.</p>
+          <p>실시간 SLAM 기반 closed-loop 제어를 통해 과거 경로를 복원하고, 자율 Backtracking 기능을 안정적으로 수행합니다.</p>
         </div>
       </article>
     </div>
@@ -644,7 +775,7 @@ title: Capstone 41
     <div class="section-head">
       <div>
         <h2>팀 구성과 역할</h2>
-        <p>팀원 사진, 역할, 개인 GitHub 링크를 카드형으로 정리했습니다. 실제 이름과 링크만 바꾸면 바로 쓸 수 있게 템플릿 형태로 만들어 두었습니다.</p>
+        <p>팀원 사진, 담당 영역, 개인 GitHub 링크를 카드형으로 정리했습니다. 링크와 사진은 나중에 실제 정보로 바로 교체할 수 있습니다.</p>
       </div>
     </div>
 
@@ -652,9 +783,9 @@ title: Capstone 41
       <article class="member">
         <img src="assets/images/avatar-1.svg" alt="팀원 1 프로필 사진">
         <div class="body">
-          <h3>팀원 1</h3>
+          <h3>임민석</h3>
           <span class="role">프로젝트 총괄</span>
-          <p>전체 일정 관리, 발표 구성, 시스템 통합을 담당합니다.</p>
+          <p>전체 일정 관리, 발표 구성, 시스템 통합, 최종 정리를 담당합니다.</p>
           <a class="link" href="https://github.com/your-github-id-1" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
@@ -662,7 +793,7 @@ title: Capstone 41
       <article class="member">
         <img src="assets/images/avatar-2.svg" alt="팀원 2 프로필 사진">
         <div class="body">
-          <h3>팀원 2</h3>
+          <h3>조원영</h3>
           <span class="role">로봇 제어</span>
           <p>Go2 제어, 주행 로직, 센서 연결 및 실기기 테스트를 담당합니다.</p>
           <a class="link" href="https://github.com/your-github-id-2" target="_blank" rel="noreferrer">GitHub 연동</a>
@@ -672,7 +803,7 @@ title: Capstone 41
       <article class="member">
         <img src="assets/images/avatar-3.svg" alt="팀원 3 프로필 사진">
         <div class="body">
-          <h3>팀원 3</h3>
+          <h3>정유진</h3>
           <span class="role">AI / VLA</span>
           <p>VLA 모델 적용, 프롬프트 설계, 객체 인식 및 행동 생성 파트를 맡습니다.</p>
           <a class="link" href="https://github.com/your-github-id-3" target="_blank" rel="noreferrer">GitHub 연동</a>
@@ -682,16 +813,126 @@ title: Capstone 41
       <article class="member">
         <img src="assets/images/avatar-4.svg" alt="팀원 4 프로필 사진">
         <div class="body">
-          <h3>팀원 4</h3>
-          <span class="role">디자인 / 문서</span>
-          <p>페이지 디자인, 발표 자료 시각화, 문서 정리와 자료 아카이빙을 담당합니다.</p>
+          <h3>성재승</h3>
+          <span class="role">SLAM / 백트래킹</span>
+          <p>LiDAR SLAM, 경로 복원, 자율 Backtracking 모듈을 담당합니다.</p>
           <a class="link" href="https://github.com/your-github-id-4" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-1.svg" alt="팀원 5 프로필 사진">
+        <div class="body">
+          <h3>유리안</h3>
+          <span class="role">ROSA / LLM</span>
+          <p>ROSA Agent와 Qwen3.5-4B 연동, tool 분해, 자연어 인터페이스를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-5" target="_blank" rel="noreferrer">GitHub 연동</a>
+        </div>
+      </article>
+
+      <article class="member">
+        <img src="assets/images/avatar-2.svg" alt="팀원 6 프로필 사진">
+        <div class="body">
+          <h3>조유빈</h3>
+          <span class="role">문서 / 발표 / 디자인</span>
+          <p>발표 자료, 페이지 디자인, 문서 정리와 자료 아카이빙을 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-6" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
     </div>
 
     <div class="footer-note">
-      팀원이 4명보다 많으면 이 카드 블록을 복제해서 추가하면 됩니다. 사진은 같은 형식의 SVG를 계속 만들거나 실제 사진으로 교체할 수 있습니다.
+      팀원 수가 더 많거나 역할이 바뀌면 이 카드 블록만 복제해서 바로 수정하면 됩니다. 개인 GitHub 주소도 카드별로 독립적으로 연결할 수 있습니다.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>진행 타임라인</h2>
+        <p>원본 페이지에 있던 월별 진행 내역을 조금 더 보기 좋게 정리했습니다.</p>
+      </div>
+    </div>
+
+    <div class="timeline-grid">
+      <div class="text-panel">
+        <span class="timeline-month">3월</span>
+        <h3>환경 구축 및 베이스라인 탐색</h3>
+        <p class="desc">프로젝트 방향성 결정, ROS2/Zenoh 무선 통신 셋업, InternVLA·LOVON 재현, 1차 시연 발표를 진행했습니다.</p>
+      </div>
+      <div class="text-panel">
+        <span class="timeline-month">4월</span>
+        <h3>핵심 기능 구현</h3>
+        <p class="desc">InternVLA에 Following을 결합하는 방향성을 확정하고, LOVON 일부 구조 차용, 디블러링, LiDAR SLAM 기반 자율 Backtracking을 구현했습니다.</p>
+      </div>
+      <div class="text-panel">
+        <span class="timeline-month">5월</span>
+        <h3>통합·평가·논문화</h3>
+        <p class="desc">Pointing 기능 추가, 전체 코드 병합, ROSA에 Qwen3.5-4B 연결, ROS2 도구 개선, Task Planner 통합 후 정량 평가와 논문 초안 작성에 들어갔습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>기술 스택</h2>
+        <p>내용이 많아 보여도 실제로는 하드웨어, 모델, 소프트웨어, 미들웨어, 시뮬레이션 정도로 묶어서 보면 이해가 쉽습니다.</p>
+      </div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="text-panel">
+        <h3>하드웨어</h3>
+        <ul>
+          <li>Unitree Go2: 4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR</li>
+          <li>Intel RealSense D435: RGB-D 카메라</li>
+          <li>RTX 3090: 학습 및 추론용 GPU</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h3>모델·AI</h3>
+        <ul>
+          <li>InternVLA-N1-DualVLN: 메인 VLA</li>
+          <li>LOVON: 일부 구조 차용</li>
+          <li>Qwen3.5-4B: ROSA agent의 LLM</li>
+          <li>YOLO: 객체 검출</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h3>소프트웨어</h3>
+        <ul>
+          <li>Python + PyTorch</li>
+          <li>vLLM</li>
+          <li>OpenCV / NumPy</li>
+          <li>ROS 2</li>
+          <li>TensorRT</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>프로젝트의 의의</h2>
+        <p>원래 문서의 뒤쪽에 있던 논문식 설명을 소개 페이지 톤으로 다시 정리했습니다.</p>
+      </div>
+    </div>
+
+    <div class="impact-grid">
+      <div class="text-panel">
+        <h3>1. 소형 사족 로봇 환경에 대한 적응</h3>
+        <p>대규모 시뮬레이션 데이터로 학습된 VLA 모델은 대체로 휴머노이드급 시점이나 고품질 RGB-D 환경을 가정합니다. 본 프로젝트는 LOVON의 핵심 모듈을 InternVLA-N1-DualVLN 내부에 선택적으로 통합해, 소형 사족 로봇 본체에 적응하는 실용적 경로를 제시했습니다.</p>
+      </div>
+      <div class="text-panel">
+        <h3>2. 단일 task를 넘어선 멀티태스크 통합</h3>
+        <p>Navigation, Pointing, Following, Backtracking 4종 task를 ROSA 기반 LLM 에이전트 위에 하나의 파이프라인으로 묶었습니다. 이를 통해 foundation model이 실제 task에서 어떻게 확장될 수 있는지 보여줍니다.</p>
+      </div>
+      <div class="text-panel">
+        <h3>3. 자율 로봇 시스템의 인터페이스</h3>
+        <p>Go2 Monitor 인터페이스와 Zenoh-bridge 기반 무선 ROS2 통신을 결합해, 현장 연결만으로 로봇 상태를 확인하고 명령을 전송·실행할 수 있는 구조를 만들었습니다. 이는 HRI 관점에서도 중요한 기반이 됩니다.</p>
+      </div>
     </div>
   </section>
 
@@ -699,15 +940,15 @@ title: Capstone 41
     <div class="section-head">
       <div>
         <h2>참고 문헌</h2>
-        <p>논문과 모델 출처는 작게 정리해 두는 편이 소개 페이지에서는 더 깔끔합니다.</p>
+        <p>핵심 논문과 기술 문서는 아래처럼 짧게 정리해 두면 소개 페이지가 덜 무거워 보입니다.</p>
       </div>
     </div>
 
     <ol>
-      <li>InternVLA-N1-DualVLN 관련 논문 및 모델 페이지</li>
-      <li>LOVON 관련 논문</li>
-      <li>ROSA Agent 및 Qwen 계열 참고 자료</li>
-      <li>프로젝트 내부 기술 문서 및 테스트 로그</li>
+      <li>M. Wei, C. Wan, J. Peng, et al., "Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation," arXiv:2512.08186, 2025.</li>
+      <li>D. Peng, J. Cao, Q. Zhang, and J. Ma, "LOVON: Legged Open-Vocabulary Object Navigator," arXiv:2507.06747, July 2025.</li>
+      <li>R. Royce, M. Kaufmann, J. Becktor, et al., "Enabling Novel Mission Operations and Interactions with ROSA: The Robot Operating System Agent," arXiv:2410.06472, October 2024.</li>
+      <li>Qwen Team, "Qwen3.5: Towards Native Multimodal Agents," Qwen Blog, February 2026.</li>
     </ol>
   </section>
 </main>
