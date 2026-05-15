@@ -538,20 +538,21 @@ img {
 }
 
 .timeline-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr 88px 1fr;
   position: relative;
-  gap: 22px;
-  padding-top: 18px;
+  gap: 0;
+  padding: 22px 0 18px;
 }
 
 .timeline-grid::before {
   content: "";
   position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 14px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 79, 117, 0.45), rgba(155, 92, 255, 0.45));
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255, 79, 117, 0.2), rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.85), rgba(155, 92, 255, 0.2));
 }
 
 .timeline-card,
@@ -575,19 +576,40 @@ img {
 
 .timeline-card {
   position: relative;
+  max-width: 520px;
   padding-top: 28px;
+  margin: 0;
 }
 
 .timeline-card::before {
   content: "";
   position: absolute;
   top: 8px;
-  left: 22px;
   width: 12px;
   height: 12px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
   box-shadow: 0 0 0 5px rgba(255, 79, 117, 0.08);
+}
+
+.timeline-card:nth-child(odd) {
+  grid-column: 1;
+  justify-self: end;
+  text-align: right;
+}
+
+.timeline-card:nth-child(odd)::before {
+  right: -47px;
+}
+
+.timeline-card:nth-child(even) {
+  grid-column: 3;
+  justify-self: start;
+  text-align: left;
+}
+
+.timeline-card:nth-child(even)::before {
+  left: -47px;
 }
 
 .timeline-card h3,
@@ -621,6 +643,17 @@ img {
   gap: 8px;
   color: inherit;
   opacity: 0.86;
+}
+
+.timeline-card:nth-child(odd) .timeline-list {
+  justify-content: end;
+  padding-left: 0;
+  padding-right: 18px;
+  list-style-position: inside;
+}
+
+.timeline-card:nth-child(odd) .timeline-list li {
+  text-align: right;
 }
 
 .timeline-list li {
@@ -752,9 +785,40 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .timeline-grid {
+    padding-left: 26px;
+    padding-right: 0;
+  }
+
   .timeline-grid::before {
-    left: 0;
-    right: 0;
+    left: 14px;
+    transform: none;
+  }
+
+  .timeline-card,
+  .timeline-card:nth-child(odd),
+  .timeline-card:nth-child(even) {
+    grid-column: auto;
+    justify-self: stretch;
+    text-align: left;
+    max-width: none;
+  }
+
+  .timeline-card::before,
+  .timeline-card:nth-child(odd)::before,
+  .timeline-card:nth-child(even)::before {
+    left: -23px;
+    right: auto;
+  }
+
+  .timeline-card:nth-child(odd) .timeline-list {
+    padding-right: 0;
+    padding-left: 18px;
+    list-style-position: outside;
+  }
+
+  .timeline-card:nth-child(odd) .timeline-list li {
+    text-align: left;
   }
 
   .team-grid {
@@ -1070,7 +1134,7 @@ img {
           <ul class="timeline-list">
             <li>방향성 결정</li>
             <li>ROS2 / Zenoh</li>
-            <li>InternVLA·LOVON 재현</li>
+            <li>InternVLA / LOVON 재현</li>
             <li>1차 시연</li>
           </ul>
         </article>
@@ -1080,7 +1144,8 @@ img {
             <li>Following 결합</li>
             <li>LOVON 일부 구조 차용</li>
             <li>디블러링</li>
-            <li>LiDAR SLAM Backtracking</li>
+            <li>LiDAR SLAM</li>
+            <li>Backtracking</li>
           </ul>
         </article>
         <article class="timeline-card">
@@ -1088,10 +1153,11 @@ img {
           <ul class="timeline-list">
             <li>Pointing 추가</li>
             <li>전체 코드 병합</li>
-            <li>ROSA + Qwen3.5-4B</li>
+            <li>ROSA + Qwen3.5-4B 연결</li>
             <li>ROS2 도구 개선</li>
             <li>Task Planner 통합</li>
-            <li>정량 평가 / 논문 초안</li>
+            <li>정량 평가</li>
+            <li>논문 초안</li>
           </ul>
         </article>
       </div>
