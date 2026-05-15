@@ -113,11 +113,11 @@ img {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: min(58vw, 860px);
+  width: min(46vw, 760px);
   max-height: 92vh;
   object-fit: contain;
   object-position: right bottom;
-  opacity: 0.28;
+  opacity: 0.24;
   filter: grayscale(0.05) contrast(1.04);
 }
 
@@ -133,7 +133,9 @@ img {
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
   align-items: start;
-  max-width: 900px;
+  max-width: none;
+  width: 100%;
+  padding-right: clamp(180px, 24vw, 360px);
 }
 
 .kicker {
@@ -146,7 +148,7 @@ img {
 
 .hero h1 {
   margin: 0;
-  max-width: 11ch;
+  max-width: 14ch;
   font-size: clamp(3rem, 7vw, 6.8rem);
   line-height: 0.94;
   letter-spacing: -0.05em;
@@ -158,7 +160,7 @@ img {
 
 .hero-lead {
   margin: 26px 0 0;
-  max-width: 58ch;
+  max-width: 72ch;
   color: rgba(245, 245, 245, 0.82);
   font-size: 1.05rem;
 }
@@ -665,9 +667,13 @@ img {
   }
 
   .hero-robot {
-    right: -9vw;
-    width: min(86vw, 620px);
-    opacity: 0.2;
+    right: -8vw;
+    width: min(82vw, 620px);
+    opacity: 0.18;
+  }
+
+  .hero-grid {
+    padding-right: 0;
   }
 
   .section {
