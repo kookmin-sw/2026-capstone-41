@@ -776,7 +776,7 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>프로젝트 개요</h2>
+          <h2>Overview</h2>
           <p>PDF 5페이지처럼 큰 이미지와 텍스트를 좌우로 배치한 구조로, 기존 프로젝트 소개를 그대로 살려 재구성했다.</p>
         </div>
       </div>
@@ -1044,7 +1044,7 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>진행 타임라인</h2>
+          <h2>Timeline</h2>
           <p>기존 index.md의 일정 설명을 그대로 유지하면서, PDF 9페이지처럼 grid 느낌으로 정리했다.</p>
         </div>
       </div>
@@ -1069,7 +1069,7 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>기술 스택</h2>
+          <h2>Tech Stack</h2>
           <p>기존 파일의 하드웨어, 모델, 소프트웨어, 미들웨어, 시뮬레이션 항목을 빠짐없이 유지했다.</p>
         </div>
       </div>
@@ -1124,7 +1124,7 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>레퍼런스</h2>
+          <h2>References</h2>
           <p>본 프로젝트의 핵심 기반이 된 4개의 논문 및 기술 문서를 유지했다.</p>
         </div>
       </div>
