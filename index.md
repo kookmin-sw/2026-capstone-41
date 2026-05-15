@@ -772,6 +772,31 @@ img {
 </header>
 
 <main>
+  <section class="section dark" id="impact">
+    <div class="page-shell">
+      <div class="section-head">
+        <div>
+          <h2>프로젝트의 의의</h2>
+          <p>기존 index.md의 마지막 해설 문단도 누락하지 않고 그대로 유지했다.</p>
+        </div>
+      </div>
+      <div class="impact-grid">
+        <article class="impact-card">
+          <h3>1. 소형 사족 로봇 환경에 대한 VLA Foundation Model의 적응</h3>
+          <p>대규모 시뮬레이션 데이터로 학습된 최신 VLA Foundation Model은 일반적으로 휴머노이드급 시점이나 고품질 RGB-D 환경을 가정하기 때문에, 시점 높이가 낮고 카메라 사양이 제한된 소형 사족 로봇에 그대로 배포하면 성능이 저하되는 본질적 한계를 지닌다. 본 프로젝트는 LOVON의 핵심 모듈을 InternVLA-N1-DualVLN 내부에 선택적으로 통합함으로써, <strong>Foundation Model을 통째로 재학습하지 않고도 소형 사족 로봇 본체에 적응(domain adaptation)시키는 실용적 경로</strong>를 제시했다. 이는 최신 대규모 VLA 모델을 저비용 로봇 플랫폼에 이식하려는 후속 연구·개발에 직접 활용 가능한 방법론적 기여로 평가된다.</p>
+        </article>
+        <article class="impact-card">
+          <h3>2. 단일 task 시연을 넘어선 멀티태스크 통합 파이프라인</h3>
+          <p>오픈소스 InternVLA의 공개 시연이 단일 navigation task에 머물러 있는 것과 달리, 본 시스템은 <strong>Navigation, Pointing, Following, Backtracking 4종 task를 ROSA 기반 LLM 에이전트 위에 단일 파이프라인으로 통합</strong>했다. 특히 LiDAR SLAM closed-loop 기반 자율 백트래킹은 InternVLA가 본래 다루지 않는 기능을 시스템 레벨에서 확장한 사례로, foundation model을 응용 task로 확장하는 구체적 설계 예시를 제공한다.</p>
+        </article>
+        <article class="impact-card">
+          <h3>3. 자연어 기반 원격 로봇 운용 인터페이스</h3>
+          <p>자체 개발한 <strong>Go2 Monitor 웹 인터페이스</strong>와 <strong>Zenoh-bridge 기반 무선 ROS2 통신 스택</strong>을 결합함으로써, <strong>인터넷 연결만 있으면 원격지에서도 로봇의 실시간 카메라 피드를 확인하고 자연어 명령을 전송·실행</strong>시킬 수 있는 구조를 완성했다. 이는 사족 로봇의 활용 범위를 연구실 데모를 넘어 <strong>사람의 직접 접근이 제한되는 원격지·위험 환경·무인 시설</strong> 등 실제 운용 시나리오로 확장할 수 있는 기반을 제공하며, 비전문가도 자연어만으로 로봇을 운용할 수 있다는 점에서 HRI(Human-Robot Interaction) 측면의 진입 장벽을 크게 낮춘 기여로 평가된다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section light" id="overview">
     <div class="page-shell">
       <div class="section-head">
@@ -1128,49 +1153,13 @@ img {
           <p>본 프로젝트의 핵심 기반이 된 4개의 논문 및 기술 문서를 유지했다.</p>
         </div>
       </div>
-      <div class="refs-grid">
-        <article class="ref-card">
-          <h3>[1] InternVLA-N1-DualVLN</h3>
-          <p>M. Wei, C. Wan, J. Peng, *et al.*, "Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation," *arXiv preprint* arXiv:2512.08186, 2025. <a href="https://arxiv.org/abs/2512.08186" target="_blank" rel="noreferrer">arXiv</a> <a href="https://huggingface.co/InternRobotics/InternVLA-N1-DualVLN" target="_blank" rel="noreferrer">HuggingFace</a></p>
-        </article>
-        <article class="ref-card">
-          <h3>[2] LOVON</h3>
-          <p>D. Peng, J. Cao, Q. Zhang, and J. Ma, "LOVON: Legged Open-Vocabulary Object Navigator," *arXiv preprint* arXiv:2507.06747, July 2025. <a href="https://arxiv.org/abs/2507.06747" target="_blank" rel="noreferrer">arXiv</a></p>
-        </article>
-        <article class="ref-card">
-          <h3>[3] ROSA</h3>
-          <p>R. Royce, M. Kaufmann, J. Becktor, *et al.*, "Enabling Novel Mission Operations and Interactions with ROSA: The Robot Operating System Agent," *arXiv preprint* arXiv:2410.06472, October 2024. <a href="https://arxiv.org/abs/2410.06472" target="_blank" rel="noreferrer">arXiv</a> <a href="https://github.com/nasa-jpl/rosa" target="_blank" rel="noreferrer">GitHub</a></p>
-        </article>
-        <article class="ref-card">
-          <h3>[4] Qwen3.5</h3>
-          <p>Qwen Team, "Qwen3.5: Towards Native Multimodal Agents," *Qwen Blog*, February 2026. <a href="https://qwen.ai/blog?id=qwen3.5" target="_blank" rel="noreferrer">Blog</a> <a href="https://huggingface.co/Qwen/Qwen3.5-4B" target="_blank" rel="noreferrer">HuggingFace</a></p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section dark" id="impact">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>프로젝트의 의의</h2>
-          <p>기존 index.md의 마지막 해설 문단도 누락하지 않고 그대로 유지했다.</p>
-        </div>
-      </div>
-      <div class="impact-grid">
-        <article class="impact-card">
-          <h3>1. 소형 사족 로봇 환경에 대한 VLA Foundation Model의 적응</h3>
-          <p>대규모 시뮬레이션 데이터로 학습된 최신 VLA Foundation Model은 일반적으로 휴머노이드급 시점이나 고품질 RGB-D 환경을 가정하기 때문에, 시점 높이가 낮고 카메라 사양이 제한된 소형 사족 로봇에 그대로 배포하면 성능이 저하되는 본질적 한계를 지닌다. 본 프로젝트는 LOVON의 핵심 모듈을 InternVLA-N1-DualVLN 내부에 선택적으로 통합함으로써, <strong>Foundation Model을 통째로 재학습하지 않고도 소형 사족 로봇 본체에 적응(domain adaptation)시키는 실용적 경로</strong>를 제시했다. 이는 최신 대규모 VLA 모델을 저비용 로봇 플랫폼에 이식하려는 후속 연구·개발에 직접 활용 가능한 방법론적 기여로 평가된다.</p>
-        </article>
-        <article class="impact-card">
-          <h3>2. 단일 task 시연을 넘어선 멀티태스크 통합 파이프라인</h3>
-          <p>오픈소스 InternVLA의 공개 시연이 단일 navigation task에 머물러 있는 것과 달리, 본 시스템은 <strong>Navigation, Pointing, Following, Backtracking 4종 task를 ROSA 기반 LLM 에이전트 위에 단일 파이프라인으로 통합</strong>했다. 특히 LiDAR SLAM closed-loop 기반 자율 백트래킹은 InternVLA가 본래 다루지 않는 기능을 시스템 레벨에서 확장한 사례로, foundation model을 응용 task로 확장하는 구체적 설계 예시를 제공한다.</p>
-        </article>
-        <article class="impact-card">
-          <h3>3. 자연어 기반 원격 로봇 운용 인터페이스</h3>
-          <p>자체 개발한 <strong>Go2 Monitor 웹 인터페이스</strong>와 <strong>Zenoh-bridge 기반 무선 ROS2 통신 스택</strong>을 결합함으로써, <strong>인터넷 연결만 있으면 원격지에서도 로봇의 실시간 카메라 피드를 확인하고 자연어 명령을 전송·실행</strong>시킬 수 있는 구조를 완성했다. 이는 사족 로봇의 활용 범위를 연구실 데모를 넘어 <strong>사람의 직접 접근이 제한되는 원격지·위험 환경·무인 시설</strong> 등 실제 운용 시나리오로 확장할 수 있는 기반을 제공하며, 비전문가도 자연어만으로 로봇을 운용할 수 있다는 점에서 HRI(Human-Robot Interaction) 측면의 진입 장벽을 크게 낮춘 기여로 평가된다.</p>
-        </article>
-      </div>
+      <article class="ref-card">
+        <h3>Core References</h3>
+        <p>[1] M. Wei, C. Wan, J. Peng, *et al.*, "Ground Slow, Move Fast: A Dual-System Foundation Model for Generalizable Vision-and-Language Navigation," *arXiv preprint* arXiv:2512.08186, 2025. <a href="https://arxiv.org/abs/2512.08186" target="_blank" rel="noreferrer">arXiv</a> <a href="https://huggingface.co/InternRobotics/InternVLA-N1-DualVLN" target="_blank" rel="noreferrer">HuggingFace</a></p>
+        <p>[2] D. Peng, J. Cao, Q. Zhang, and J. Ma, "LOVON: Legged Open-Vocabulary Object Navigator," *arXiv preprint* arXiv:2507.06747, July 2025. <a href="https://arxiv.org/abs/2507.06747" target="_blank" rel="noreferrer">arXiv</a></p>
+        <p>[3] R. Royce, M. Kaufmann, J. Becktor, *et al.*, "Enabling Novel Mission Operations and Interactions with ROSA: The Robot Operating System Agent," *arXiv preprint* arXiv:2410.06472, October 2024. <a href="https://arxiv.org/abs/2410.06472" target="_blank" rel="noreferrer">arXiv</a> <a href="https://github.com/nasa-jpl/rosa" target="_blank" rel="noreferrer">GitHub</a></p>
+        <p>[4] Qwen Team, "Qwen3.5: Towards Native Multimodal Agents," *Qwen Blog*, February 2026. <a href="https://qwen.ai/blog?id=qwen3.5" target="_blank" rel="noreferrer">Blog</a> <a href="https://huggingface.co/Qwen/Qwen3.5-4B" target="_blank" rel="noreferrer">HuggingFace</a></p>
+      </article>
     </div>
   </section>
 </main>
