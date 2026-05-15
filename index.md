@@ -1,4 +1,4 @@
----
+﻿---
 title: Capstone 41
 ---
 
@@ -397,19 +397,24 @@ title: Capstone 41
     font-size: 0.96rem;
   }
 
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
+    .team-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
   }
 
-  .member {
+    .member {
     border-radius: 24px;
     overflow: hidden;
     border: 1px solid var(--line);
     background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
     display: grid;
     min-height: 100%;
+    flex: 0 0 calc((100% - 60px) / 6);
+    min-width: 180px;
   }
 
   .member img {
@@ -420,49 +425,48 @@ title: Capstone 41
     border-bottom: 1px solid var(--line);
   }
 
-  .member .body {
-    padding: 18px;
+    .member .body {
+    padding: 14px;
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
-  .member h3 {
+    .member h3 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
-  .member .role {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(36, 87, 255, 0.08);
-    color: var(--accent);
-    font-size: 0.88rem;
-    font-weight: 700;
+    .member .role {
+    display: block;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
   }
 
-  .member p {
+    .member p {
     margin: 0;
     color: var(--muted);
-    line-height: 1.75;
-    font-size: 0.95rem;
+    line-height: 1.55;
+    font-size: 0.84rem;
   }
 
-  .member .link {
-    margin-top: 4px;
+    .member .link {
+    margin-top: 2px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 14px;
+    padding: 8px 10px;
     border-radius: 12px;
     border: 1px solid var(--line);
     background: #fff;
     color: var(--text);
     text-decoration: none;
     font-weight: 700;
+    font-size: 0.85rem;
   }
 
   .references ol {
@@ -603,52 +607,52 @@ title: Capstone 41
 <main class="page-shell">
   <section class="hero">
     <div>
-      <span class="eyebrow">Capstone Project 41 · Vision-Language-Action Robotics</span>
-      <h1>VLA 기반 ?�족 로봇<br>?�합 ?�율 ?�스??/h1>
+      <span class="eyebrow">Capstone Project 41 쨌 Vision-Language-Action Robotics</span>
+      <h1>VLA 湲곕컲 ?ъ” 濡쒕큸<br>?듯빀 ?먯쑉 ?쒖뒪??/h1>
       <p class="lead">
-        �??�로?�트??<strong>Unitree Go2</strong> ?�족 보행 로봇??최신 Vision-Language-Action
-        모델??<strong>InternVLA-N1-DualVLN</strong>???�식?? ?�연??명령만으�?로봇??        ?�각 ?�보�??�석?�고 ?�제 ?�경?�서 ?�율 주행?�도�?만드??것을 목표�??�니??
-        기존 VLA 모델???�경 ?�차�?보완?�기 ?�해 LOVON, ROSA, LiDAR SLAM, YOLO�??�께
-        ??�� ?�나???�합 ?�이?�라?�으�?구성?�습?�다.
+        蹂??꾨줈?앺듃??<strong>Unitree Go2</strong> ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 Vision-Language-Action
+        紐⑤뜽??<strong>InternVLA-N1-DualVLN</strong>???댁떇?? ?먯뿰??紐낅졊留뚯쑝濡?濡쒕큸??        ?쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍?먯꽌 ?먯쑉 二쇳뻾?섎룄濡?留뚮뱶??寃껋쓣 紐⑺몴濡??⑸땲??
+        湲곗〈 VLA 紐⑤뜽???섍꼍 ?몄감瑜?蹂댁셿?섍린 ?꾪빐 LOVON, ROSA, LiDAR SLAM, YOLO瑜??④퍡
+        ??뼱 ?섎굹???듯빀 ?뚯씠?꾨씪?몄쑝濡?援ъ꽦?덉뒿?덈떎.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#overview">?�로?�트 개요</a>
-        <a class="btn btn-secondary" href="#architecture">?�스???�키?�처</a>
+        <a class="btn btn-primary" href="#overview">?꾨줈?앺듃 媛쒖슂</a>
+        <a class="btn btn-secondary" href="#architecture">?쒖뒪???꾪궎?띿쿂</a>
       </div>
 
       <div class="stats-grid">
         <div class="stat">
           <span class="num">4</span>
-          <span class="label">?�심 ?�스??br>Navigation, Pointing, Following, Backtracking</span>
+          <span class="label">?듭떖 ?쒖뒪??br>Navigation, Pointing, Following, Backtracking</span>
         </div>
         <div class="stat">
           <span class="num">1</span>
-          <span class="label">공통 VLA 기반<br>?�러 ?�스?��? ?�일 ?�이?�라?�으�??�결</span>
+          <span class="label">怨듯넻 VLA 湲곕컲<br>?щ윭 ?쒖뒪?щ? ?⑥씪 ?뚯씠?꾨씪?몄쑝濡??곌껐</span>
         </div>
         <div class="stat">
           <span class="num">3+</span>
-          <span class="label">주요 ?�드?�어<br>Go2, D435, LiDAR ??/span>
+          <span class="label">二쇱슂 ?섎뱶?⑥뼱<br>Go2, D435, LiDAR ??/span>
         </div>
         <div class="stat">
           <span class="num">100%</span>
-          <span class="label">교체 가??구조<br>?��?지, 링크, ??��???�게 ?�데?�트</span>
+          <span class="label">援먯껜 媛??援ъ“<br>?대?吏, 留곹겕, ??븷???쎄쾶 ?낅뜲?댄듃</span>
         </div>
       </div>
     </div>
 
     <div class="hero-stack">
       <div class="hero-card">
-        <img src="image/go2.jpg" alt="Unitree Go2 ?�진">
+        <img src="image/go2.jpg" alt="Unitree Go2 ?ъ쭊">
       </div>
       <div class="hero-mini-grid">
         <div class="mini">
-          <strong>???�요?��?</strong>
-          <span>?�머?�이?�나 고정??카메???�경??맞춰�?VLA 모델???�족 로봇??그�?�??�면 ?�능???�어집니??</span>
+          <strong>???꾩슂?쒓?</strong>
+          <span>?대㉧?몄씠?쒕굹 怨좎젙??移대찓???섍꼍??留욎떠吏?VLA 紐⑤뜽???ъ” 濡쒕큸??洹몃?濡??곕㈃ ?깅뒫???⑥뼱吏묐땲??</span>
         </div>
         <div class="mini">
-          <strong>?�떻�??�결?�나</strong>
-          <span>LOVON 구조 ?��??� ROSA ?�이?�트�?결합???�경 ?�차�?줄이�?task 분해�??�정?�합?�다.</span>
+          <strong>?대뼸寃??닿껐?섎굹</strong>
+          <span>LOVON 援ъ“ ?쇰?? ROSA ?먯씠?꾪듃瑜?寃고빀???섍꼍 ?몄감瑜?以꾩씠怨?task 遺꾪빐瑜??덉젙?뷀빀?덈떎.</span>
         </div>
       </div>
     </div>
@@ -657,31 +661,31 @@ title: Capstone 41
   <section class="section" id="overview">
     <div class="section-head">
       <div>
-        <h2>?�로?�트 개요</h2>
-        <p>?�래 ?�개 ?�이지???�심 ?�용?????�기 ?�게 ?�리??버전?�니?? �??�명?� 문단?�로, ?�심 ?�인?�는 카드�??�눴?�니??</p>
+        <h2>?꾨줈?앺듃 媛쒖슂</h2>
+        <p>?먮옒 ?뚭컻 ?섏씠吏???듭떖 ?댁슜?????쎄린 ?쎄쾶 ?뺣━??踰꾩쟾?낅땲?? 湲??ㅻ챸? 臾몃떒?쇰줈, ?듭떖 ?ъ씤?몃뒗 移대뱶濡??섎댋?듬땲??</p>
       </div>
     </div>
 
     <div class="overview-grid">
       <div class="text-panel">
-        <h3>무엇??만들?�나</h3>
+        <h3>臾댁뾿??留뚮뱾?덈굹</h3>
         <p>
-          �??�로?�트??Unitree Go2 ?�족 보행 로봇??최신 VLA 모델??InternVLA-N1-DualVLN??          ?�식?�여, ?�람??말하???�연??명령만으�?로봇???�각 ?�보�??�석?�고 ?�제 ?�경??          ?�율 주행?�도�?구현???�합 ?�율 ?�스?�입?�다.
+          蹂??꾨줈?앺듃??Unitree Go2 ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 VLA 紐⑤뜽??InternVLA-N1-DualVLN??          ?댁떇?섏뿬, ?щ엺??留먰븯???먯뿰??紐낅졊留뚯쑝濡?濡쒕큸???쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍??          ?먯쑉 二쇳뻾?섎룄濡?援ы쁽???듯빀 ?먯쑉 ?쒖뒪?쒖엯?덈떎.
         </p>
         <p class="desc">
-          ?�순??모델??붙이???�서 ?�나지 ?�고, ROSA ?�이?�트�??�해 명령??분해?�고,
-          LOVON ?��? 구조�?차용??로봇 본체�??�경 차이�?줄이�? LiDAR SLAM�?YOLO�?          ?�께 ?�용???�환�?주행 ?�정?�을 ?��??�니??
+          ?⑥닚??紐⑤뜽??遺숈씠???곗꽌 ?앸굹吏 ?딄퀬, ROSA ?먯씠?꾪듃瑜??듯빐 紐낅졊??遺꾪빐?섍퀬,
+          LOVON ?쇰? 援ъ“瑜?李⑥슜??濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠瑜?以꾩씠硫? LiDAR SLAM怨?YOLO瑜?          ?④퍡 ?ъ슜???ㅽ솚寃?二쇳뻾 ?덉젙?깆쓣 ?믪??듬땲??
         </p>
       </div>
       <div class="text-panel">
-        <h3>???��?가 ?�나</h3>
+        <h3>???섎?媛 ?덈굹</h3>
         <p>
-          기존 VLA 모델?��? ?�체로 ?�머?�이?�급 ?�점?�나 고품�?카메???�경???�제�?만들?�져 ?�어,
-          ?��? ?�족 로봇처럼 본체가 ?�른 ?�경??그�?�???���??�능???�어집니??
+          湲곗〈 VLA 紐⑤뜽?ㅼ? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?移대찓???섍꼍???꾩젣濡?留뚮뱾?댁졇 ?덉뼱,
+          ?묒? ?ъ” 濡쒕큸泥섎읆 蹂몄껜媛 ?ㅻⅨ ?섍꼍??洹몃?濡???린硫??깅뒫???⑥뼱吏묐땲??
         </p>
         <p class="desc">
-          ?�리???�러??로봇 본체�??�경 차이�?보정?�기 ?�해 LOVON 구조�?InternVLA?�
-          결합?�고, ROSA ?�이?�트�??�해 명령??분해?�는 방식?�로 ?�스???�벨 개선???�행?�습?�다.
+          ?곕━???대윭??濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠瑜?蹂댁젙?섍린 ?꾪빐 LOVON 援ъ“瑜?InternVLA?
+          寃고빀?섍퀬, ROSA ?먯씠?꾪듃瑜??듯빐 紐낅졊??遺꾪빐?섎뒗 諛⑹떇?쇰줈 ?쒖뒪???덈꺼 媛쒖꽑???섑뻾?덉뒿?덈떎.
         </p>
       </div>
     </div>
@@ -690,38 +694,38 @@ title: Capstone 41
   <section class="section" id="features">
     <div class="section-head">
       <div>
-        <h2>?�심 기능</h2>
-        <p>?�일 task ?�연???�니?? ??가지 기능???�나???�이?�라?�으�??�합??것이 ?�심?�니??</p>
+        <h2>?듭떖 湲곕뒫</h2>
+        <p>?⑥씪 task ?쒖뿰???꾨땲?? ??媛吏 湲곕뒫???섎굹???뚯씠?꾨씪?몄쑝濡??듯빀??寃껋씠 ?듭떖?낅땲??</p>
       </div>
     </div>
 
     <div class="feature-grid">
       <article class="feature">
-        <img src="assets/images/feature-navigation.svg" alt="Navigation 기능 ?��?지">
+        <img src="assets/images/feature-navigation.svg" alt="Navigation 湲곕뒫 ?대?吏">
         <div class="body">
           <h3>Navigation</h3>
-          <p>?�연??명령??받아 ?�경 ??목표 지?�까지 ?�율 주행?�니?? InternVLA-N1-DualVLN??카메???��?지?� 명령???�시???�석??pixel goal??출력?�면, 로봇??그에 맞춰 ?�동?�니??</p>
+          <p>?먯뿰??紐낅졊??諛쏆븘 ?섍꼍 ??紐⑺몴 吏?먭퉴吏 ?먯쑉 二쇳뻾?⑸땲?? InternVLA-N1-DualVLN??移대찓???대?吏? 紐낅졊???숈떆???댁꽍??pixel goal??異쒕젰?섎㈃, 濡쒕큸??洹몄뿉 留욎떠 ?대룞?⑸땲??</p>
         </div>
       </article>
       <article class="feature">
-        <img src="assets/images/feature-pointing.svg" alt="Pointing 기능 ?��?지">
+        <img src="assets/images/feature-pointing.svg" alt="Pointing 湲곕뒫 ?대?吏">
         <div class="body">
           <h3>Pointing</h3>
-          <p>?��?지 ???�정 객체�?지?�하�?로봇???�당 객체�??�합?�다. 객체 지???�보�?pixel goal�?변?�해 InternVLA???�달?�는 방식?�니??</p>
+          <p>?대?吏 ???뱀젙 媛앹껜瑜?吏?쒗븯硫?濡쒕큸???대떦 媛앹껜濡??ν빀?덈떎. 媛앹껜 吏???뺣낫瑜?pixel goal濡?蹂?섑빐 InternVLA???꾨떖?섎뒗 諛⑹떇?낅땲??</p>
         </div>
       </article>
       <article class="feature">
-        <img src="assets/images/feature-following.svg" alt="Following 기능 ?��?지">
+        <img src="assets/images/feature-following.svg" alt="Following 湲곕뒫 ?대?吏">
         <div class="body">
           <h3>Following</h3>
-          <p>?�람?�나 물체�?지?�적?�로 추종?�니?? YOLO 객체 검�?결과�?pixel goal ?�력?�로 ?�용?�며, LOVON???��? 구조�?차용??모션 블러?� ?�??추종 ?�경?�서???�정?�으�??�작?�도�?개선?�습?�다.</p>
+          <p>?щ엺?대굹 臾쇱껜瑜?吏?띿쟻?쇰줈 異붿쥌?⑸땲?? YOLO 媛앹껜 寃異?寃곌낵瑜?pixel goal ?낅젰?쇰줈 ?ъ슜?섎ŉ, LOVON???쇰? 援ъ“瑜?李⑥슜??紐⑥뀡 釉붾윭? ???異붿쥌 ?섍꼍?먯꽌???덉젙?곸쑝濡??숈옉?섎룄濡?媛쒖꽑?덉뒿?덈떎.</p>
         </div>
       </article>
       <article class="feature">
-        <img src="assets/images/feature-backtracking.svg" alt="Backtracking 기능 ?��?지">
+        <img src="assets/images/feature-backtracking.svg" alt="Backtracking 湲곕뒫 ?대?吏">
         <div class="body">
           <h3>Backtracking</h3>
-          <p>LiDAR SLAM 기반 closed-loop ?�어�?과거??지?�온 경로�??�동?�로 ?�짚???�아?�니?? ?�내 ?�율주행?�서 ?�정?�을 ?�이???�심 기능?�니??</p>
+          <p>LiDAR SLAM 湲곕컲 closed-loop ?쒖뼱濡?怨쇨굅??吏?섏삩 寃쎈줈瑜??먮룞?쇰줈 ?섏쭦???뚯븘?듬땲?? ?ㅻ궡 ?먯쑉二쇳뻾?먯꽌 ?덉젙?깆쓣 ?믪씠???듭떖 湲곕뒫?낅땲??</p>
         </div>
       </article>
     </div>
@@ -730,27 +734,27 @@ title: Capstone 41
   <section class="section" id="architecture">
     <div class="section-head">
       <div>
-        <h2>?�스???�키?�처</h2>
-        <p>?�제 ?�키?�처 ?��?지�??�중??교체?????�도�??�시 ?�리�?마련?�습?�다. ?�른�??�명?� �??�로?�트??주요 모듈???�약???�용?�니??</p>
+        <h2>?쒖뒪???꾪궎?띿쿂</h2>
+        <p>?ㅼ젣 ?꾪궎?띿쿂 ?대?吏瑜??섏쨷??援먯껜?????덈룄濡??꾩떆 ?먮━瑜?留덈젴?덉뒿?덈떎. ?ㅻⅨ履??ㅻ챸? 蹂??꾨줈?앺듃??二쇱슂 紐⑤뱢???붿빟???댁슜?낅땲??</p>
       </div>
     </div>
 
     <div class="architecture-layout">
       <div class="arch-card">
-        <img src="assets/images/architecture-placeholder.svg" alt="?�스???�키?�처 ?�시 ?��?지">
+        <img src="assets/images/architecture-placeholder.svg" alt="?쒖뒪???꾪궎?띿쿂 ?꾩떆 ?대?吏">
       </div>
       <div class="arch-notes">
         <div class="note">
-          <strong>베이??모델: InternVLA-N1-DualVLN</strong>
-          <span>System1(?�?��? ?�어) + System2(고수준 ?�사결정)??dual-system 구조�?가�?VLA foundation model???�용?�니??</span>
+          <strong>踰좎씠??紐⑤뜽: InternVLA-N1-DualVLN</strong>
+          <span>System1(??섏? ?쒖뼱) + System2(怨좎닔以 ?섏궗寃곗젙)??dual-system 援ъ“瑜?媛吏?VLA foundation model???쒖슜?⑸땲??</span>
         </div>
         <div class="note">
-          <strong>LOVON 부�?결합</strong>
-          <span>LOVON 모델 ?�체�?그�?�??��? ?�고, 구조?� 모델 ?��?�?차용??InternVLA ?��???결합?�습?�다.</span>
+          <strong>LOVON 遺遺?寃고빀</strong>
+          <span>LOVON 紐⑤뜽 ?꾩껜瑜?洹몃?濡??곗? ?딄퀬, 援ъ“? 紐⑤뜽 ?쇰?瑜?李⑥슜??InternVLA ?대???寃고빀?덉뒿?덈떎.</span>
         </div>
         <div class="note">
-          <strong>보조 모듈</strong>
-          <span>LiDAR SLAM Runner, ROSA Agent + Qwen3.5-4B, YOLO ?�력?�을 ?�께 ?�결??4가지 ?�스?��? ?�나???�름?�로 만듭?�다.</span>
+          <strong>蹂댁“ 紐⑤뱢</strong>
+          <span>LiDAR SLAM Runner, ROSA Agent + Qwen3.5-4B, YOLO ?낅젰?⑥쓣 ?④퍡 ?곌껐??4媛吏 ?쒖뒪?щ? ?섎굹???먮쫫?쇰줈 留뚮벊?덈떎.</span>
         </div>
       </div>
     </div>
@@ -759,23 +763,23 @@ title: Capstone 41
   <section class="section">
     <div class="section-head">
       <div>
-        <h2>?�스??구성 ?�소</h2>
-        <p>?�개 ?�이지?�서 가??길고 ?�딱?��?�??�운 부분이?? 카드�??�눠???�심�?보이�??�리?�습?�다.</p>
+        <h2>?쒖뒪??援ъ꽦 ?붿냼</h2>
+        <p>?뚭컻 ?섏씠吏?먯꽌 媛??湲멸퀬 ?깅뵳?댁?湲??ъ슫 遺遺꾩씠?? 移대뱶濡??섎닠???듭떖留?蹂댁씠寃??뺣━?덉뒿?덈떎.</p>
       </div>
     </div>
 
     <div class="impact-grid">
       <div class="text-panel">
-        <h3>베이??모델</h3>
-        <p>InternVLA-N1-DualVLN?� System1�?System2�?결합??dual-system VLA foundation model?�며, �??�로?�트??주된 추론 ?�진?�니??</p>
+        <h3>踰좎씠??紐⑤뜽</h3>
+        <p>InternVLA-N1-DualVLN? System1怨?System2瑜?寃고빀??dual-system VLA foundation model?대ŉ, 蹂??꾨줈?앺듃??二쇰맂 異붾줎 ?붿쭊?낅땲??</p>
       </div>
       <div class="text-panel">
-        <h3>?�동 분해</h3>
-        <p>ROSA Agent???�연??명령??tool ?�위�?분해??Navigation, Pointing, Following, Backtracking �??�요??기능???�출?�니??</p>
+        <h3>?됰룞 遺꾪빐</h3>
+        <p>ROSA Agent???먯뿰??紐낅졊??tool ?⑥쐞濡?遺꾪빐??Navigation, Pointing, Following, Backtracking 以??꾩슂??湲곕뒫???몄텧?⑸땲??</p>
       </div>
       <div class="text-panel">
-        <h3>?�각 ?�력</h3>
-        <p>YOLO 결과�?pixel goal ?�태�?주입?? VLA�??�체 ?�학?�하지 ?�아???�로??task�?추�??????�도�??�계?�습?�다.</p>
+        <h3>?쒓컖 ?낅젰</h3>
+        <p>YOLO 寃곌낵瑜?pixel goal ?뺥깭濡?二쇱엯?? VLA瑜??꾩껜 ?ы븰?듯븯吏 ?딆븘???덈줈??task瑜?異붽??????덈룄濡??ㅺ퀎?덉뒿?덈떎.</p>
       </div>
     </div>
   </section>
@@ -783,33 +787,33 @@ title: Capstone 41
   <section class="section" id="equipment">
     <div class="section-head">
       <div>
-        <h2>?�용 ?�비?� 모델</h2>
-        <p>?�드?�어, 모델, ?�레?�워?��? ???�면??묶어 보여주면 캡스???�개 ?�이지???�득?�이 ??좋아집니??</p>
+        <h2>?ъ슜 ?λ퉬? 紐⑤뜽</h2>
+        <p>?섎뱶?⑥뼱, 紐⑤뜽, ?꾨젅?꾩썙?щ? ???붾㈃??臾띠뼱 蹂댁뿬二쇰㈃ 罹≪뒪???뚭컻 ?섏씠吏???ㅻ뱷?μ씠 ??醫뗭븘吏묐땲??</p>
       </div>
     </div>
 
     <div class="device-grid">
       <article class="device">
-        <img src="image/go2.jpg" alt="Unitree Go2 ?�진">
+        <img src="image/go2.jpg" alt="Unitree Go2 ?ъ쭊">
         <div class="body">
           <h3>Unitree Go2</h3>
-          <p>주행 ?�랫?�으�??�용?�는 4�?보행 로봇?�니?? ?�장 Jetson Orin�??�장 LiDAR�??�용???�환�??�율 주행???�행?�니??</p>
+          <p>二쇳뻾 ?뚮옯?쇱쑝濡??ъ슜?섎뒗 4議?蹂댄뻾 濡쒕큸?낅땲?? ?댁옣 Jetson Orin怨??댁옣 LiDAR瑜??쒖슜???ㅽ솚寃??먯쑉 二쇳뻾???섑뻾?⑸땲??</p>
         </div>
       </article>
 
       <article class="device">
-        <img src="assets/images/realsense-d435-placeholder.svg" alt="Intel RealSense D435 ?�시 ?��?지">
+        <img src="assets/images/realsense-d435-placeholder.svg" alt="Intel RealSense D435 ?꾩떆 ?대?吏">
         <div class="body">
           <h3>Intel RealSense D435</h3>
-          <p>RGB-D ?�력???�한 카메?�입?�다. 객체 ?�식, 거리 추정, ?�각 ?�보 ?�집, ?�블?�링 ?�이?�라?�에 ?�용?�니??</p>
+          <p>RGB-D ?낅젰???꾪븳 移대찓?쇱엯?덈떎. 媛앹껜 ?몄떇, 嫄곕━ 異붿젙, ?쒓컖 ?뺣낫 ?섏쭛, ?붾툝?щ쭅 ?뚯씠?꾨씪?몄뿉 ?쒖슜?⑸땲??</p>
         </div>
       </article>
 
       <article class="device">
-        <img src="assets/images/lidar-placeholder.svg" alt="LiDAR ?�시 ?��?지">
+        <img src="assets/images/lidar-placeholder.svg" alt="LiDAR ?꾩떆 ?대?吏">
         <div class="body">
           <h3>LiDAR / SLAM</h3>
-          <p>?�시�?SLAM 기반 closed-loop ?�어�??�해 과거 경로�?복원?�고, ?�율 Backtracking 기능???�정?�으�??�행?�니??</p>
+          <p>?ㅼ떆媛?SLAM 湲곕컲 closed-loop ?쒖뼱瑜??듯빐 怨쇨굅 寃쎈줈瑜?蹂듭썝?섍퀬, ?먯쑉 Backtracking 湲곕뒫???덉젙?곸쑝濡??섑뻾?⑸땲??</p>
         </div>
       </article>
     </div>
@@ -818,101 +822,101 @@ title: Capstone 41
     <section class="section" id="team">
     <div class="section-head">
       <div>
-        <h2>�� ������ ����</h2>
-        <p>���� ������ GitHub ��ũ�� ���� �ΰ�, ������ �ϴ� ��� �� �����Դϴ�. ���߿� ���ϴ� ���Ҹ����� �ٷ� ä�� �� �ֽ��ϴ�.</p>
+        <h2>팀 구성과 역할</h2>
+        <p>팀원 사진과 GitHub 링크만 먼저 두고, 역할은 일단 비워 둔 상태입니다. 나중에 원하는 역할명으로 바로 채울 수 있습니다.</p>
       </div>
     </div>
 
     <div class="team-grid">
       <article class="member">
-        <img src="assets/images/avatar-1.svg" alt="���� 1 ������ ����">
+        <img src="assets/images/avatar-1.svg" alt="팀원 1 프로필 사진">
         <div class="body">
-          <h3>�ӹμ�</h3>
+          <h3>임민석</h3>
           <span class="role"></span>
-          <p>��ü ���� ����, ��ǥ ����, �ý��� ����, ���� ������ ����մϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-1" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>전체 일정 관리, 발표 구성, 시스템 통합, 최종 정리를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-1" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
 
       <article class="member">
-        <img src="assets/images/avatar-2.svg" alt="���� 2 ������ ����">
+        <img src="assets/images/avatar-2.svg" alt="팀원 2 프로필 사진">
         <div class="body">
-          <h3>������</h3>
+          <h3>조원영</h3>
           <span class="role"></span>
-          <p>Go2 ����, ���� ����, ���� ���� �� �Ǳ�� �׽�Ʈ�� ����մϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-2" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>Go2 제어, 주행 로직, 센서 연결 및 실기기 테스트를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-2" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
 
       <article class="member">
-        <img src="assets/images/avatar-3.svg" alt="���� 3 ������ ����">
+        <img src="assets/images/avatar-3.svg" alt="팀원 3 프로필 사진">
         <div class="body">
-          <h3>������</h3>
+          <h3>정유진</h3>
           <span class="role"></span>
-          <p>VLA �� ����, ������Ʈ ����, ��ü �ν� �� �ൿ ���� ��Ʈ�� �ý��ϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-3" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>VLA 모델 적용, 프롬프트 설계, 객체 인식 및 행동 생성 파트를 맡습니다.</p>
+          <a class="link" href="https://github.com/your-github-id-3" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
 
       <article class="member">
-        <img src="assets/images/avatar-4.svg" alt="���� 4 ������ ����">
+        <img src="assets/images/avatar-4.svg" alt="팀원 4 프로필 사진">
         <div class="body">
-          <h3>�����</h3>
+          <h3>성재승</h3>
           <span class="role"></span>
-          <p>LiDAR SLAM, ��� ����, ���� Backtracking ����� ����մϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-4" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>LiDAR SLAM, 경로 복원, 자율 Backtracking 모듈을 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-4" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
 
       <article class="member">
-        <img src="assets/images/avatar-1.svg" alt="���� 5 ������ ����">
+        <img src="assets/images/avatar-1.svg" alt="팀원 5 프로필 사진">
         <div class="body">
-          <h3>������</h3>
+          <h3>유리안</h3>
           <span class="role"></span>
-          <p>ROSA Agent�� Qwen3.5-4B ����, tool ����, �ڿ��� �������̽��� ����մϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-5" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>ROSA Agent와 Qwen3.5-4B 연동, tool 분해, 자연어 인터페이스를 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-5" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
 
       <article class="member">
-        <img src="assets/images/avatar-2.svg" alt="���� 6 ������ ����">
+        <img src="assets/images/avatar-2.svg" alt="팀원 6 프로필 사진">
         <div class="body">
-          <h3>������</h3>
+          <h3>조유빈</h3>
           <span class="role"></span>
-          <p>��ǥ �ڷ�, ������ ������, ���� ������ �ڷ� ��ī�̺��� ����մϴ�.</p>
-          <a class="link" href="https://github.com/your-github-id-6" target="_blank" rel="noreferrer">GitHub ����</a>
+          <p>발표 자료, 페이지 디자인, 문서 정리와 자료 아카이빙을 담당합니다.</p>
+          <a class="link" href="https://github.com/your-github-id-6" target="_blank" rel="noreferrer">GitHub 연동</a>
         </div>
       </article>
     </div>
 
     <div class="footer-note">
-      ������ �� �þ�� ī�常 �����ϸ� �˴ϴ�. �� ī���� GitHub ��ũ�� ���� ������ �°� �ٲٸ� �ٷ� �����˴ϴ�.
+      팀원이 더 늘어나면 카드만 복제하면 됩니다. 각 카드의 GitHub 링크는 개인 계정에 맞게 바꾸면 바로 연동됩니다.
     </div>
   </section>
 
   <section class="section">
     <div class="section-head">
       <div>
-        <h2>진행 ?�?�라??/h2>
-        <p>?�본 ?�이지???�던 ?�별 진행 ?�역??조금 ??보기 좋게 ?�리?�습?�다.</p>
+        <h2>吏꾪뻾 ??꾨씪??/h2>
+        <p>?먮낯 ?섏씠吏???덈뜕 ?붾퀎 吏꾪뻾 ?댁뿭??議곌툑 ??蹂닿린 醫뗪쾶 ?뺣━?덉뒿?덈떎.</p>
       </div>
     </div>
 
     <div class="timeline-grid">
       <div class="text-panel">
         <span class="timeline-month">3??/span>
-        <h3>?�경 구축 �?베이?�라???�색</h3>
-        <p class="desc">?�로?�트 방향??결정, ROS2/Zenoh 무선 ?�신 ?�업, InternVLA·LOVON ?�현, 1�??�연 발표�?진행?�습?�다.</p>
+        <h3>?섍꼍 援ъ텞 諛?踰좎씠?ㅻ씪???먯깋</h3>
+        <p class="desc">?꾨줈?앺듃 諛⑺뼢??寃곗젙, ROS2/Zenoh 臾댁꽑 ?듭떊 ?뗭뾽, InternVLA쨌LOVON ?ы쁽, 1李??쒖뿰 諛쒗몴瑜?吏꾪뻾?덉뒿?덈떎.</p>
       </div>
       <div class="text-panel">
         <span class="timeline-month">4??/span>
-        <h3>?�심 기능 구현</h3>
-        <p class="desc">InternVLA??Following??결합?�는 방향?�을 ?�정?�고, LOVON ?��? 구조 차용, ?�블?�링, LiDAR SLAM 기반 ?�율 Backtracking??구현?�습?�다.</p>
+        <h3>?듭떖 湲곕뒫 援ы쁽</h3>
+        <p class="desc">InternVLA??Following??寃고빀?섎뒗 諛⑺뼢?깆쓣 ?뺤젙?섍퀬, LOVON ?쇰? 援ъ“ 李⑥슜, ?붾툝?щ쭅, LiDAR SLAM 湲곕컲 ?먯쑉 Backtracking??援ы쁽?덉뒿?덈떎.</p>
       </div>
       <div class="text-panel">
         <span class="timeline-month">5??/span>
-        <h3>?�합·?��?·?�문??/h3>
-        <p class="desc">Pointing 기능 추�?, ?�체 코드 병합, ROSA??Qwen3.5-4B ?�결, ROS2 ?�구 개선, Task Planner ?�합 ???�량 ?��??� ?�문 초안 ?�성???�어갔습?�다.</p>
+        <h3>?듯빀쨌?됯?쨌?쇰Ц??/h3>
+        <p class="desc">Pointing 湲곕뒫 異붽?, ?꾩껜 肄붾뱶 蹂묓빀, ROSA??Qwen3.5-4B ?곌껐, ROS2 ?꾧뎄 媛쒖꽑, Task Planner ?듯빀 ???뺣웾 ?됯?? ?쇰Ц 珥덉븞 ?묒꽦???ㅼ뼱媛붿뒿?덈떎.</p>
       </div>
     </div>
   </section>
@@ -920,31 +924,31 @@ title: Capstone 41
   <section class="section">
     <div class="section-head">
       <div>
-        <h2>기술 ?�택</h2>
-        <p>?�용??많아 보여???�제로는 ?�드?�어, 모델, ?�프?�웨?? 미들?�어, ?��??�이???�도�?묶어??보면 ?�해가 ?�습?�다.</p>
+        <h2>湲곗닠 ?ㅽ깮</h2>
+        <p>?댁슜??留롮븘 蹂댁뿬???ㅼ젣濡쒕뒗 ?섎뱶?⑥뼱, 紐⑤뜽, ?뚰봽?몄썾?? 誘몃뱾?⑥뼱, ?쒕??덉씠???뺣룄濡?臾띠뼱??蹂대㈃ ?댄빐媛 ?쎌뒿?덈떎.</p>
       </div>
     </div>
 
     <div class="stack-grid">
       <div class="text-panel">
-        <h3>?�드?�어</h3>
+        <h3>?섎뱶?⑥뼱</h3>
         <ul>
-          <li>Unitree Go2: 4�?보행 로봇, ?�장 Jetson Orin / ?�장 LiDAR</li>
-          <li>Intel RealSense D435: RGB-D 카메??/li>
-          <li>RTX 3090: ?�습 �?추론??GPU</li>
+          <li>Unitree Go2: 4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</li>
+          <li>Intel RealSense D435: RGB-D 移대찓??/li>
+          <li>RTX 3090: ?숈뒿 諛?異붾줎??GPU</li>
         </ul>
       </div>
       <div class="text-panel">
-        <h3>모델·AI</h3>
+        <h3>紐⑤뜽쨌AI</h3>
         <ul>
-          <li>InternVLA-N1-DualVLN: 메인 VLA</li>
-          <li>LOVON: ?��? 구조 차용</li>
+          <li>InternVLA-N1-DualVLN: 硫붿씤 VLA</li>
+          <li>LOVON: ?쇰? 援ъ“ 李⑥슜</li>
           <li>Qwen3.5-4B: ROSA agent??LLM</li>
-          <li>YOLO: 객체 검�?/li>
+          <li>YOLO: 媛앹껜 寃異?/li>
         </ul>
       </div>
       <div class="text-panel">
-        <h3>?�프?�웨??/h3>
+        <h3>?뚰봽?몄썾??/h3>
         <ul>
           <li>Python + PyTorch</li>
           <li>vLLM</li>
@@ -959,23 +963,23 @@ title: Capstone 41
   <section class="section">
     <div class="section-head">
       <div>
-        <h2>?�로?�트???�의</h2>
-        <p>?�래 문서???�쪽???�던 ?�문???�명???�개 ?�이지 ?�으�??�시 ?�리?�습?�다.</p>
+        <h2>?꾨줈?앺듃???섏쓽</h2>
+        <p>?먮옒 臾몄꽌???ㅼそ???덈뜕 ?쇰Ц???ㅻ챸???뚭컻 ?섏씠吏 ?ㅼ쑝濡??ㅼ떆 ?뺣━?덉뒿?덈떎.</p>
       </div>
     </div>
 
     <div class="impact-grid">
       <div class="text-panel">
-        <h3>1. ?�형 ?�족 로봇 ?�경???�???�응</h3>
-        <p>?�규모 ?��??�이???�이?�로 ?�습??VLA 모델?� ?�체로 ?�머?�이?�급 ?�점?�나 고품�?RGB-D ?�경??가?�합?�다. �??�로?�트??LOVON???�심 모듈??InternVLA-N1-DualVLN ?��????�택?�으�??�합?? ?�형 ?�족 로봇 본체???�응?�는 ?�용??경로�??�시?�습?�다.</p>
+        <h3>1. ?뚰삎 ?ъ” 濡쒕큸 ?섍꼍??????곸쓳</h3>
+        <p>?洹쒕え ?쒕??덉씠???곗씠?곕줈 ?숈뒿??VLA 紐⑤뜽? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?RGB-D ?섍꼍??媛?뺥빀?덈떎. 蹂??꾨줈?앺듃??LOVON???듭떖 紐⑤뱢??InternVLA-N1-DualVLN ?대????좏깮?곸쑝濡??듯빀?? ?뚰삎 ?ъ” 濡쒕큸 蹂몄껜???곸쓳?섎뒗 ?ㅼ슜??寃쎈줈瑜??쒖떆?덉뒿?덈떎.</p>
       </div>
       <div class="text-panel">
-        <h3>2. ?�일 task�??�어??멀?�태?�크 ?�합</h3>
-        <p>Navigation, Pointing, Following, Backtracking 4�?task�?ROSA 기반 LLM ?�이?�트 ?�에 ?�나???�이?�라?�으�?묶었?�니?? ?��? ?�해 foundation model???�제 task?�서 ?�떻�??�장?????�는지 보여줍니??</p>
+        <h3>2. ?⑥씪 task瑜??섏뼱??硫?고깭?ㅽ겕 ?듯빀</h3>
+        <p>Navigation, Pointing, Following, Backtracking 4醫?task瑜?ROSA 湲곕컲 LLM ?먯씠?꾪듃 ?꾩뿉 ?섎굹???뚯씠?꾨씪?몄쑝濡?臾띠뿀?듬땲?? ?대? ?듯빐 foundation model???ㅼ젣 task?먯꽌 ?대뼸寃??뺤옣?????덈뒗吏 蹂댁뿬以띾땲??</p>
       </div>
       <div class="text-panel">
-        <h3>3. ?�율 로봇 ?�스?�의 ?�터?�이??/h3>
-        <p>Go2 Monitor ?�터?�이?��? Zenoh-bridge 기반 무선 ROS2 ?�신??결합?? ?�장 ?�결만으�?로봇 ?�태�??�인?�고 명령???�송·?�행?????�는 구조�?만들?�습?�다. ?�는 HRI 관?�에?�도 중요??기반???�니??</p>
+        <h3>3. ?먯쑉 濡쒕큸 ?쒖뒪?쒖쓽 ?명꽣?섏씠??/h3>
+        <p>Go2 Monitor ?명꽣?섏씠?ㅼ? Zenoh-bridge 湲곕컲 臾댁꽑 ROS2 ?듭떊??寃고빀?? ?꾩옣 ?곌껐留뚯쑝濡?濡쒕큸 ?곹깭瑜??뺤씤?섍퀬 紐낅졊???꾩넚쨌?ㅽ뻾?????덈뒗 援ъ“瑜?留뚮뱾?덉뒿?덈떎. ?대뒗 HRI 愿?먯뿉?쒕룄 以묒슂??湲곕컲???⑸땲??</p>
       </div>
     </div>
   </section>
@@ -983,8 +987,8 @@ title: Capstone 41
   <section class="section references">
     <div class="section-head">
       <div>
-        <h2>참고 문헌</h2>
-        <p>?�심 ?�문�?기술 문서???�래처럼 짧게 ?�리???�면 ?�개 ?�이지가 ??무거??보입?�다.</p>
+        <h2>李멸퀬 臾명뿄</h2>
+        <p>?듭떖 ?쇰Ц怨?湲곗닠 臾몄꽌???꾨옒泥섎읆 吏㏐쾶 ?뺣━???먮㈃ ?뚭컻 ?섏씠吏媛 ??臾닿굅??蹂댁엯?덈떎.</p>
       </div>
     </div>
 
