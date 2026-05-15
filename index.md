@@ -96,7 +96,11 @@ img {
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 79, 117, 0.15), transparent 28%),
     radial-gradient(circle at 82% 18%, rgba(155, 92, 255, 0.18), transparent 30%),
+    url("./image/go2_whole.png"),
     linear-gradient(180deg, #101014 0%, #050505 100%);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: left top, right top, right bottom, center;
+  background-size: auto, auto, min(58vw, 900px), cover;
 }
 
 .hero::before {
@@ -109,23 +113,11 @@ img {
   z-index: 1;
 }
 
-.hero-robot {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: min(46vw, 760px);
-  max-height: 92vh;
-  object-fit: contain;
-  object-position: right bottom;
-  opacity: 0.24;
-  filter: grayscale(0.05) contrast(1.04);
-}
-
 .hero-inner {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 88px 0 96px;
+  padding: 110px 0 120px;
 }
 
 .hero-grid {
@@ -135,7 +127,7 @@ img {
   align-items: start;
   max-width: none;
   width: 100%;
-  padding-right: clamp(180px, 24vw, 360px);
+  padding-right: 0;
 }
 
 .kicker {
@@ -148,7 +140,7 @@ img {
 
 .hero h1 {
   margin: 0;
-  max-width: 14ch;
+  max-width: none;
   font-size: clamp(3rem, 7vw, 6.8rem);
   line-height: 0.94;
   letter-spacing: -0.05em;
@@ -160,7 +152,7 @@ img {
 
 .hero-lead {
   margin: 26px 0 0;
-  max-width: 72ch;
+  max-width: 88ch;
   color: rgba(245, 245, 245, 0.82);
   font-size: 1.05rem;
 }
@@ -696,13 +688,7 @@ img {
   }
 
   .hero-robot {
-    right: -8vw;
-    width: min(82vw, 620px);
-    opacity: 0.18;
-  }
-
-  .hero-grid {
-    padding-right: 0;
+    display: none;
   }
 
   .section {
@@ -770,7 +756,6 @@ img {
 </nav>
 
 <header class="hero">
-  <img class="hero-robot" src="./image/go2_whole.png" alt="Unitree Go2 robot">
   <div class="hero-inner">
     <div class="page-shell hero-grid">
       <div>
