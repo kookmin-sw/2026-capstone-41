@@ -33,10 +33,35 @@ title: Capstone 41
     font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
   }
 
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Override the Slate theme's centered content column. */
+  #main_content_wrap,
+  #main_content_wrap .inner,
+  #main_content,
+  .inner,
+  .wrapper,
+  .outer {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  #main_content_wrap .inner,
+  #main_content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+  }
+
   .page-shell {
-    width: min(100%, 1520px);
+    width: min(100%, 1680px);
     margin: 0 auto;
-    padding: 32px 28px 96px;
+    padding: 28px 20px 88px;
   }
 
   .hero {
@@ -44,9 +69,9 @@ title: Capstone 41
     overflow: hidden;
     display: grid;
     grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
-    gap: 32px;
+    gap: 36px;
     align-items: center;
-    padding: 40px;
+    padding: 44px;
     border: 1px solid var(--line);
     border-radius: 32px;
     background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.72));
