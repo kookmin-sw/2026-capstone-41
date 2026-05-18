@@ -253,6 +253,7 @@ main > section {
 }
 
 .card-shell {
+  margin: 0;
   border: 1px solid var(--line-dark);
   background: rgba(255, 255, 255, 0.72);
   overflow: hidden;
