@@ -1194,45 +1194,6 @@ main > section {
           <h2>Tech Stack</h2>
         </div>
       </div>
-      <h3>Hardware</h3>
-<div class="hardware-grid">
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/go2_whole.png" alt="Unitree Go2">
-          </figure>
-          <div class="body">
-            <h3>Unitree Go2</h3>
-            <p>4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/realsense.png" alt="Intel RealSense D435">
-          </figure>
-          <div class="body">
-            <h3>Intel RealSense D435</h3>
-            <p>RGB-D 카메라</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/rtx_3090.png" alt="RTX 3090">
-          </figure>
-          <div class="body">
-            <h3>RTX 3090</h3>
-            <p>모델 추론 및 실험 환경</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/go2_lidar.png" alt="LiDAR on Unitree Go2">
-          </figure>
-          <div class="body">
-            <h3>LiDAR</h3>
-            <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
-          </div>
-        </article>
-      </div>
       <div class="stack-grid">
         <article class="stack-card">
           <h3>하드웨어</h3>
