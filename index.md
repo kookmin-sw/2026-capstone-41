@@ -290,14 +290,6 @@ main > section {
   letter-spacing: -0.03em;
 }
 
-#overview .copy h3 {
-  max-width: 100%;
-  font-size: clamp(2rem, 2.8vw, 3.2rem);
-  line-height: 1.25;
-  word-break: keep-all;
-  overflow-wrap: normal;
-}
-
 .copy p {
   margin: 0 0 16px;
   color: rgba(245, 245, 245, 0.78);
@@ -309,63 +301,6 @@ main > section {
 
 .copy p:last-child {
   margin-bottom: 0;
-}
-
-.demo-note {
-  margin: -8px 0 0;
-  color: rgba(245, 245, 245, 0.62);
-  font-size: 0.95rem;
-}
-
-.demo-grid {
-  display: grid;
-  grid-template-columns: 0.88fr 1fr 1fr;
-  gap: 18px;
-  margin-top: 24px;
-  grid-auto-flow: dense;
-  align-items: stretch;
-}
-
-.demo-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
-  min-height: 0;
-}
-
-.demo-card h3 {
-  margin: 0;
-  min-height: 1.4em;
-  font-size: 0.98rem;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
-  word-break: keep-all;
-}
-
-.demo-card video {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  background: #000;
-}
-
-.demo-card.portrait {
-  grid-row: span 2;
-}
-
-.demo-card.portrait video {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
-  aspect-ratio: 9 / 15;
-}
-
-.demo-card.landscape video {
-  aspect-ratio: 16 / 9;
 }
 
 .feature-grid,
@@ -398,26 +333,6 @@ main > section {
 .light .mini-card {
   border-color: rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
-}
-
-@media (max-width: 1100px) {
-  .demo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .demo-card.portrait {
-    grid-row: auto;
-  }
-
-  .demo-card.portrait video {
-    aspect-ratio: 16 / 9;
-  }
-}
-
-@media (max-width: 720px) {
-  .demo-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .mini-card h4 {
@@ -481,7 +396,7 @@ main > section {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: 30px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .placeholder-arch {
@@ -498,19 +413,6 @@ main > section {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-#architecture .placeholder-arch {
-  display: flex;
-  align-items: center;
-}
-
-#architecture .copy {
-  align-self: center;
-}
-
-#architecture .arch-list {
-  margin-top: 0;
 }
 
 .arch-list {
@@ -1132,7 +1034,7 @@ main > section {
       <a href="#overview">Overview</a>
       <a href="#demo">Demo</a>
       <a href="#architecture">Architecture</a>
-      <a href="#stack">Hardware</a>
+      <a href="#hardware">Hardware</a>
       <a href="#team">Team</a>
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
     </div>
@@ -1200,14 +1102,14 @@ main > section {
       </div>
       <div class="split">
         <figure class="card-shell media tall">
-          <img src="./image/go2_front.png" alt="Unitree Go2 front view">
+          <img src="./image/go2_standing.png" alt="Unitree Go2 standing view">
         </figure>
         <div class="copy">
-          <h3>자연어 명령 기반 VLA 사족 로봇</h3>
+          <h3>자연어 명령으로 움직이는 VLA 기반 사족 로봇</h3>
           <p>본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.</p>
           <p>기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.</p>
           <div class="hero-cta" style="margin-top:24px;">
-            <a class="btn" href="#stack">Hardware</a>
+            <a class="btn" href="#hardware">Hardware</a>
             <a class="btn" href="#demo">Demo</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
           </div>
@@ -1242,43 +1144,18 @@ main > section {
           <h2>Demo</h2>
         </div>
       </div>
-      <p class="demo-note">Note: All demo videos are muted and shown at 2× playback speed.</p>
-      <div class="demo-grid" aria-label="Demo videos">
-        <article class="demo-card portrait">
-          <h3>Follow the person</h3>
-          <video controls playsinline preload="metadata" muted>
-            <source src="./video/follow%20the%20person.mp4" type="video/mp4">
+      <div class="split">
+        <figure class="card-shell media tall">
+          <video controls playsinline preload="metadata" poster="./image/go2_front.png">
+            <source src="./video/demo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-        </article>
-        <article class="demo-card landscape">
-          <h3>Go to the backpack and return to the starting position</h3>
-          <video controls playsinline preload="metadata" muted>
-            <source src="./video/go%20to%20the%20backpack%20and%20return%20to%20the%20starting%20position.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </article>
-        <article class="demo-card landscape">
-          <h3>Go to the person and go to the chair</h3>
-          <video controls playsinline preload="metadata" muted>
-            <source src="./video/go%20to%20the%20person%20and%20go%20to%20the%20chair.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </article>
-        <article class="demo-card landscape">
-          <h3>Go to the sports ball</h3>
-          <video controls playsinline preload="metadata" muted>
-            <source src="./video/go%20to%20the%20sports%20ball.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </article>
-        <article class="demo-card landscape">
-          <h3>Turn right and go to the sports ball</h3>
-          <video controls playsinline preload="metadata" muted>
-            <source src="./video/turn%20right%20and%20go%20to%20the%20sports%20ball.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </article>
+        </figure>
+        <div class="copy">
+          <h3>Demo Video Placeholder</h3>
+          <p>Add the demo video later at <code>./video/demo.mp4</code>.</p>
+          <p>This section is ready for a recorded demo, teaser clip, or walkthrough.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1295,6 +1172,7 @@ main > section {
           <img src="./image/Architecture dark.png" alt="Architecture diagram">
         </div>
         <div class="copy">
+          <h3>시스템 아키텍처</h3>
           <ul class="arch-list">
             <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
             <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
@@ -1307,18 +1185,14 @@ main > section {
     </div>
   </section>
 
-
-
-<section class="section dark" id="stack">
+<section class="section dark" id="hardware">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Tech Stack</h2>
+          <h2>Hardware</h2>
         </div>
       </div>
-      <h3>Hardware</h3>
-
-<div class="hardware-grid">
+      <div class="hardware-grid">
         <article class="hardware-card">
           <figure>
             <img src="./image/go2_whole.png" alt="Unitree Go2">
@@ -1356,10 +1230,27 @@ main > section {
           </div>
         </article>
       </div>
+    </div>
+  </section>
 
+<section class="section dark" id="stack">
+    <div class="page-shell">
+      <div class="section-head">
+        <div>
+          <h2>Tech Stack</h2>
+        </div>
+      </div>
       <div class="stack-grid">
         <article class="stack-card">
-          <h3>Models & AI</h3>
+          <h3>하드웨어</h3>
+          <ul class="stack-list">
+            <li>Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)</li>
+            <li>Intel RealSense D435 (RGB-D 카메라)</li>
+            <li>RTX 3090</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <h3>모델·AI</h3>
           <ul class="stack-list">
             <li>InternVLA-N1-DualVLN (메인 VLA)</li>
             <li>LOVON (일부 구조 차용)</li>
@@ -1368,7 +1259,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Software</h3>
+          <h3>소프트웨어</h3>
           <ul class="stack-list">
             <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
             <li>vLLM — Qwen3.5-4B LLM 서빙</li>
@@ -1378,7 +1269,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Middleware & Robot Control</h3>
+          <h3>미들웨어·로봇 제어</h3>
           <ul class="stack-list">
             <li>Zenoh-bridge ROS2 DDS (무선 통신 브릿지)</li>
             <li>Unitree API</li>
@@ -1386,7 +1277,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Simulation & Tools</h3>
+          <h3>시뮬레이션·툴</h3>
           <ul class="stack-list">
             <li>NVIDIA Isaac Sim (Embodiment gap 검증)</li>
             <li>3D 프린팅 (RealSense 마운트)</li>
@@ -1581,7 +1472,7 @@ main > section {
     <div class="footer-links">
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub Repository</a>
       <a href="#overview">Overview</a>
-      <a href="#stack">Hardware</a>
+      <a href="#hardware">Hardware</a>
       <a href="#team">Team</a>
     </div>
     <div>
