@@ -387,48 +387,18 @@ img {
 
 .placeholder-arch {
   min-height: 520px;
-  border: 1px dashed rgba(31, 31, 31, 0.22);
-  background:
-    linear-gradient(135deg, rgba(255, 79, 117, 0.08), rgba(155, 92, 255, 0.08)),
-    repeating-linear-gradient(
-      45deg,
-      rgba(31, 31, 31, 0.03) 0,
-      rgba(31, 31, 31, 0.03) 12px,
-      transparent 12px,
-      transparent 24px
-    );
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 32px;
-  color: var(--ink-dark);
+  background: transparent;
 }
 
 .dark .placeholder-arch {
-  border-color: rgba(255, 255, 255, 0.18);
-  background:
-    linear-gradient(135deg, rgba(255, 79, 117, 0.12), rgba(155, 92, 255, 0.12)),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.05) 0,
-      rgba(255, 255, 255, 0.05) 12px,
-      transparent 12px,
-      transparent 24px
-    );
-  color: var(--ink);
+  background: transparent;
 }
 
-.placeholder-arch strong {
+.placeholder-arch img {
   display: block;
-  margin-bottom: 6px;
-  font-size: 1.1rem;
-}
-
-.placeholder-arch code {
-  font-size: 0.9rem;
-  opacity: 0.82;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .arch-list {
