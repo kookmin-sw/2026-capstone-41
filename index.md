@@ -387,11 +387,11 @@ img {
 
 .placeholder-arch {
   min-height: 520px;
-  background: linear-gradient(180deg, #f5f4f0 0%, #efede8 100%);
+  background: var(--bg);
 }
 
 .dark .placeholder-arch {
-  background: linear-gradient(180deg, #f5f4f0 0%, #efede8 100%);
+  background: var(--bg);
 }
 
 .placeholder-arch img {
@@ -1146,7 +1146,7 @@ img {
     </div>
   </section>
 
-<section class="section light" id="architecture">
+<section class="section dark" id="architecture">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1155,7 +1155,7 @@ img {
       </div>
       <div class="arch-grid">
         <div class="placeholder-arch">
-          <img src="./image/Architecture light.png" alt="Architecture diagram">
+          <img src="./image/Architecture dark.png" alt="Architecture diagram">
         </div>
         <div class="copy">
           <h3>시스템 아키텍처</h3>
