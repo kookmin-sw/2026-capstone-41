@@ -275,6 +275,13 @@ img {
   object-position: center center;
 }
 
+.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
 .copy h3 {
   margin: 0 0 14px;
   font-size: clamp(1.5rem, 2.5vw, 2.4rem);
@@ -292,6 +299,16 @@ img {
 
 .copy p:last-child {
   margin-bottom: 0;
+}
+
+.stack-subhead {
+  margin: 0 0 18px;
+}
+
+.stack-subhead h3 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
 }
 
 .feature-grid,
@@ -1048,8 +1065,9 @@ img {
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#overview">Overview</a>
-      <a href="#hardware">Hardware</a>
+      <a href="#demo">Demo</a>
       <a href="#architecture">Architecture</a>
+      <a href="#stack">Tech Stack</a>
       <a href="#team">Team</a>
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
     </div>
@@ -1060,13 +1078,13 @@ img {
   <div class="hero-inner">
     <div class="page-shell hero-grid">
       <div>
-        <p class="kicker">Vision-Language-Action · Robotics Capstone Project</p>
-        <h1>VLA 기반 사족 로봇 통합 자율 시스템</h1>
+        <p class="kicker">Vision-Language-Action 쨌 Robotics Capstone Project</p>
+        <h1>VLA 湲곕컲 ?ъ” 濡쒕큸 ?듯빀 ?먯쑉 ?쒖뒪??/h1>
         <p class="hero-lead">
-          본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.
+          蹂??꾨줈?앺듃??<strong>Unitree Go2</strong> ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 Vision-Language-Action(VLA) 紐⑤뜽??<strong>InternVLA-N1-DualVLN</strong>???댁떇?섏뿬, ?щ엺??留먰븯???먯뿰??紐낅졊("?섏옄濡?媛", "? ?щ엺???곕씪媛")留뚯쑝濡?濡쒕큸???쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍???먯쑉 二쇳뻾?섎룄濡?援ы쁽???꾨줈?앺듃??
         </p>
         <p class="hero-lead">
-          기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.
+          湲곗〈 VLA 紐⑤뜽?ㅼ? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?移대찓???섍꼍???꾩젣濡?留뚮뱾?댁졇 ?덉뼱, ?묒? ?ъ” 濡쒕큸泥섎읆 蹂몄껜媛 ?ㅻⅨ ?섍꼍??洹몃?濡???린硫??깅뒫???⑥뼱吏꾨떎. ?곕━ ?? ?대윭??<strong>濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠</strong>瑜?蹂댁젙?섍린 ?꾪빐 LOVON???쇰? 援ъ“瑜?InternVLA??寃고빀?섍퀬, ROSA ?먯씠?꾪듃濡?紐낅졊??遺꾪빐?섎뒗 ???쒖뒪???덈꺼??媛쒖꽑???뷀뻽??
         </p>
         <div class="hero-meta">
           <span class="pill">Unitree Go2</span>
@@ -1088,21 +1106,21 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>프로젝트의 의의</h2>
+          <h2>?꾨줈?앺듃???섏쓽</h2>
         </div>
       </div>
       <div class="impact-grid">
         <article class="impact-card">
-          <h3>1. 소형 사족 로봇 환경에 대한 VLA Foundation Model의 적응</h3>
-          <p>대규모 시뮬레이션 데이터로 학습된 최신 VLA Foundation Model은 일반적으로 휴머노이드급 시점이나 고품질 RGB-D 환경을 가정하기 때문에, 시점 높이가 낮고 카메라 사양이 제한된 소형 사족 로봇에 그대로 배포하면 성능이 저하되는 본질적 한계를 지닌다. 본 프로젝트는 LOVON의 핵심 모듈을 InternVLA-N1-DualVLN 내부에 선택적으로 통합함으로써, <strong>Foundation Model을 통째로 재학습하지 않고도 소형 사족 로봇 본체에 적응(domain adaptation)시키는 실용적 경로</strong>를 제시했다. 이는 최신 대규모 VLA 모델을 저비용 로봇 플랫폼에 이식하려는 후속 연구·개발에 직접 활용 가능한 방법론적 기여로 평가된다.</p>
+          <h3>1. ?뚰삎 ?ъ” 濡쒕큸 ?섍꼍?????VLA Foundation Model???곸쓳</h3>
+          <p>?洹쒕え ?쒕??덉씠???곗씠?곕줈 ?숈뒿??理쒖떊 VLA Foundation Model? ?쇰컲?곸쑝濡??대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?RGB-D ?섍꼍??媛?뺥븯湲??뚮Ц?? ?쒖젏 ?믪씠媛 ??퀬 移대찓???ъ뼇???쒗븳???뚰삎 ?ъ” 濡쒕큸??洹몃?濡?諛고룷?섎㈃ ?깅뒫????섎릺??蹂몄쭏???쒓퀎瑜?吏?뚮떎. 蹂??꾨줈?앺듃??LOVON???듭떖 紐⑤뱢??InternVLA-N1-DualVLN ?대????좏깮?곸쑝濡??듯빀?⑥쑝濡쒖뜥, <strong>Foundation Model???듭㎏濡??ы븰?듯븯吏 ?딄퀬???뚰삎 ?ъ” 濡쒕큸 蹂몄껜???곸쓳(domain adaptation)?쒗궎???ㅼ슜??寃쎈줈</strong>瑜??쒖떆?덈떎. ?대뒗 理쒖떊 ?洹쒕え VLA 紐⑤뜽???鍮꾩슜 濡쒕큸 ?뚮옯?쇱뿉 ?댁떇?섎젮???꾩냽 ?곌뎄쨌媛쒕컻??吏곸젒 ?쒖슜 媛?ν븳 諛⑸쾿濡좎쟻 湲곗뿬濡??됯??쒕떎.</p>
         </article>
         <article class="impact-card">
-          <h3>2. 단일 task 시연을 넘어선 멀티태스크 통합 파이프라인</h3>
-          <p>오픈소스 InternVLA의 공개 시연이 단일 navigation task에 머물러 있는 것과 달리, 본 시스템은 <strong>Navigation, Pointing, Following, Backtracking 4종 task를 ROSA 기반 LLM 에이전트 위에 단일 파이프라인으로 통합</strong>했다. 특히 LiDAR SLAM closed-loop 기반 자율 백트래킹은 InternVLA가 본래 다루지 않는 기능을 시스템 레벨에서 확장한 사례로, foundation model을 응용 task로 확장하는 구체적 설계 예시를 제공한다.</p>
+          <h3>2. ?⑥씪 task ?쒖뿰???섏뼱??硫?고깭?ㅽ겕 ?듯빀 ?뚯씠?꾨씪??/h3>
+          <p>?ㅽ뵂?뚯뒪 InternVLA??怨듦컻 ?쒖뿰???⑥씪 navigation task??癒몃Ъ???덈뒗 寃껉낵 ?щ━, 蹂??쒖뒪?쒖? <strong>Navigation, Pointing, Following, Backtracking 4醫?task瑜?ROSA 湲곕컲 LLM ?먯씠?꾪듃 ?꾩뿉 ?⑥씪 ?뚯씠?꾨씪?몄쑝濡??듯빀</strong>?덈떎. ?뱁엳 LiDAR SLAM closed-loop 湲곕컲 ?먯쑉 諛깊듃?섑궧? InternVLA媛 蹂몃옒 ?ㅻ（吏 ?딅뒗 湲곕뒫???쒖뒪???덈꺼?먯꽌 ?뺤옣???щ?濡? foundation model???묒슜 task濡??뺤옣?섎뒗 援ъ껜???ㅺ퀎 ?덉떆瑜??쒓났?쒕떎.</p>
         </article>
         <article class="impact-card">
-          <h3>3. 자연어 기반 원격 로봇 운용 인터페이스</h3>
-          <p>자체 개발한 <strong>Go2 Monitor 웹 인터페이스</strong>와 <strong>Zenoh-bridge 기반 무선 ROS2 통신 스택</strong>을 결합함으로써, <strong>인터넷 연결만 있으면 원격지에서도 로봇의 실시간 카메라 피드를 확인하고 자연어 명령을 전송·실행</strong>시킬 수 있는 구조를 완성했다. 이는 사족 로봇의 활용 범위를 연구실 데모를 넘어 <strong>사람의 직접 접근이 제한되는 원격지·위험 환경·무인 시설</strong> 등 실제 운용 시나리오로 확장할 수 있는 기반을 제공하며, 비전문가도 자연어만으로 로봇을 운용할 수 있다는 점에서 HRI(Human-Robot Interaction) 측면의 진입 장벽을 크게 낮춘 기여로 평가된다.</p>
+          <h3>3. ?먯뿰??湲곕컲 ?먭꺽 濡쒕큸 ?댁슜 ?명꽣?섏씠??/h3>
+          <p>?먯껜 媛쒕컻??<strong>Go2 Monitor ???명꽣?섏씠??/strong>? <strong>Zenoh-bridge 湲곕컲 臾댁꽑 ROS2 ?듭떊 ?ㅽ깮</strong>??寃고빀?⑥쑝濡쒖뜥, <strong>?명꽣???곌껐留??덉쑝硫??먭꺽吏?먯꽌??濡쒕큸???ㅼ떆媛?移대찓???쇰뱶瑜??뺤씤?섍퀬 ?먯뿰??紐낅졊???꾩넚쨌?ㅽ뻾</strong>?쒗궗 ???덈뒗 援ъ“瑜??꾩꽦?덈떎. ?대뒗 ?ъ” 濡쒕큸???쒖슜 踰붿쐞瑜??곌뎄???곕え瑜??섏뼱 <strong>?щ엺??吏곸젒 ?묎렐???쒗븳?섎뒗 ?먭꺽吏쨌?꾪뿕 ?섍꼍쨌臾댁씤 ?쒖꽕</strong> ???ㅼ젣 ?댁슜 ?쒕굹由ъ삤濡??뺤옣?????덈뒗 湲곕컲???쒓났?섎ŉ, 鍮꾩쟾臾멸????먯뿰?대쭔?쇰줈 濡쒕큸???댁슜?????덈떎???먯뿉??HRI(Human-Robot Interaction) 痢〓㈃??吏꾩엯 ?λ꼍???ш쾶 ??텣 湲곗뿬濡??됯??쒕떎.</p>
         </article>
       </div>
     </div>
@@ -1120,9 +1138,9 @@ img {
           <img src="./image/go2_front.png" alt="Unitree Go2 front view">
         </figure>
         <div class="copy">
-          <h3>자연어 명령으로 움직이는 VLA 기반 사족 로봇</h3>
-          <p>본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.</p>
-          <p>기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.</p>
+          <h3>?먯뿰??紐낅졊?쇰줈 ?吏곸씠??VLA 湲곕컲 ?ъ” 濡쒕큸</h3>
+          <p>蹂??꾨줈?앺듃??<strong>Unitree Go2</strong> ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 Vision-Language-Action(VLA) 紐⑤뜽??<strong>InternVLA-N1-DualVLN</strong>???댁떇?섏뿬, ?щ엺??留먰븯???먯뿰??紐낅졊("?섏옄濡?媛", "? ?щ엺???곕씪媛")留뚯쑝濡?濡쒕큸???쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍???먯쑉 二쇳뻾?섎룄濡?援ы쁽???꾨줈?앺듃??</p>
+          <p>湲곗〈 VLA 紐⑤뜽?ㅼ? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?移대찓???섍꼍???꾩젣濡?留뚮뱾?댁졇 ?덉뼱, ?묒? ?ъ” 濡쒕큸泥섎읆 蹂몄껜媛 ?ㅻⅨ ?섍꼍??洹몃?濡???린硫??깅뒫???⑥뼱吏꾨떎. ?곕━ ?? ?대윭??<strong>濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠</strong>瑜?蹂댁젙?섍린 ?꾪빐 LOVON???쇰? 援ъ“瑜?InternVLA??寃고빀?섍퀬, ROSA ?먯씠?꾪듃濡?紐낅졊??遺꾪빐?섎뒗 ???쒖뒪???덈꺼??媛쒖꽑???뷀뻽??</p>
           <div class="hero-cta" style="margin-top:24px;">
             <a class="btn" href="#hardware">Hardware</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
@@ -1130,97 +1148,45 @@ img {
         </div>
       </div>
 
-      <div class="feature-grid" aria-label="4가지 핵심 기능">
+      <div class="feature-grid" aria-label="4媛吏 ?듭떖 湲곕뒫">
         <article class="mini-card">
           <h4>Navigation</h4>
-          <p>자연어 명령을 받아 환경 내 목표 지점까지 자율 주행한다. InternVLA-N1-DualVLN이 카메라 이미지와 명령을 동시에 해석해 pixel goal을 출력하면, 로봇이 그에 맞춰 이동한다.</p>
+          <p>?먯뿰??紐낅졊??諛쏆븘 ?섍꼍 ??紐⑺몴 吏?먭퉴吏 ?먯쑉 二쇳뻾?쒕떎. InternVLA-N1-DualVLN??移대찓???대?吏? 紐낅졊???숈떆???댁꽍??pixel goal??異쒕젰?섎㈃, 濡쒕큸??洹몄뿉 留욎떠 ?대룞?쒕떎.</p>
         </article>
         <article class="mini-card">
           <h4>Pointing</h4>
-          <p>이미지 위 특정 객체를 지시하면 로봇이 해당 객체로 향한다. 객체 지시 정보를 pixel goal로 변환해 InternVLA에 전달하는 방식이다.</p>
+          <p>?대?吏 ???뱀젙 媛앹껜瑜?吏?쒗븯硫?濡쒕큸???대떦 媛앹껜濡??ν븳?? 媛앹껜 吏???뺣낫瑜?pixel goal濡?蹂?섑빐 InternVLA???꾨떖?섎뒗 諛⑹떇?대떎.</p>
         </article>
         <article class="mini-card">
           <h4>Following</h4>
-          <p>사람이나 물체를 지속적으로 추종한다. YOLO 객체 검출 결과를 pixel goal 입력으로 사용하며, LOVON의 일부 구조를 차용해 모션 블러·저속 추종 환경에서도 안정적으로 동작하도록 개선했다.</p>
+          <p>?щ엺?대굹 臾쇱껜瑜?吏?띿쟻?쇰줈 異붿쥌?쒕떎. YOLO 媛앹껜 寃異?寃곌낵瑜?pixel goal ?낅젰?쇰줈 ?ъ슜?섎ŉ, LOVON???쇰? 援ъ“瑜?李⑥슜??紐⑥뀡 釉붾윭쨌???異붿쥌 ?섍꼍?먯꽌???덉젙?곸쑝濡??숈옉?섎룄濡?媛쒖꽑?덈떎.</p>
         </article>
         <article class="mini-card">
           <h4>Backtracking</h4>
-          <p>LiDAR SLAM 기반 closed-loop 제어로 과거에 지나온 경로를 자동으로 되짚어 돌아온다.</p>
+          <p>LiDAR SLAM 湲곕컲 closed-loop ?쒖뼱濡?怨쇨굅??吏?섏삩 寃쎈줈瑜??먮룞?쇰줈 ?섏쭦???뚯븘?⑤떎.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section dark" id="hardware">
+  <section class="section light" id="demo">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Hardware</h2>
+          <h2>Demo</h2>
         </div>
       </div>
-      <div class="hardware-grid">
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/go2_whole.png" alt="Unitree Go2">
-          </figure>
-          <div class="body">
-            <h3>Unitree Go2</h3>
-            <p>4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/realsense.png" alt="Intel RealSense D435">
-          </figure>
-          <div class="body">
-            <h3>Intel RealSense D435</h3>
-            <p>RGB-D 카메라</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/rtx_3090.png" alt="RTX 3090">
-          </figure>
-          <div class="body">
-            <h3>RTX 3090</h3>
-            <p>모델 추론 및 실험 환경</p>
-          </div>
-        </article>
-        <article class="hardware-card">
-          <figure>
-            <img src="./image/go2_lidar.png" alt="LiDAR on Unitree Go2">
-          </figure>
-          <div class="body">
-            <h3>LiDAR</h3>
-            <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section light" id="architecture">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>Architecture</h2>
-        </div>
-      </div>
-      <div class="arch-grid">
-        <div class="placeholder-arch">
-          <!-- Replace this block with <img src="./image/architecture-placeholder.png" alt="Architecture diagram"> when ready. -->
-          <strong>Architecture image will be updated</strong>
-          <code>./image/architecture-placeholder.png</code>
-        </div>
+      <div class="split">
+        <figure class="card-shell media tall">
+          <video controls playsinline preload="metadata" poster="./image/go2_front.png">
+            <source src="./video/demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
         <div class="copy">
-          <h3>시스템 아키텍처</h3>
-          <ul class="arch-list">
-            <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
-            <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
-            <li><strong>LiDAR SLAM Runner</strong>: 실시간 SLAM 기반 closed-loop 제어로 안전한 자율 백트래킹을 제공한다.</li>
-            <li><strong>ROSA Agent + Qwen3.5-4B</strong>: 자연어 명령을 tool 단위로 분해하고, 4종 기능을 상황에 맞게 호출하는 LLM 에이전트다.</li>
-            <li><strong>YOLO 입력단</strong>: VLA를 통째로 재학습하지 않고도 신규 task를 추가할 수 있도록 객체 검출 결과를 pixel goal 형태로 모델에 주입한다.</li>
-          </ul>
+          <h3>Project Demo Video</h3>
+          <p>?ш린???곕え ?곸긽???ｌ쓣 ???덉뒿?덈떎. <code>./video/demo.mp4</code> 寃쎈줈???ㅼ젣 ?뚯씪???먮㈃ 諛붾줈 ?ъ깮?⑸땲??</p>
+          <p>?쒖뿰?먯꽌??VLA navigation, pointing, following, backtracking ?먮쫫??蹂댁뿬二쇰뒗 援ъ꽦?????댁슱由쎈땲??</p>
         </div>
       </div>
     </div>
@@ -1236,9 +1202,9 @@ img {
       <div class="team-grid">
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/임민석.png" alt="임민석 profile photo">
+            <img src="./profile/?꾨???png" alt="?꾨???profile photo">
           </div>
-          <h3>임민석</h3>
+          <h3>?꾨???/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/dla020501" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1247,9 +1213,9 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/조원영.png" alt="조원영 profile photo">
+            <img src="./profile/議곗썝??png" alt="議곗썝??profile photo">
           </div>
-          <h3>조원영</h3>
+          <h3>議곗썝??/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/Reveroftrillion" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1258,9 +1224,9 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/정유진.jpg" alt="정유진 profile photo">
+            <img src="./profile/?뺤쑀吏?jpg" alt="?뺤쑀吏?profile photo">
           </div>
-          <h3>정유진</h3>
+          <h3>?뺤쑀吏?/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/alicex-x02" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1269,9 +1235,9 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/성재승.jpg" alt="성재승 profile photo">
+            <img src="./profile/?깆옱??jpg" alt="?깆옱??profile photo">
           </div>
-          <h3>성재승</h3>
+          <h3>?깆옱??/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/Sung-Jae-Seong" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1280,9 +1246,9 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
+            <img src="./profile/議곗쑀鍮?png" alt="議곗쑀鍮?profile photo">
           </div>
-          <h3>조유빈</h3>
+          <h3>議곗쑀鍮?/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/yubincho3" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1291,9 +1257,9 @@ img {
         </article>
         <article class="team-card">
           <div class="avatar">
-            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
+            <img src="./profile/?좊━??jpg" alt="?좊━??profile photo">
           </div>
-          <h3>유리안</h3>
+          <h3>?좊━??/h3>
           <p class="role">Role TBD</p>
           <a class="gh" href="https://github.com/ryurian001" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
@@ -1308,11 +1274,11 @@ img {
     <div class="page-shell timeline-shell">
       <div class="timeline-head">
         <p class="timeline-kicker">Timeline</p>
-        <h2>캡스톤 개발 타임라인</h2>
-        <p>3월부터 5월까지의 주요 개발 계획과 진행 과제</p>
+        <h2>罹≪뒪??媛쒕컻 ??꾨씪??/h2>
+        <p>3?붾???5?붽퉴吏??二쇱슂 媛쒕컻 怨꾪쉷怨?吏꾪뻾 怨쇱젣</p>
       </div>
 
-      <div class="timeline-stage" aria-label="캡스톤 개발 타임라인">
+      <div class="timeline-stage" aria-label="罹≪뒪??媛쒕컻 ??꾨씪??>
         <span class="timeline-axis" aria-hidden="true"></span>
         <span class="timeline-node timeline-node-1" aria-hidden="true"></span>
         <span class="timeline-node timeline-node-2" aria-hidden="true"></span>
@@ -1325,14 +1291,14 @@ img {
                 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                   <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
                 </svg>
-                <span>3월</span>
+                <span>3??/span>
               </span>
             </h3>
             <ul class="timeline-list">
-              <li>방향성 결정</li>
+              <li>諛⑺뼢??寃곗젙</li>
               <li>ROS2 / Zenoh</li>
-              <li>InternVLA / LOVON 재현</li>
-              <li>1차 시연</li>
+              <li>InternVLA / LOVON ?ы쁽</li>
+              <li>1李??쒖뿰</li>
             </ul>
           </div>
         </article>
@@ -1344,13 +1310,13 @@ img {
                 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                   <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
                 </svg>
-                <span>4월</span>
+                <span>4??/span>
               </span>
             </h3>
             <ul class="timeline-list">
-              <li>Following 결합</li>
-              <li>LOVON 일부 구조 차용</li>
-              <li>디블러링</li>
+              <li>Following 寃고빀</li>
+              <li>LOVON ?쇰? 援ъ“ 李⑥슜</li>
+              <li>?붾툝?щ쭅</li>
               <li>LiDAR SLAM</li>
               <li>Backtracking</li>
             </ul>
@@ -1364,17 +1330,17 @@ img {
                 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                   <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
                 </svg>
-                <span>5월</span>
+                <span>5??/span>
               </span>
             </h3>
             <ul class="timeline-list">
-              <li>Pointing 추가</li>
-              <li>전체 코드 병합</li>
-              <li>ROSA + Qwen3.5-4B 연결</li>
-              <li>ROS2 도구 개선</li>
-              <li>Task Planner 통합</li>
-              <li>정량 평가</li>
-              <li>논문 초안</li>
+              <li>Pointing 異붽?</li>
+              <li>?꾩껜 肄붾뱶 蹂묓빀</li>
+              <li>ROSA + Qwen3.5-4B ?곌껐</li>
+              <li>ROS2 ?꾧뎄 媛쒖꽑</li>
+              <li>Task Planner ?듯빀</li>
+              <li>?뺣웾 ?됯?</li>
+              <li>?쇰Ц 珥덉븞</li>
             </ul>
           </div>
         </article>
@@ -1383,54 +1349,90 @@ img {
       </div>
     </div>
   </section>
-<section class="section dark" id="stack">
+  <section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
           <h2>Tech Stack</h2>
         </div>
       </div>
+      <div class="stack-subhead" id="hardware">
+        <h3>Hardware</h3>
+      </div>
+      <div class="hardware-grid">
+        <article class="hardware-card">
+          <figure>
+            <img src="./image/go2_whole.png" alt="Unitree Go2">
+          </figure>
+          <div class="body">
+            <h3>Unitree Go2</h3>
+            <p>4諛?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</p>
+          </div>
+        </article>
+        <article class="hardware-card">
+          <figure>
+            <img src="./image/realsense.png" alt="Intel RealSense D435">
+          </figure>
+          <div class="body">
+            <h3>Intel RealSense D435</h3>
+            <p>RGB-D 移대찓??/p>
+          </div>
+        </article>
+        <article class="hardware-card">
+          <figure>
+            <img src="./image/rtx_3090.png" alt="RTX 3090">
+          </figure>
+          <div class="body">
+            <h3>RTX 3090</h3>
+            <p>紐⑤뜽 異붾줎 諛??ㅽ뿕 ?섍꼍</p>
+          </div>
+        </article>
+        <article class="hardware-card">
+          <figure>
+            <img src="./image/go2_lidar.png" alt="LiDAR on Unitree Go2">
+          </figure>
+          <div class="body">
+            <h3>LiDAR</h3>
+            <p>二쇳뻾 ?덉젙?깃낵 ?섍꼍 ?몄?瑜??꾪븳 嫄곕━ ?쇱꽌</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="stack-subhead" style="margin-top:34px;">
+        <h3>Software / Models</h3>
+      </div>
       <div class="stack-grid">
         <article class="stack-card">
-          <h3>하드웨어</h3>
+          <h3>Models / AI</h3>
           <ul class="stack-list">
-            <li>Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)</li>
-            <li>Intel RealSense D435 (RGB-D 카메라)</li>
-            <li>RTX 3090</li>
+            <li>InternVLA-N1-DualVLN</li>
+            <li>LOVON</li>
+            <li>Qwen3.5-4B</li>
+            <li>YOLO</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>모델·AI</h3>
+          <h3>Software</h3>
           <ul class="stack-list">
-            <li>InternVLA-N1-DualVLN (메인 VLA)</li>
-            <li>LOVON (일부 구조 차용)</li>
-            <li>Qwen3.5-4B (vLLM 서빙, ROSA agent의 LLM)</li>
-            <li>YOLO (객체 검출)</li>
+            <li>Python + PyTorch</li>
+            <li>OpenCV / NumPy</li>
+            <li>ROS 2</li>
+            <li>TensorRT</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>소프트웨어</h3>
+          <h3>Middleware / Robot Control</h3>
           <ul class="stack-list">
-            <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
-            <li>vLLM — Qwen3.5-4B LLM 서빙</li>
-            <li>OpenCV / NumPy — 이미지 처리·디블러링·SLAM 후처리·좌표 연산</li>
-            <li>ROS 2 — 로봇 미들웨어 (노드 간 토픽·서비스 통신)</li>
-            <li>TensorRT — System1 추론 속도(주기) 향상</li>
-          </ul>
-        </article>
-        <article class="stack-card">
-          <h3>미들웨어·로봇 제어</h3>
-          <ul class="stack-list">
-            <li>Zenoh-bridge ROS2 DDS (무선 통신 브릿지)</li>
+            <li>Zenoh-bridge ROS2 DDS</li>
             <li>Unitree API</li>
-            <li>LiDAR SLAM Runner (자체 closed-loop 백트래킹)</li>
+            <li>LiDAR SLAM Runner</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>시뮬레이션·툴</h3>
+          <h3>Simulation</h3>
           <ul class="stack-list">
-            <li>NVIDIA Isaac Sim (Embodiment gap 검증)</li>
-            <li>3D 프린팅 (RealSense 마운트)</li>
+            <li>NVIDIA Isaac Sim</li>
+            <li>3D printing / RealSense mounting</li>
           </ul>
         </article>
       </div>
@@ -1458,13 +1460,14 @@ img {
 <footer class="footer" id="contact">
   <div class="page-shell footer-inner">
     <div>
-      <strong>VLA 기반 사족 로봇 통합 자율 시스템</strong>
-      <div style="margin-top:8px;">GitHub Pages · Kookmin SW Capstone 2026</div>
+      <strong>VLA 湲곕컲 ?ъ” 濡쒕큸 ?듯빀 ?먯쑉 ?쒖뒪??/strong>
+      <div style="margin-top:8px;">GitHub Pages 쨌 Kookmin SW Capstone 2026</div>
     </div>
     <div class="footer-links">
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub Repository</a>
       <a href="#overview">Overview</a>
-      <a href="#hardware">Hardware</a>
+      <a href="#demo">Demo</a>
+      <a href="#stack">Tech Stack</a>
       <a href="#team">Team</a>
     </div>
     <div>
@@ -1473,3 +1476,5 @@ img {
     </div>
   </div>
 </footer>
+
+
