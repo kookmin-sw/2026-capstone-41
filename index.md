@@ -1142,7 +1142,7 @@ img {
           <p>蹂??꾨줈?앺듃??<strong>Unitree Go2</strong> ?ъ” 蹂댄뻾 濡쒕큸??理쒖떊 Vision-Language-Action(VLA) 紐⑤뜽??<strong>InternVLA-N1-DualVLN</strong>???댁떇?섏뿬, ?щ엺??留먰븯???먯뿰??紐낅졊("?섏옄濡?媛", "? ?щ엺???곕씪媛")留뚯쑝濡?濡쒕큸???쒓컖 ?뺣낫瑜??댁꽍?섍퀬 ?ㅼ젣 ?섍꼍???먯쑉 二쇳뻾?섎룄濡?援ы쁽???꾨줈?앺듃??</p>
           <p>湲곗〈 VLA 紐⑤뜽?ㅼ? ?泥대줈 ?대㉧?몄씠?쒓툒 ?쒖젏?대굹 怨좏뭹吏?移대찓???섍꼍???꾩젣濡?留뚮뱾?댁졇 ?덉뼱, ?묒? ?ъ” 濡쒕큸泥섎읆 蹂몄껜媛 ?ㅻⅨ ?섍꼍??洹몃?濡???린硫??깅뒫???⑥뼱吏꾨떎. ?곕━ ?? ?대윭??<strong>濡쒕큸 蹂몄껜蹂??섍꼍 李⑥씠</strong>瑜?蹂댁젙?섍린 ?꾪빐 LOVON???쇰? 援ъ“瑜?InternVLA??寃고빀?섍퀬, ROSA ?먯씠?꾪듃濡?紐낅졊??遺꾪빐?섎뒗 ???쒖뒪???덈꺼??媛쒖꽑???뷀뻽??</p>
           <div class="hero-cta" style="margin-top:24px;">
-            <a class="btn" href="#hardware">Hardware</a>
+            <a class="btn" href="#stack">Tech Stack</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
@@ -1185,8 +1185,34 @@ img {
         </figure>
         <div class="copy">
           <h3>Project Demo Video</h3>
-          <p>?ш린???곕え ?곸긽???ｌ쓣 ???덉뒿?덈떎. <code>./video/demo.mp4</code> 寃쎈줈???ㅼ젣 ?뚯씪???먮㈃ 諛붾줈 ?ъ깮?⑸땲??</p>
-          <p>?쒖뿰?먯꽌??VLA navigation, pointing, following, backtracking ?먮쫫??蹂댁뿬二쇰뒗 援ъ꽦?????댁슱由쎈땲??</p>
+          <p>Add the demo video at <code>./video/demo.mp4</code> and it will play here.</p>
+          <p>The demo can show navigation, pointing, following, and backtracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section light" id="architecture">
+    <div class="page-shell">
+      <div class="section-head">
+        <div>
+          <h2>Architecture</h2>
+        </div>
+      </div>
+      <div class="arch-grid">
+        <div class="placeholder-arch">
+          <!-- Replace this block with <img src="./image/architecture-placeholder.png" alt="Architecture diagram"> when ready. -->
+          <strong>Architecture image will be updated</strong>
+          <code>./image/architecture-placeholder.png</code>
+        </div>
+        <div class="copy">
+          <h3>?쒖뒪???꾪궎?띿쿂</h3>
+          <ul class="arch-list">
+            <li><strong>踰좎씠??紐⑤뜽 ??InternVLA-N1-DualVLN</strong>: System1(??섏? ?쒖뼱) + System2(怨좎닔以 ?섏궗寃곗젙)??dual-system 援ъ“瑜?媛吏?VLA foundation model??洹몃?濡??쒖슜?쒕떎.</li>
+            <li><strong>LOVON 遺遺?寃고빀</strong>: LOVON 紐⑤뜽 ?꾩껜瑜??듭㎏濡??ъ슜?섏? ?딄퀬, ?쇰? 援ъ“? 紐⑤뜽留?李⑥슜??InternVLA ?대????쇱썙 ?ｌ뼱 紐⑥뀡 釉붾윭쨌????섍꼍?먯꽌??異붿쥌 ?깅뒫??媛쒖꽑?덈떎.</li>
+            <li><strong>LiDAR SLAM Runner</strong>: ?ㅼ떆媛?SLAM 湲곕컲 closed-loop ?쒖뼱濡??덉쟾???먯쑉 諛깊듃?섑궧???쒓났?쒕떎.</li>
+            <li><strong>ROSA Agent + Qwen3.5-4B</strong>: ?먯뿰??紐낅졊??tool ?⑥쐞濡?遺꾪빐?섍퀬, 4醫?湲곕뒫???곹솴??留욊쾶 ?몄텧?섎뒗 LLM ?먯씠?꾪듃??</li>
+            <li><strong>YOLO ?낅젰??/strong>: VLA瑜??듭㎏濡??ы븰?듯븯吏 ?딄퀬???좉퇋 task瑜?異붽??????덈룄濡?媛앹껜 寃異?寃곌낵瑜?pixel goal ?뺥깭濡?紐⑤뜽??二쇱엯?쒕떎.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1349,7 +1375,7 @@ img {
       </div>
     </div>
   </section>
-  <section class="section dark" id="stack">
+<section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1366,7 +1392,7 @@ img {
           </figure>
           <div class="body">
             <h3>Unitree Go2</h3>
-            <p>4諛?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</p>
+            <p>4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1393,46 +1419,51 @@ img {
           </figure>
           <div class="body">
             <h3>LiDAR</h3>
-            <p>二쇳뻾 ?덉젙?깃낵 ?섍꼍 ?몄?瑜??꾪븳 嫄곕━ ?쇱꽌</p>
+            <p>?먯쑉 諛깊듃?섑궧怨??섍꼍 ?몄?瑜??꾪븳 嫄곕━ ?쇱꽌</p>
           </div>
         </article>
       </div>
-
-      <div class="stack-subhead" style="margin-top:34px;">
-        <h3>Software / Models</h3>
-      </div>
       <div class="stack-grid">
         <article class="stack-card">
-          <h3>Models / AI</h3>
+          <h3>?섎뱶?⑥뼱</h3>
           <ul class="stack-list">
-            <li>InternVLA-N1-DualVLN</li>
-            <li>LOVON</li>
-            <li>Qwen3.5-4B</li>
-            <li>YOLO</li>
+            <li>Unitree Go2 (4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR)</li>
+            <li>Intel RealSense D435 (RGB-D 移대찓??</li>
+            <li>RTX 3090</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Software</h3>
+          <h3>紐⑤뜽쨌AI</h3>
           <ul class="stack-list">
-            <li>Python + PyTorch</li>
-            <li>OpenCV / NumPy</li>
-            <li>ROS 2</li>
-            <li>TensorRT</li>
+            <li>InternVLA-N1-DualVLN (硫붿씤 VLA)</li>
+            <li>LOVON (?쇰? 援ъ“ 李⑥슜)</li>
+            <li>Qwen3.5-4B (vLLM ?쒕튃, ROSA agent??LLM)</li>
+            <li>YOLO (媛앹껜 寃異?</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Middleware / Robot Control</h3>
+          <h3>?뚰봽?몄썾??/h3>
           <ul class="stack-list">
-            <li>Zenoh-bridge ROS2 DDS</li>
+            <li>Python + PyTorch ??硫붿씤 媛쒕컻 ?몄뼱 諛?InternVLA쨌LOVON 異붾줎 ?꾨젅?꾩썙??/li>
+            <li>vLLM ??Qwen3.5-4B LLM ?쒕튃</li>
+            <li>OpenCV / NumPy ???대?吏 泥섎━쨌?붾툝?щ쭅쨌SLAM ?꾩쿂由?룹쥖???곗궛</li>
+            <li>ROS 2 ??濡쒕큸 誘몃뱾?⑥뼱 (?몃뱶 媛??좏뵿쨌?쒕퉬???듭떊)</li>
+            <li>TensorRT ??System1 異붾줎 ?띾룄(二쇨린) ?μ긽</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <h3>誘몃뱾?⑥뼱쨌濡쒕큸 ?쒖뼱</h3>
+          <ul class="stack-list">
+            <li>Zenoh-bridge ROS2 DDS (臾댁꽑 ?듭떊 釉뚮┸吏)</li>
             <li>Unitree API</li>
-            <li>LiDAR SLAM Runner</li>
+            <li>LiDAR SLAM Runner (?먯껜 closed-loop 諛깊듃?섑궧)</li>
           </ul>
         </article>
         <article class="stack-card">
-          <h3>Simulation</h3>
+          <h3>?쒕??덉씠?샕룻댋</h3>
           <ul class="stack-list">
-            <li>NVIDIA Isaac Sim</li>
-            <li>3D printing / RealSense mounting</li>
+            <li>NVIDIA Isaac Sim (Embodiment gap 寃利?</li>
+            <li>3D ?꾨┛??(RealSense 留덉슫??</li>
           </ul>
         </article>
       </div>
@@ -1476,5 +1507,3 @@ img {
     </div>
   </div>
 </footer>
-
-
