@@ -1233,35 +1233,35 @@ main > section {
         <article class="demo-card portrait">
           <h3>Follow the person</h3>
           <video controls playsinline preload="metadata" muted>
-            <source src="./video/fast/follow%20the%20person_2x_muted.mp4" type="video/mp4">
+            <source src="./video/follow%20the%20person.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the backpack and return to the starting position</h3>
           <video controls playsinline preload="metadata" muted>
-            <source src="./video/fast/go%20to%20the%20backpack%20and%20return%20to%20the%20starting%20position_2x_muted.mp4" type="video/mp4">
+            <source src="./video/go%20to%20the%20backpack%20and%20return%20to%20the%20starting%20position.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the person and go to the chair</h3>
           <video controls playsinline preload="metadata" muted>
-            <source src="./video/fast/go%20to%20the%20person%20and%20go%20to%20the%20chair_2x_muted.mp4" type="video/mp4">
+            <source src="./video/go%20to%20the%20person%20and%20go%20to%20the%20chair.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the sports ball</h3>
           <video controls playsinline preload="metadata" muted>
-            <source src="./video/fast/go%20to%20the%20sports%20ball_2x_muted.mp4" type="video/mp4">
+            <source src="./video/go%20to%20the%20sports%20ball.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Turn right and go to the sports ball</h3>
           <video controls playsinline preload="metadata" muted>
-            <source src="./video/fast/turn%20right%20and%20go%20to%20the%20sports%20ball_2x_muted.mp4" type="video/mp4">
+            <source src="./video/turn%20right%20and%20go%20to%20the%20sports%20ball.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
