@@ -298,6 +298,25 @@ main > section {
   overflow-wrap: normal;
 }
 
+#overview .split {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 56px;
+}
+
+#overview .media.tall {
+  min-height: 480px;
+}
+
+#overview .media img {
+  object-fit: cover;
+  object-position: center center;
+  transform: scale(1.1);
+}
+
+#overview .feature-grid {
+  margin-top: 52px;
+}
+
 .copy p {
   margin: 0 0 16px;
   color: rgba(245, 245, 245, 0.78);
@@ -1006,6 +1025,15 @@ main > section {
   .nav-links {
     justify-content: flex-start;
     gap: 16px;
+  }
+
+  #overview .split {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  #overview .media img {
+    transform: none;
   }
 
   .hero-grid {
