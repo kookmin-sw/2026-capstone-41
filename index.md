@@ -1185,13 +1185,16 @@ main > section {
     </div>
   </section>
 
-<section class="section dark" id="hardware">
+
+
+<section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Hardware</h2>
+          <h2>Tech Stack</h2>
         </div>
       </div>
+      <h3>Hardware</h3>
       <div class="hardware-grid">
         <article class="hardware-card">
           <figure>
@@ -1199,7 +1202,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>Unitree Go2</h3>
-            <p>4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR</p>
+            <p>4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1208,7 +1211,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>Intel RealSense D435</h3>
-            <p>RGB-D 카메라</p>
+            <p>RGB-D 移대찓??/p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1217,7 +1220,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>RTX 3090</h3>
-            <p>모델 추론 및 실험 환경</p>
+            <p>紐⑤뜽 異붾줎 諛??ㅽ뿕 ?섍꼍</p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1226,19 +1229,9 @@ main > section {
           </figure>
           <div class="body">
             <h3>LiDAR</h3>
-            <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
+            <p>?먯쑉 諛깊듃?섑궧怨??섍꼍 ?몄?瑜??꾪븳 嫄곕━ ?쇱꽌</p>
           </div>
         </article>
-      </div>
-    </div>
-  </section>
-
-<section class="section dark" id="stack">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>Tech Stack</h2>
-        </div>
       </div>
       <div class="stack-grid">
         <article class="stack-card">
