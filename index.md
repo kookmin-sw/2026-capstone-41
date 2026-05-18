@@ -1200,7 +1200,7 @@ main > section {
       </div>
       <div class="split">
         <figure class="card-shell media tall">
-          <img src="./image/go2_front.png" alt="Unitree Go2 front view">
+          <img src="./image/go2_standing.png" alt="Unitree Go2 standing view">
         </figure>
         <div class="copy">
           <h3>자연어 명령 기반 VLA 사족 로봇</h3>
