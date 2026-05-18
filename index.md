@@ -290,6 +290,14 @@ main > section {
   letter-spacing: -0.03em;
 }
 
+#overview .copy h3 {
+  max-width: 100%;
+  font-size: clamp(2rem, 2.8vw, 3.2rem);
+  line-height: 1.25;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
 .copy p {
   margin: 0 0 16px;
   color: rgba(245, 245, 245, 0.78);
@@ -1118,7 +1126,7 @@ main > section {
           <img src="./image/go2_front.png" alt="Unitree Go2 front view">
         </figure>
         <div class="copy">
-          <h3>자연어 명령으로 움직이는 VLA 기반 사족 로봇</h3>
+          <h3>자연어 명령 기반 VLA 사족 로봇</h3>
           <p>본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.</p>
           <p>기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.</p>
           <div class="hero-cta" style="margin-top:24px;">
