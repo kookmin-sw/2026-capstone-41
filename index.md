@@ -1185,9 +1185,7 @@ img {
       </div>
       <div class="arch-grid">
         <div class="placeholder-arch">
-          <!-- Replace this block with <img src="./image/architecture-placeholder.png" alt="Architecture diagram"> when ready. -->
-          <strong>Architecture image will be updated</strong>
-          <code>./image/architecture-placeholder.png</code>
+          <img src="./image/Architecture light.png" alt="Architecture diagram">
         </div>
         <div class="copy">
           <h3>시스템 아키텍처</h3>
