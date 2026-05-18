@@ -387,11 +387,11 @@ img {
 
 .placeholder-arch {
   min-height: 520px;
-  background: transparent;
+  background: linear-gradient(180deg, #f5f4f0 0%, #efede8 100%);
 }
 
 .dark .placeholder-arch {
-  background: transparent;
+  background: linear-gradient(180deg, #f5f4f0 0%, #efede8 100%);
 }
 
 .placeholder-arch img {
