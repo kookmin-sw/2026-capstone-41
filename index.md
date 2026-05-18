@@ -1048,8 +1048,9 @@ img {
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#overview">Overview</a>
-      <a href="#hardware">Hardware</a>
+      <a href="#demo">Demo</a>
       <a href="#architecture">Architecture</a>
+      <a href="#hardware">Hardware</a>
       <a href="#team">Team</a>
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
     </div>
@@ -1084,7 +1085,7 @@ img {
 </header>
 
 <main>
-  <section class="section dark" id="impact">
+<section class="section dark" id="impact">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1108,7 +1109,7 @@ img {
     </div>
   </section>
 
-  <section class="section light" id="overview">
+<section class="section light" id="overview">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1152,7 +1153,7 @@ img {
     </div>
   </section>
 
-  <section class="section light" id="demo">
+<section class="section light" id="demo">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1175,7 +1176,34 @@ img {
     </div>
   </section>
 
-  <section class="section dark" id="hardware">
+<section class="section light" id="architecture">
+    <div class="page-shell">
+      <div class="section-head">
+        <div>
+          <h2>Architecture</h2>
+        </div>
+      </div>
+      <div class="arch-grid">
+        <div class="placeholder-arch">
+          <!-- Replace this block with <img src="./image/architecture-placeholder.png" alt="Architecture diagram"> when ready. -->
+          <strong>Architecture image will be updated</strong>
+          <code>./image/architecture-placeholder.png</code>
+        </div>
+        <div class="copy">
+          <h3>시스템 아키텍처</h3>
+          <ul class="arch-list">
+            <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
+            <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
+            <li><strong>LiDAR SLAM Runner</strong>: 실시간 SLAM 기반 closed-loop 제어로 안전한 자율 백트래킹을 제공한다.</li>
+            <li><strong>ROSA Agent + Qwen3.5-4B</strong>: 자연어 명령을 tool 단위로 분해하고, 4종 기능을 상황에 맞게 호출하는 LLM 에이전트다.</li>
+            <li><strong>YOLO 입력단</strong>: VLA를 통째로 재학습하지 않고도 신규 task를 추가할 수 있도록 객체 검출 결과를 pixel goal 형태로 모델에 주입한다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="section dark" id="hardware">
     <div class="page-shell">
       <div class="section-head">
         <div>
@@ -1223,112 +1251,61 @@ img {
     </div>
   </section>
 
-  <section class="section light" id="architecture">
+<section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Architecture</h2>
+          <h2>Tech Stack</h2>
         </div>
       </div>
-      <div class="arch-grid">
-        <div class="placeholder-arch">
-          <!-- Replace this block with <img src="./image/architecture-placeholder.png" alt="Architecture diagram"> when ready. -->
-          <strong>Architecture image will be updated</strong>
-          <code>./image/architecture-placeholder.png</code>
-        </div>
-        <div class="copy">
-          <h3>시스템 아키텍처</h3>
-          <ul class="arch-list">
-            <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
-            <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
-            <li><strong>LiDAR SLAM Runner</strong>: 실시간 SLAM 기반 closed-loop 제어로 안전한 자율 백트래킹을 제공한다.</li>
-            <li><strong>ROSA Agent + Qwen3.5-4B</strong>: 자연어 명령을 tool 단위로 분해하고, 4종 기능을 상황에 맞게 호출하는 LLM 에이전트다.</li>
-            <li><strong>YOLO 입력단</strong>: VLA를 통째로 재학습하지 않고도 신규 task를 추가할 수 있도록 객체 검출 결과를 pixel goal 형태로 모델에 주입한다.</li>
+      <div class="stack-grid">
+        <article class="stack-card">
+          <h3>하드웨어</h3>
+          <ul class="stack-list">
+            <li>Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)</li>
+            <li>Intel RealSense D435 (RGB-D 카메라)</li>
+            <li>RTX 3090</li>
           </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section dark" id="team">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>Team</h2>
-        </div>
-      </div>
-      <div class="team-grid">
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/임민석.png" alt="임민석 profile photo">
-          </div>
-          <h3>임민석</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/dla020501" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
         </article>
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/조원영.png" alt="조원영 profile photo">
-          </div>
-          <h3>조원영</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/Reveroftrillion" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
+        <article class="stack-card">
+          <h3>모델·AI</h3>
+          <ul class="stack-list">
+            <li>InternVLA-N1-DualVLN (메인 VLA)</li>
+            <li>LOVON (일부 구조 차용)</li>
+            <li>Qwen3.5-4B (vLLM 서빙, ROSA agent의 LLM)</li>
+            <li>YOLO (객체 검출)</li>
+          </ul>
         </article>
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/정유진.jpg" alt="정유진 profile photo">
-          </div>
-          <h3>정유진</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/alicex-x02" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
+        <article class="stack-card">
+          <h3>소프트웨어</h3>
+          <ul class="stack-list">
+            <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
+            <li>vLLM — Qwen3.5-4B LLM 서빙</li>
+            <li>OpenCV / NumPy — 이미지 처리·디블러링·SLAM 후처리·좌표 연산</li>
+            <li>ROS 2 — 로봇 미들웨어 (노드 간 토픽·서비스 통신)</li>
+            <li>TensorRT — System1 추론 속도(주기) 향상</li>
+          </ul>
         </article>
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/성재승.jpg" alt="성재승 profile photo">
-          </div>
-          <h3>성재승</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/Sung-Jae-Seong" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
+        <article class="stack-card">
+          <h3>미들웨어·로봇 제어</h3>
+          <ul class="stack-list">
+            <li>Zenoh-bridge ROS2 DDS (무선 통신 브릿지)</li>
+            <li>Unitree API</li>
+            <li>LiDAR SLAM Runner (자체 closed-loop 백트래킹)</li>
+          </ul>
         </article>
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
-          </div>
-          <h3>조유빈</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/yubincho3" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </article>
-        <article class="team-card">
-          <div class="avatar">
-            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
-          </div>
-          <h3>유리안</h3>
-          <p class="role">Role TBD</p>
-          <a class="gh" href="https://github.com/ryurian001" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span>GitHub</span>
-          </a>
+        <article class="stack-card">
+          <h3>시뮬레이션·툴</h3>
+          <ul class="stack-list">
+            <li>NVIDIA Isaac Sim (Embodiment gap 검증)</li>
+            <li>3D 프린팅 (RealSense 마운트)</li>
+          </ul>
         </article>
       </div>
     </div>
   </section>
 
-    <section class="section light timeline-section" id="timeline">
+<section class="section light timeline-section" id="timeline">
     <div class="page-shell timeline-shell">
       <div class="timeline-head">
         <p class="timeline-kicker">Timeline</p>
@@ -1407,61 +1384,86 @@ img {
       </div>
     </div>
   </section>
-<section class="section dark" id="stack">
+
+<section class="section dark" id="team">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Tech Stack</h2>
+          <h2>Team</h2>
         </div>
       </div>
-      <div class="stack-grid">
-        <article class="stack-card">
-          <h3>하드웨어</h3>
-          <ul class="stack-list">
-            <li>Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)</li>
-            <li>Intel RealSense D435 (RGB-D 카메라)</li>
-            <li>RTX 3090</li>
-          </ul>
+      <div class="team-grid">
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/임민석.png" alt="임민석 profile photo">
+          </div>
+          <h3>임민석</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/dla020501" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
         </article>
-        <article class="stack-card">
-          <h3>모델·AI</h3>
-          <ul class="stack-list">
-            <li>InternVLA-N1-DualVLN (메인 VLA)</li>
-            <li>LOVON (일부 구조 차용)</li>
-            <li>Qwen3.5-4B (vLLM 서빙, ROSA agent의 LLM)</li>
-            <li>YOLO (객체 검출)</li>
-          </ul>
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/조원영.png" alt="조원영 profile photo">
+          </div>
+          <h3>조원영</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/Reveroftrillion" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
         </article>
-        <article class="stack-card">
-          <h3>소프트웨어</h3>
-          <ul class="stack-list">
-            <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
-            <li>vLLM — Qwen3.5-4B LLM 서빙</li>
-            <li>OpenCV / NumPy — 이미지 처리·디블러링·SLAM 후처리·좌표 연산</li>
-            <li>ROS 2 — 로봇 미들웨어 (노드 간 토픽·서비스 통신)</li>
-            <li>TensorRT — System1 추론 속도(주기) 향상</li>
-          </ul>
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/정유진.jpg" alt="정유진 profile photo">
+          </div>
+          <h3>정유진</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/alicex-x02" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
         </article>
-        <article class="stack-card">
-          <h3>미들웨어·로봇 제어</h3>
-          <ul class="stack-list">
-            <li>Zenoh-bridge ROS2 DDS (무선 통신 브릿지)</li>
-            <li>Unitree API</li>
-            <li>LiDAR SLAM Runner (자체 closed-loop 백트래킹)</li>
-          </ul>
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/성재승.jpg" alt="성재승 profile photo">
+          </div>
+          <h3>성재승</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/Sung-Jae-Seong" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
         </article>
-        <article class="stack-card">
-          <h3>시뮬레이션·툴</h3>
-          <ul class="stack-list">
-            <li>NVIDIA Isaac Sim (Embodiment gap 검증)</li>
-            <li>3D 프린팅 (RealSense 마운트)</li>
-          </ul>
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/조유빈.png" alt="조유빈 profile photo">
+          </div>
+          <h3>조유빈</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/yubincho3" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
+        </article>
+        <article class="team-card">
+          <div class="avatar">
+            <img src="./profile/유리안.jpg" alt="유리안 profile photo">
+          </div>
+          <h3>유리안</h3>
+          <p class="role">Role TBD</p>
+          <a class="gh" href="https://github.com/ryurian001" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            <span>GitHub</span>
+          </a>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section light" id="references">
+<section class="section light" id="references">
     <div class="page-shell">
       <div class="section-head">
         <div>
