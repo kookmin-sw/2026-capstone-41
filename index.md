@@ -1088,7 +1088,7 @@ img {
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>프로젝트의 의의</h2>
+          <h2>Project Significance</h2>
         </div>
       </div>
       <div class="impact-grid">
