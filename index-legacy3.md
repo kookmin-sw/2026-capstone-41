@@ -1102,7 +1102,7 @@ main > section {
       </div>
       <div class="split">
         <figure class="card-shell media tall">
-          <img src="./image/go2_front.png" alt="Unitree Go2 front view">
+          <img src="./image/go2_standing.png" alt="Unitree Go2 standing view">
         </figure>
         <div class="copy">
           <h3>자연어 명령으로 움직이는 VLA 기반 사족 로봇</h3>
@@ -1194,7 +1194,8 @@ main > section {
           <h2>Tech Stack</h2>
         </div>
       </div>
-      <h3>Hardware</h3>
+      <h3>Hardware</h3>
+
 <div class="hardware-grid">
         <article class="hardware-card">
           <figure>
@@ -1232,7 +1233,8 @@ main > section {
             <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
           </div>
         </article>
-      </div>
+      </div>
+
       <div class="stack-grid">
         <article class="stack-card">
           <h3>하드웨어</h3>
