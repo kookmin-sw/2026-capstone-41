@@ -1125,6 +1125,7 @@ img {
           <p>기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.</p>
           <div class="hero-cta" style="margin-top:24px;">
             <a class="btn" href="#hardware">Hardware</a>
+            <a class="btn" href="#demo">Demo</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
@@ -1147,6 +1148,29 @@ img {
           <h4>Backtracking</h4>
           <p>LiDAR SLAM 기반 closed-loop 제어로 과거에 지나온 경로를 자동으로 되짚어 돌아온다.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light" id="demo">
+    <div class="page-shell">
+      <div class="section-head">
+        <div>
+          <h2>Demo</h2>
+        </div>
+      </div>
+      <div class="split">
+        <figure class="card-shell media tall">
+          <video controls playsinline preload="metadata" poster="./image/go2_front.png">
+            <source src="./video/demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+        <div class="copy">
+          <h3>Demo Video Placeholder</h3>
+          <p>Add the demo video later at <code>./video/demo.mp4</code>.</p>
+          <p>This section is ready for a recorded demo, teaser clip, or walkthrough.</p>
+        </div>
       </div>
     </div>
   </section>
