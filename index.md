@@ -640,7 +640,10 @@ main > section {
 }
 
 .timeline-section {
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 24% 48%, rgba(255, 79, 117, 0.08), transparent 28%),
+    radial-gradient(circle at 78% 48%, rgba(155, 92, 255, 0.08), transparent 30%),
+    var(--bg);
   color: var(--ink);
 }
 
@@ -650,26 +653,17 @@ main > section {
 
 .timeline-head {
   display: grid;
-  justify-items: center;
-  text-align: center;
+  justify-items: start;
+  text-align: left;
   gap: 10px;
-  margin-bottom: 44px;
-}
-
-.timeline-kicker {
-  margin: 0;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(155, 92, 255, 0.86);
+  margin-bottom: 36px;
 }
 
 .timeline-head h2 {
   margin: 0;
-  font-size: clamp(2.2rem, 3.8vw, 3.8rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
   color: var(--ink);
   font-weight: 800;
 }
@@ -682,150 +676,132 @@ main > section {
 
 .timeline-stage {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 100px minmax(0, 1fr);
-  grid-template-rows: repeat(3, auto);
-  row-gap: 88px;
-  padding: 12px 0 42px;
+  min-height: 590px;
+  padding: 18px 0 28px;
 }
 
 .timeline-axis {
   position: absolute;
-  top: 0;
-  bottom: 22px;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(255, 91, 138, 0.14), rgba(255, 91, 138, 0.82), rgba(155, 92, 255, 0.82), rgba(155, 92, 255, 0.14));
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0.05), rgba(255, 79, 117, 0.88), rgba(155, 92, 255, 0.9), rgba(155, 92, 255, 0.05));
+  box-shadow: 0 0 18px rgba(255, 79, 117, 0.35), 0 0 28px rgba(155, 92, 255, 0.25);
 }
 
 .timeline-node {
-  position: relative;
+  position: absolute;
+  top: 50%;
   z-index: 2;
-  justify-self: center;
-  width: 12px;
-  height: 12px;
-  margin-top: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-  box-shadow: 0 0 0 4px rgba(255, 91, 138, 0.07), 0 0 12px rgba(155, 92, 255, 0.14);
+  background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+  border: 3px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 0 0 8px rgba(255, 79, 117, 0.14), 0 0 26px rgba(155, 92, 255, 0.5);
+  transform: translate(-50%, -50%);
+}
+
+.timeline-node::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 54px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.3));
 }
 
 .timeline-node-1 {
-  grid-column: 2;
-  grid-row: 1;
+  left: 18%;
 }
 
 .timeline-node-2 {
-  grid-column: 2;
-  grid-row: 2;
+  left: 50%;
 }
 
 .timeline-node-3 {
-  grid-column: 2;
-  grid-row: 3;
+  left: 82%;
+}
+
+.timeline-node-1::after,
+.timeline-node-3::after {
+  top: 100%;
+}
+
+.timeline-node-2::after {
+  bottom: 100%;
+  background: linear-gradient(0deg, rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.3));
 }
 
 .timeline-entry {
-  position: relative;
-  max-width: 440px;
+  position: absolute;
+  z-index: 3;
+  width: min(330px, 28vw);
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
 }
 
-.timeline-entry-1,
-.timeline-entry-3 {
-  justify-self: end;
-  text-align: left;
-  padding-right: 30px;
-}
-
-.timeline-entry-2 {
-  justify-self: start;
-  text-align: left;
-  padding-left: 30px;
-}
-
 .timeline-entry-1 {
-  grid-column: 1;
-  grid-row: 1;
+  left: 9%;
+  top: calc(50% + 70px);
 }
 
 .timeline-entry-2 {
-  grid-column: 3;
-  grid-row: 2;
+  left: 50%;
+  bottom: calc(50% + 70px);
+  transform: translateX(-50%);
 }
 
 .timeline-entry-3 {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.timeline-entry::after {
-  content: "";
-  position: absolute;
-  top: 22px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8));
-}
-
-.timeline-entry-1::after,
-.timeline-entry-3::after {
-  right: -20px;
-  width: 44px;
-}
-
-.timeline-entry-2::after {
-  left: -20px;
-  width: 44px;
-  background: linear-gradient(90deg, rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8), rgba(255, 255, 255, 0));
+  right: 7%;
+  top: calc(50% + 70px);
 }
 
 .timeline-entry-inner {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .timeline-entry h3 {
   margin: 0;
-  display: inline-grid;
-  gap: 10px;
-  font-size: 1.18rem;
+  display: grid;
+  gap: 12px;
+  font-size: clamp(1.45rem, 2.4vw, 2.2rem);
   font-weight: 800;
-  letter-spacing: -0.035em;
+  line-height: 1;
+  letter-spacing: -0.04em;
   color: var(--ink);
 }
 
 .timeline-title-row {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .timeline-title-row svg {
-  width: 13px;
-  height: 13px;
-  fill: currentColor;
-  opacity: 0.85;
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  color: var(--accent-a);
+  filter: drop-shadow(0 0 7px rgba(255, 79, 117, 0.5));
   flex: 0 0 auto;
 }
 
 .timeline-entry h3::after {
   content: "";
   width: 100%;
-  height: 1px;
+  height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.14), rgba(255, 91, 138, 0.58), rgba(155, 92, 255, 0.58));
-}
-
-.timeline-entry-3 h3 {
-  color: var(--accent-b);
-}
-
-.timeline-entry-3 h3::after {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 91, 138, 0.52), rgba(155, 92, 255, 0.72));
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  box-shadow: 0 0 12px rgba(155, 92, 255, 0.25);
 }
 
 .timeline-list {
@@ -833,14 +809,15 @@ main > section {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 9px;
+  gap: 8px;
   color: rgba(245, 245, 245, 0.84);
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
 }
 
 .timeline-list li {
   position: relative;
-  padding-left: 16px;
-  line-height: 1.55;
+  padding-left: 18px;
+  line-height: 1.5;
 }
 
 .timeline-list li::before {
@@ -853,87 +830,40 @@ main > section {
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
   transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(255, 79, 117, 0.45);
 }
 
-.timeline-entry-3 .timeline-list li::before {
-  background: linear-gradient(90deg, var(--accent-b), var(--accent-a));
-}
-
-.timeline-arrow {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 14px;
-  height: 14px;
-  border-right: 2px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-  transform: translateX(-50%) rotate(45deg);
+.timeline-entry-2 .timeline-title-row svg {
+  color: var(--accent-b);
 }
 
 @media (max-width: 900px) {
-  .timeline-head {
-    justify-items: start;
-    text-align: left;
-  }
-
   .timeline-stage {
-    grid-template-columns: 26px 1fr;
-    grid-template-rows: auto auto auto;
-    row-gap: 34px;
-    padding-left: 0;
+    display: grid;
+    gap: 28px;
+    min-height: auto;
+    padding: 8px 0 0;
   }
 
-  .timeline-axis {
-    left: 12px;
-    transform: none;
-  }
-
+  .timeline-axis,
   .timeline-node {
-    justify-self: start;
-    margin-top: 14px;
-  }
-
-  .timeline-node-1 {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .timeline-node-2 {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .timeline-node-3 {
-    grid-column: 1;
-    grid-row: 3;
+    display: none;
   }
 
   .timeline-entry,
   .timeline-entry-1,
   .timeline-entry-2,
   .timeline-entry-3 {
-    grid-column: 2;
-    justify-self: stretch;
+    position: static;
+    width: 100%;
     max-width: none;
-    padding-left: 18px;
-    padding-right: 0;
+    transform: none;
+    padding: 0 0 0 18px;
+    border-left: 1px solid rgba(255, 79, 117, 0.38);
   }
+}
 
-  .timeline-entry-1,
-  .timeline-entry-3 {
-    text-align: left;
-  }
-
-  .timeline-entry::after {
-    left: -18px;
-    right: auto;
-    width: 26px;
-  }
-
-  .timeline-arrow {
-    left: 12px;
-  }
-}.stack-grid {
+.stack-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1428,8 +1358,7 @@ main > section {
 <section class="section light timeline-section" id="timeline">
     <div class="page-shell timeline-shell">
       <div class="timeline-head">
-        <p class="timeline-kicker">Timeline</p>
-        <h2>캡스톤 개발 타임라인</h2>
+        <h2>Timeline</h2>
         <p>3월부터 5월까지의 주요 개발 계획과 진행 과제</p>
       </div>
 
@@ -1443,8 +1372,9 @@ main > section {
           <div class="timeline-entry-inner">
             <h3>
               <span class="timeline-title-row">
-                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+                  <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
                 <span>3월</span>
               </span>
@@ -1462,8 +1392,9 @@ main > section {
           <div class="timeline-entry-inner">
             <h3>
               <span class="timeline-title-row">
-                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+                  <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
                 <span>4월</span>
               </span>
@@ -1482,8 +1413,9 @@ main > section {
           <div class="timeline-entry-inner">
             <h3>
               <span class="timeline-title-row">
-                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                  <path d="M4 0a1 1 0 0 1 1 1v1h6V1a1 1 0 1 1 2 0v1h1.5A1.5 1.5 0 0 1 16 3.5v11A1.5 1.5 0 0 1 14.5 16h-13A1.5 1.5 0 0 1 0 14.5v-11A1.5 1.5 0 0 1 1.5 2H3V1a1 1 0 0 1 1-1Zm-2 6v8.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5V6H2Zm12-2V3.5a.5.5 0 0 0-.5-.5H14v1a1 1 0 1 1-2 0V3H4v1a1 1 0 1 1-2 0V3h-.5a.5.5 0 0 0-.5.5V4h13Z"/>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+                  <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
                 <span>5월</span>
               </span>
@@ -1499,8 +1431,6 @@ main > section {
             </ul>
           </div>
         </article>
-
-        <div class="timeline-arrow" aria-hidden="true"></div>
       </div>
     </div>
   </section>
