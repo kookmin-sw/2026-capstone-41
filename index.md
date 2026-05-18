@@ -1194,7 +1194,8 @@ main > section {
           <h2>Tech Stack</h2>
         </div>
       </div>
-      <h3>Hardware</h3>
+      <h3>Hardware</h3>
+
 <div class="hardware-grid">
         <article class="hardware-card">
           <figure>
@@ -1232,18 +1233,11 @@ main > section {
             <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
           </div>
         </article>
-      </div>
+      </div>
+
       <div class="stack-grid">
         <article class="stack-card">
-          <h3>하드웨어</h3>
-          <ul class="stack-list">
-            <li>Unitree Go2 (4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR)</li>
-            <li>Intel RealSense D435 (RGB-D 카메라)</li>
-            <li>RTX 3090</li>
-          </ul>
-        </article>
-        <article class="stack-card">
-          <h3>모델·AI</h3>
+          <h3>Models & AI</h3>
           <ul class="stack-list">
             <li>InternVLA-N1-DualVLN (메인 VLA)</li>
             <li>LOVON (일부 구조 차용)</li>
@@ -1252,7 +1246,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>소프트웨어</h3>
+          <h3>Software</h3>
           <ul class="stack-list">
             <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
             <li>vLLM — Qwen3.5-4B LLM 서빙</li>
@@ -1262,7 +1256,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>미들웨어·로봇 제어</h3>
+          <h3>Middleware & Robot Control</h3>
           <ul class="stack-list">
             <li>Zenoh-bridge ROS2 DDS (무선 통신 브릿지)</li>
             <li>Unitree API</li>
@@ -1270,7 +1264,7 @@ main > section {
           </ul>
         </article>
         <article class="stack-card">
-          <h3>시뮬레이션·툴</h3>
+          <h3>Simulation & Tools</h3>
           <ul class="stack-list">
             <li>NVIDIA Isaac Sim (Embodiment gap 검증)</li>
             <li>3D 프린팅 (RealSense 마운트)</li>
