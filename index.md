@@ -1172,7 +1172,6 @@ main > section {
           <img src="./image/Architecture dark.png" alt="Architecture diagram">
         </div>
         <div class="copy">
-          <h3>시스템 아키텍처</h3>
           <ul class="arch-list">
             <li><strong>베이스 모델 — InternVLA-N1-DualVLN</strong>: System1(저수준 제어) + System2(고수준 의사결정)의 dual-system 구조를 가진 VLA foundation model을 그대로 활용한다.</li>
             <li><strong>LOVON 부분 결합</strong>: LOVON 모델 전체를 통째로 사용하지 않고, 일부 구조와 모델만 차용해 InternVLA 내부에 끼워 넣어 모션 블러·저속 환경에서의 추종 성능을 개선했다.</li>
