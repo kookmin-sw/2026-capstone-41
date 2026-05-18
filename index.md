@@ -311,6 +311,50 @@ main > section {
   margin-bottom: 0;
 }
 
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+  grid-auto-flow: dense;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-card h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  letter-spacing: -0.03em;
+}
+
+.demo-card video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000;
+}
+
+.demo-card.portrait {
+  grid-row: span 2;
+}
+
+.demo-card.portrait video {
+  aspect-ratio: 9 / 16;
+}
+
+.demo-card.landscape video {
+  aspect-ratio: 16 / 9;
+}
+
 .feature-grid,
 .hardware-grid,
 .timeline-grid,
@@ -341,6 +385,26 @@ main > section {
 .light .mini-card {
   border-color: rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 1100px) {
+  .demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-card.portrait {
+    grid-row: auto;
+  }
+
+  .demo-card.portrait video {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 720px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .mini-card h4 {
@@ -1165,18 +1229,42 @@ main > section {
           <h2>Demo</h2>
         </div>
       </div>
-      <div class="split">
-        <figure class="card-shell media tall">
-          <video controls playsinline preload="metadata" poster="./image/go2_front.png">
-            <source src="./video/demo.mp4" type="video/mp4">
+      <div class="demo-grid" aria-label="Demo videos">
+        <article class="demo-card portrait">
+          <h3>Follow the person</h3>
+          <video controls playsinline preload="metadata">
+            <source src="./video/follow%20the%20person.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-        </figure>
-        <div class="copy">
-          <h3>Demo Video Placeholder</h3>
-          <p>Add the demo video later at <code>./video/demo.mp4</code>.</p>
-          <p>This section is ready for a recorded demo, teaser clip, or walkthrough.</p>
-        </div>
+        </article>
+        <article class="demo-card landscape">
+          <h3>Go to the backpack and return to the starting position</h3>
+          <video controls playsinline preload="metadata">
+            <source src="./video/go%20to%20the%20backpack%20and%20return%20to%20the%20starting%20position.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article class="demo-card landscape">
+          <h3>Go to the person and go to the chair</h3>
+          <video controls playsinline preload="metadata">
+            <source src="./video/go%20to%20the%20person%20and%20go%20to%20the%20chair.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article class="demo-card landscape">
+          <h3>Go to the sports ball</h3>
+          <video controls playsinline preload="metadata">
+            <source src="./video/go%20to%20the%20sports%20ball.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article class="demo-card landscape">
+          <h3>Turn right and go to the sports ball</h3>
+          <video controls playsinline preload="metadata">
+            <source src="./video/turn%20right%20and%20go%20to%20the%20sports%20ball.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </article>
       </div>
     </div>
   </section>
