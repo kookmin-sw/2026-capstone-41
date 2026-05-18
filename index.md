@@ -1034,7 +1034,7 @@ main > section {
       <a href="#overview">Overview</a>
       <a href="#demo">Demo</a>
       <a href="#architecture">Architecture</a>
-      <a href="#hardware">Hardware</a>
+      <a href="#stack">Hardware</a>
       <a href="#team">Team</a>
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
     </div>
@@ -1109,7 +1109,7 @@ main > section {
           <p>본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.</p>
           <p>기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.</p>
           <div class="hero-cta" style="margin-top:24px;">
-            <a class="btn" href="#hardware">Hardware</a>
+            <a class="btn" href="#stack">Hardware</a>
             <a class="btn" href="#demo">Demo</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
           </div>
@@ -1185,13 +1185,15 @@ main > section {
     </div>
   </section>
 
-<section class="section dark" id="hardware">
+
+<section class="section dark" id="stack">
     <div class="page-shell">
       <div class="section-head">
         <div>
-          <h2>Hardware</h2>
+          <h2>Tech Stack</h2>
         </div>
       </div>
+      <h3 class="stack-hardware-title">Hardware</h3>
       <div class="hardware-grid">
         <article class="hardware-card">
           <figure>
@@ -1199,7 +1201,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>Unitree Go2</h3>
-            <p>4족 보행 로봇, 내장 Jetson Orin / 내장 LiDAR</p>
+            <p>4議?蹂댄뻾 濡쒕큸, ?댁옣 Jetson Orin / ?댁옣 LiDAR</p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1208,7 +1210,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>Intel RealSense D435</h3>
-            <p>RGB-D 카메라</p>
+            <p>RGB-D 移대찓??/p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1217,7 +1219,7 @@ main > section {
           </figure>
           <div class="body">
             <h3>RTX 3090</h3>
-            <p>모델 추론 및 실험 환경</p>
+            <p>紐⑤뜽 異붾줎 諛??ㅽ뿕 ?섍꼍</p>
           </div>
         </article>
         <article class="hardware-card">
@@ -1226,19 +1228,9 @@ main > section {
           </figure>
           <div class="body">
             <h3>LiDAR</h3>
-            <p>자율 백트래킹과 환경 인지를 위한 거리 센서</p>
+            <p>?먯쑉 諛깊듃?섑궧怨??섍꼍 ?몄?瑜??꾪븳 嫄곕━ ?쇱꽌</p>
           </div>
         </article>
-      </div>
-    </div>
-  </section>
-
-<section class="section dark" id="stack">
-    <div class="page-shell">
-      <div class="section-head">
-        <div>
-          <h2>Tech Stack</h2>
-        </div>
       </div>
       <div class="stack-grid">
         <article class="stack-card">
@@ -1472,7 +1464,7 @@ main > section {
     <div class="footer-links">
       <a href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub Repository</a>
       <a href="#overview">Overview</a>
-      <a href="#hardware">Hardware</a>
+      <a href="#stack">Hardware</a>
       <a href="#team">Team</a>
     </div>
     <div>
