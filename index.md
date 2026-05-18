@@ -207,13 +207,17 @@ img {
 }
 
 .section.light {
-  background: linear-gradient(180deg, #f5f4f0 0%, #efede8 100%);
-  color: var(--ink-dark);
+  background: var(--bg);
+  color: var(--ink);
 }
 
 .section.dark {
   background: var(--bg);
   color: var(--ink);
+}
+
+main > section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .section-head {
@@ -238,7 +242,7 @@ img {
 }
 
 .light .section-head p {
-  color: var(--muted-dark);
+  color: var(--muted);
 }
 
 .split {
@@ -255,6 +259,11 @@ img {
 }
 
 .dark .card-shell {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.light .card-shell {
   border-color: var(--line);
   background: rgba(255, 255, 255, 0.03);
 }
@@ -287,7 +296,7 @@ img {
 }
 
 .light .copy p {
-  color: rgba(31, 31, 31, 0.74);
+  color: rgba(245, 245, 245, 0.78);
 }
 
 .copy p:last-child {
@@ -321,6 +330,11 @@ img {
   background: rgba(255, 255, 255, 0.04);
 }
 
+.light .mini-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .mini-card h4 {
   margin: 0 0 10px;
   font-size: 1.05rem;
@@ -338,11 +352,11 @@ img {
 }
 
 .hardware-card {
-  border: 1px solid rgba(31, 31, 31, 0.1);
-  background: #f6f3ed;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
   overflow: hidden;
   transition: transform 0.18s ease, border-color 0.18s ease;
-  color: var(--ink-dark);
+  color: var(--ink);
 }
 
 .hardware-card:hover {
@@ -353,7 +367,7 @@ img {
 .hardware-card figure {
   margin: 0;
   height: 240px;
-  background: #fff;
+  background: #0f0f13;
 }
 
 .hardware-card img {
@@ -374,7 +388,7 @@ img {
 
 .hardware-card .body p {
   margin: 0;
-  color: rgba(31, 31, 31, 0.72);
+  color: rgba(245, 245, 245, 0.72);
   font-size: 0.94rem;
 }
 
@@ -427,8 +441,8 @@ img {
 }
 
 .light .team-card {
-  border-color: rgba(31, 31, 31, 0.1);
-  background: #fff;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .avatar {
@@ -441,7 +455,7 @@ img {
 }
 
 .light .avatar {
-  border-color: rgba(31, 31, 31, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .avatar img {
@@ -492,8 +506,8 @@ img {
 }
 
 .light .team-card .gh {
-  border-color: rgba(31, 31, 31, 0.12);
-  background: rgba(31, 31, 31, 0.02);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .team-card .gh:hover {
@@ -508,8 +522,8 @@ img {
 }
 
 .timeline-section {
-  background: linear-gradient(180deg, #f8f6f2 0%, #f4f1eb 100%);
-  color: var(--ink-dark);
+  background: var(--bg);
+  color: var(--ink);
 }
 
 .timeline-shell {
@@ -538,14 +552,14 @@ img {
   font-size: clamp(2.2rem, 3.8vw, 3.8rem);
   line-height: 0.98;
   letter-spacing: -0.045em;
-  color: var(--ink-dark);
+  color: var(--ink);
   font-weight: 800;
 }
 
 .timeline-head p {
   margin: 0;
   max-width: 60ch;
-  color: var(--muted-dark);
+  color: var(--muted);
 }
 
 .timeline-stage {
@@ -636,7 +650,7 @@ img {
   position: absolute;
   top: 22px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 91, 138, 0), rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8));
 }
 
 .timeline-entry-1::after,
@@ -648,7 +662,7 @@ img {
 .timeline-entry-2::after {
   left: -20px;
   width: 44px;
-  background: linear-gradient(90deg, rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8), rgba(155, 92, 255, 0));
+  background: linear-gradient(90deg, rgba(255, 91, 138, 0.8), rgba(155, 92, 255, 0.8), rgba(255, 255, 255, 0));
 }
 
 .timeline-entry-inner {
@@ -663,7 +677,7 @@ img {
   font-size: 1.18rem;
   font-weight: 800;
   letter-spacing: -0.035em;
-  color: var(--ink-dark);
+  color: var(--ink);
 }
 
 .timeline-title-row {
@@ -685,7 +699,7 @@ img {
   width: 100%;
   height: 1px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(15, 27, 45, 0.18), rgba(255, 91, 138, 0.58), rgba(155, 92, 255, 0.58));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.14), rgba(255, 91, 138, 0.58), rgba(155, 92, 255, 0.58));
 }
 
 .timeline-entry-3 h3 {
@@ -693,7 +707,7 @@ img {
 }
 
 .timeline-entry-3 h3::after {
-  background: linear-gradient(90deg, rgba(15, 27, 45, 0.14), rgba(255, 91, 138, 0.52), rgba(155, 92, 255, 0.72));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 91, 138, 0.52), rgba(155, 92, 255, 0.72));
 }
 
 .timeline-list {
@@ -702,7 +716,7 @@ img {
   padding: 0;
   display: grid;
   gap: 9px;
-  color: rgba(31, 31, 31, 0.84);
+  color: rgba(245, 245, 245, 0.84);
 }
 
 .timeline-list li {
@@ -733,8 +747,8 @@ img {
   bottom: 0;
   width: 14px;
   height: 14px;
-  border-right: 2px solid rgba(15, 27, 45, 0.25);
-  border-bottom: 2px solid rgba(15, 27, 45, 0.25);
+  border-right: 2px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   transform: translateX(-50%) rotate(45deg);
 }
 
