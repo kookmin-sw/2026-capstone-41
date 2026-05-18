@@ -665,7 +665,6 @@ main > section {
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--ink);
-  font-weight: 800;
 }
 
 .timeline-head p {
@@ -772,9 +771,9 @@ main > section {
   display: grid;
   gap: 12px;
   font-size: clamp(1.45rem, 2.4vw, 2.2rem);
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   color: var(--ink);
 }
 
@@ -1359,7 +1358,6 @@ main > section {
     <div class="page-shell timeline-shell">
       <div class="timeline-head">
         <h2>Timeline</h2>
-        <p>3월부터 5월까지의 주요 개발 계획과 진행 과제</p>
       </div>
 
       <div class="timeline-stage" aria-label="캡스톤 개발 타임라인">
@@ -1376,7 +1374,7 @@ main > section {
                   <rect x="4" y="5" width="16" height="15" rx="2"></rect>
                   <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
-                <span>3월</span>
+                <span>March</span>
               </span>
             </h3>
             <ul class="timeline-list">
@@ -1396,7 +1394,7 @@ main > section {
                   <rect x="4" y="5" width="16" height="15" rx="2"></rect>
                   <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
-                <span>4월</span>
+                <span>April</span>
               </span>
             </h3>
             <ul class="timeline-list">
@@ -1417,7 +1415,7 @@ main > section {
                   <rect x="4" y="5" width="16" height="15" rx="2"></rect>
                   <path d="M8 3v4M16 3v4M4 10h16"></path>
                 </svg>
-                <span>5월</span>
+                <span>May</span>
               </span>
             </h3>
             <ul class="timeline-list">
