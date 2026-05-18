@@ -311,34 +311,44 @@ main > section {
   margin-bottom: 0;
 }
 
+.demo-note {
+  margin: -8px 0 0;
+  color: rgba(245, 245, 245, 0.62);
+  font-size: 0.95rem;
+}
+
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 0.88fr 1fr 1fr;
   gap: 18px;
-  margin-top: 28px;
+  margin-top: 24px;
   grid-auto-flow: dense;
+  align-items: stretch;
 }
 
 .demo-card {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.03);
+  min-height: 0;
 }
 
 .demo-card h3 {
   margin: 0;
-  font-size: 1.02rem;
+  min-height: 1.4em;
+  font-size: 0.98rem;
+  line-height: 1.35;
   letter-spacing: -0.03em;
+  word-break: keep-all;
 }
 
 .demo-card video {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
   background: #000;
 }
@@ -348,7 +358,10 @@ main > section {
 }
 
 .demo-card.portrait video {
-  aspect-ratio: 9 / 16;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  aspect-ratio: 9 / 15;
 }
 
 .demo-card.landscape video {
@@ -1229,6 +1242,7 @@ main > section {
           <h2>Demo</h2>
         </div>
       </div>
+      <p class="demo-note">Note: All demo videos are muted and shown at 2× playback speed.</p>
       <div class="demo-grid" aria-label="Demo videos">
         <article class="demo-card portrait">
           <h3>Follow the person</h3>
