@@ -443,7 +443,8 @@ main > section {
 .mini-card h4 {
   margin: 0 0 14px;
   padding-bottom: 10px;
-  font-size: 1.05rem;
+  font-size: 1.28rem;
+  line-height: 1.25;
   position: relative;
 }
 
