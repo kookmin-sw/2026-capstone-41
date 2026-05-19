@@ -1360,11 +1360,11 @@ main > section {
         <article class="stack-card">
           <h3>Software</h3>
           <ul class="stack-list">
-            <li>Python + PyTorch — 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
-            <li>vLLM — Qwen3.5-4B LLM 서빙</li>
-            <li>OpenCV / NumPy — 이미지 처리·디블러링·SLAM 후처리·좌표 연산</li>
-            <li>ROS 2 — 로봇 미들웨어 (노드 간 토픽·서비스 통신)</li>
-            <li>TensorRT — System1 추론 속도(주기) 향상</li>
+            <li>Python + PyTorch: 메인 개발 언어 및 InternVLA·LOVON 추론 프레임워크</li>
+            <li>vLLM: Qwen3.5-4B LLM 서빙</li>
+            <li>OpenCV / NumPy: 이미지 처리·디블러링·SLAM 후처리·좌표 연산</li>
+            <li>ROS 2: 로봇 미들웨어 (노드 간 토픽·서비스 통신)</li>
+            <li>TensorRT: System1 추론 속도(주기) 향상</li>
           </ul>
         </article>
         <article class="stack-card">
