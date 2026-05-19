@@ -1102,7 +1102,7 @@ main > section {
     <div class="page-shell hero-grid">
       <div>
         <p class="kicker">Vision-Language-Action · Robotics Capstone Project</p>
-        <h1>VLA 기반 사족 로봇 통합 자율 시스템</h1>
+        <h1>원격지에서의 자율적인 사족보행 로봇 구현</h1>
         <p class="hero-lead">
           본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.
         </p>
@@ -1532,7 +1532,7 @@ main > section {
 <footer class="footer" id="contact">
   <div class="page-shell footer-inner">
     <div>
-      <strong>VLA 기반 사족 로봇 통합 자율 시스템</strong>
+      <strong>원격지에서의 자율적인 사족보행 로봇 구현</strong>
       <div style="margin-top:8px;">GitHub Pages · Kookmin SW Capstone 2026</div>
     </div>
     <div class="footer-links">
