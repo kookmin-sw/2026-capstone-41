@@ -1107,9 +1107,6 @@ main > section {
           본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 기반 내비게이션 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 자연어 명령만으로 실제 환경을 인식하고 자율 주행하는 로봇 시스템을 구현합니다.
         </p>
         <p class="hero-lead">
-          사용자는 <strong>“의자로 가”</strong>, <strong>“저 사람을 따라가”</strong>와 같은 명령만 입력하면 되며, 로봇은 시각 정보를 바탕으로 목표 대상을 찾고 이동합니다.
-        </p>
-        <p class="hero-lead">
           또한 사족 보행 로봇의 낮은 카메라 시점과 실제 환경 차이로 인한 성능 저하를 줄이기 위해, <strong>LOVON의 객체 탐지 기반 보정 구조</strong>와 <strong>ROSA 에이전트 기반 명령 분해</strong>를 결합하여 보다 안정적인 자연어 기반 자율 주행 파이프라인을 구축했습니다.
         </p>
         <div class="hero-meta">
