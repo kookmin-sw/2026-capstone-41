@@ -1104,10 +1104,13 @@ main > section {
         <p class="kicker">Vision-Language-Action · Robotics Capstone Project</p>
         <h1>원격지에서의 자율적인 사족보행 로봇 구현</h1>
         <p class="hero-lead">
-          본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 사람이 말하는 자연어 명령("의자로 가", "저 사람을 따라가")만으로 로봇이 시각 정보를 해석하고 실제 환경을 자율 주행하도록 구현한 프로젝트다.
+          본 프로젝트는 <strong>Unitree Go2</strong> 사족 보행 로봇에 최신 Vision-Language-Action(VLA) 기반 내비게이션 모델인 <strong>InternVLA-N1-DualVLN</strong>을 이식하여, 자연어 명령만으로 실제 환경을 인식하고 자율 주행하는 로봇 시스템을 구현합니다.
         </p>
         <p class="hero-lead">
-          기존 VLA 모델들은 대체로 휴머노이드급 시점이나 고품질 카메라 환경을 전제로 만들어져 있어, 작은 사족 로봇처럼 본체가 다른 환경에 그대로 옮기면 성능이 떨어진다. 우리 팀은 이러한 <strong>로봇 본체별 환경 차이</strong>를 보정하기 위해 LOVON의 일부 구조를 InternVLA에 결합하고, ROSA 에이전트로 명령을 분해하는 등 시스템 레벨의 개선을 더했다.
+          사용자는 <strong>“의자로 가”</strong>, <strong>“저 사람을 따라가”</strong>와 같은 명령만 입력하면 되며, 로봇은 시각 정보를 바탕으로 목표 대상을 찾고 이동합니다.
+        </p>
+        <p class="hero-lead">
+          또한 사족 보행 로봇의 낮은 카메라 시점과 실제 환경 차이로 인한 성능 저하를 줄이기 위해, <strong>LOVON의 객체 탐지 기반 보정 구조</strong>와 <strong>ROSA 에이전트 기반 명령 분해</strong>를 결합하여 보다 안정적인 자연어 기반 자율 주행 파이프라인을 구축했습니다.
         </p>
         <div class="hero-meta">
           <span class="pill">Unitree Go2</span>
