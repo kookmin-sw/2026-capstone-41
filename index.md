@@ -895,6 +895,33 @@ main > section {
   gap: 18px;
 }
 
+.impact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.impact-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.impact-image {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.impact-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
 .impact-card h3 {
   margin-bottom: 12px;
 }
@@ -946,6 +973,10 @@ main > section {
   .arch-grid {
     grid-template-columns: 1fr;
     display: grid;
+  }
+
+  .impact-layout {
+    grid-template-columns: 1fr;
   }
 
   .nav-inner {
@@ -1132,37 +1163,43 @@ main > section {
           <h2>Project Significance</h2>
         </div>
       </div>
-      <div class="impact-grid">
-        <article class="impact-card">
-          <h3>1. 소형 사족 로봇 환경에 대한 VLA 모델 적응</h3>
-          <p>
-            사람에 가까운 카메라 시점과 고품질 센서 환경을 전제로 한 기존 VLA 모델은
-            소형 사족 로봇에 그대로 적용할 경우 성능 저하가 발생할 수 있습니다.
-            본 프로젝트는 <strong>InternVLA-N1-DualVLN</strong>에
-            <strong>LOVON 기반 객체 탐지 및 목표 보정 구조</strong>를 결합하여,
-            모델 전체를 재학습하지 않고도 Unitree Go2 환경에 적응할 수 있도록 구성했습니다.
-          </p>
-        </article>
+      <div class="impact-layout">
+        <div class="impact-copy">
+          <article class="impact-card">
+            <h3>1. 소형 사족 로봇 환경에 대한 VLA 모델 적응</h3>
+            <p>
+              사람에 가까운 카메라 시점과 고품질 센서 환경을 전제로 한 기존 VLA 모델은
+              소형 사족 로봇에 그대로 적용할 경우 성능 저하가 발생할 수 있습니다.
+              본 프로젝트는 <strong>InternVLA-N1-DualVLN</strong>에
+              <strong>LOVON 기반 객체 탐지 및 목표 보정 구조</strong>를 결합하여,
+              모델 전체를 재학습하지 않고도 Unitree Go2 환경에 적응할 수 있도록 구성했습니다.
+            </p>
+          </article>
 
-        <article class="impact-card">
-          <h3>2. 멀티태스크 VLA 파이프라인 구축</h3>
-          <p>
-            <strong>Navigation, Pointing, Following, Backtracking</strong> 기능을
-            <strong>ROSA 기반 LLM 에이전트</strong> 위에 통합하여,
-            자연어 명령에 따라 필요한 기능을 선택적으로 실행하는 구조를 구현했습니다.
-            특히 LiDAR SLAM 기반 자율 백트래킹을 추가해 기존 내비게이션 중심 기능을 확장했습니다.
-          </p>
-        </article>
+          <article class="impact-card">
+            <h3>2. 멀티태스크 VLA 파이프라인 구축</h3>
+            <p>
+              <strong>Navigation, Pointing, Following, Backtracking</strong> 기능을
+              <strong>ROSA 기반 LLM 에이전트</strong> 위에 통합하여,
+              자연어 명령에 따라 필요한 기능을 선택적으로 실행하는 구조를 구현했습니다.
+              특히 LiDAR SLAM 기반 자율 백트래킹을 추가해 기존 내비게이션 중심 기능을 확장했습니다.
+            </p>
+          </article>
 
-        <article class="impact-card">
-          <h3>3. 자연어 기반 원격 로봇 운용</h3>
-          <p>
-            <strong>Go2 Monitor 웹 인터페이스</strong>와
-            <strong>Zenoh-bridge 기반 무선 ROS2 통신</strong>을 통해,
-            원격에서도 실시간 카메라 피드를 확인하고 자연어 명령을 전송할 수 있도록 구성했습니다.
-            이를 통해 비전문가도 로봇을 쉽게 운용할 수 있는 기반을 마련했습니다.
-          </p>
-        </article>
+          <article class="impact-card">
+            <h3>3. 자연어 기반 원격 로봇 운용</h3>
+            <p>
+              <strong>Go2 Monitor 웹 인터페이스</strong>와
+              <strong>Zenoh-bridge 기반 무선 ROS2 통신</strong>을 통해,
+              원격에서도 실시간 카메라 피드를 확인하고 자연어 명령을 전송할 수 있도록 구성했습니다.
+              이를 통해 비전문가도 로봇을 쉽게 운용할 수 있는 기반을 마련했습니다.
+            </p>
+          </article>
+        </div>
+
+        <figure class="impact-image">
+          <img src="./image/go2_crazy.jpg" alt="Unitree Go2">
+        </figure>
       </div>
     </div>
   </section>
