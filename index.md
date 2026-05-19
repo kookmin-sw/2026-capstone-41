@@ -1288,10 +1288,10 @@ main > section {
         </article>
         <article class="hardware-card">
           <figure>
-            <img src="./image/realsense.png" alt="Intel RealSense D435">
+            <img src="./image/realsense.png" alt="Intel RealSense D435i">
           </figure>
           <div class="body">
-            <h3>Intel RealSense D435</h3>
+            <h3>Intel RealSense D435i</h3>
             <p>RGB-D 카메라</p>
           </div>
         </article>
