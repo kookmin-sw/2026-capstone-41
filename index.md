@@ -690,8 +690,8 @@ main > section {
 
 .timeline-stage {
   position: relative;
-  min-height: 540px;
-  padding: 8px 0 20px;
+  min-height: 590px;
+  padding: 18px 0 28px;
 }
 
 .timeline-axis {
@@ -701,8 +701,8 @@ main > section {
   top: 50%;
   height: 2px;
   transform: translateY(-50%);
-  background: linear-gradient(90deg, rgba(255, 79, 117, 0.04), rgba(255, 79, 117, 0.72), rgba(155, 92, 255, 0.74), rgba(155, 92, 255, 0.04));
-  box-shadow: 0 0 12px rgba(255, 79, 117, 0.24), 0 0 20px rgba(155, 92, 255, 0.18);
+  background: linear-gradient(90deg, rgba(255, 79, 117, 0.05), rgba(255, 79, 117, 0.88), rgba(155, 92, 255, 0.9), rgba(155, 92, 255, 0.05));
+  box-shadow: 0 0 18px rgba(255, 79, 117, 0.35), 0 0 28px rgba(155, 92, 255, 0.25);
 }
 
 .timeline-node {
@@ -753,7 +753,7 @@ main > section {
 .timeline-entry {
   position: absolute;
   z-index: 3;
-  width: min(400px, 31vw);
+  width: min(330px, 28vw);
   padding: 0;
   border: 0;
   background: transparent;
@@ -761,36 +761,32 @@ main > section {
 }
 
 .timeline-entry-1 {
-  left: 7%;
-  top: calc(50% + 54px);
+  left: 9%;
+  top: calc(50% + 70px);
 }
 
 .timeline-entry-2 {
   left: 50%;
-  bottom: calc(50% + 54px);
+  bottom: calc(50% + 70px);
   transform: translateX(-50%);
 }
 
 .timeline-entry-3 {
-  right: 5%;
-  top: calc(50% + 54px);
+  right: 7%;
+  top: calc(50% + 70px);
 }
 
 .timeline-entry-inner {
   display: grid;
   gap: 14px;
-  padding: 14px 16px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.025);
-  backdrop-filter: blur(6px);
 }
 
 .timeline-entry h3 {
   margin: 0;
   display: grid;
   gap: 12px;
-  font-size: clamp(1.65rem, 2.25vw, 2.25rem);
-  font-weight: 700;
+  font-size: clamp(1.45rem, 2.4vw, 2.2rem);
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--ink);
@@ -827,15 +823,15 @@ main > section {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 9px;
-  color: rgba(245, 245, 245, 0.9);
-  font-size: clamp(1rem, 1.08vw, 1.08rem);
+  gap: 8px;
+  color: rgba(245, 245, 245, 0.84);
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
 }
 
 .timeline-list li {
   position: relative;
   padding-left: 18px;
-  line-height: 1.58;
+  line-height: 1.5;
 }
 
 .timeline-list li::before {
