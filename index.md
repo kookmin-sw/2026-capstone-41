@@ -1232,35 +1232,35 @@ main > section {
       <div class="demo-grid" aria-label="Demo videos">
         <article class="demo-card portrait">
           <h3>Follow the person</h3>
-          <video controls playsinline preload="metadata" muted>
+          <video controls autoplay loop playsinline preload="metadata" muted>
             <source src="./video/follow%20the%20person.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the backpack and return to the starting position</h3>
-          <video controls playsinline preload="metadata" muted>
+          <video controls autoplay loop playsinline preload="metadata" muted>
             <source src="./video/go%20to%20the%20backpack%20and%20return%20to%20the%20starting%20position.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the person and go to the chair</h3>
-          <video controls playsinline preload="metadata" muted>
+          <video controls autoplay loop playsinline preload="metadata" muted>
             <source src="./video/go%20to%20the%20person%20and%20go%20to%20the%20chair.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Go to the sports ball</h3>
-          <video controls playsinline preload="metadata" muted>
+          <video controls autoplay loop playsinline preload="metadata" muted>
             <source src="./video/go%20to%20the%20sports%20ball.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </article>
         <article class="demo-card landscape">
           <h3>Turn right and go to the sports ball</h3>
-          <video controls playsinline preload="metadata" muted>
+          <video controls autoplay loop playsinline preload="metadata" muted>
             <source src="./video/turn%20right%20and%20go%20to%20the%20sports%20ball.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -1410,7 +1410,7 @@ main > section {
               </span>
             </h3>
             <ul class="timeline-list">
-              <li>방향성 결정</li>
+              <li>주제 : 원격지에서의 자율적인 사족보행 로봇 구현</li>
               <li>ROS2 / Zenoh</li>
               <li>InternVLA / LOVON 재현</li>
               <li>1차 시연</li>
@@ -1578,3 +1578,43 @@ main > section {
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  var videos = document.querySelectorAll('.demo-grid video');
+  if (!videos.length) return;
+
+  function tryPlay(video) {
+    var result = video.play();
+    if (result && typeof result.catch === 'function') {
+      result.catch(function () {});
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          tryPlay(entry.target);
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    videos.forEach(function (video) {
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      observer.observe(video);
+    });
+  } else {
+    videos.forEach(function (video) {
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      tryPlay(video);
+    });
+  }
+})();
+</script>
