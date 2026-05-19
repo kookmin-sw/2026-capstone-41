@@ -1331,15 +1331,15 @@ main > section {
         </div>
         <div class="copy">
           <ul class="arch-list">
-          <li><strong>Base Model-InternVLA-N1-DualVLN</strong>: System1의 저수준 제어와 System2의 고수준 의사결정을 결합한 dual-system 기반 VLA foundation model을 사용했습니다.</li>
+          <li><strong>Base Model-InternVLA-N1-DualVLN</strong>: System1의 저수준 제어와 System2의 고수준 의사결정을 결합한 dual-system 기반 VLA foundation model을 사용</li>
 
-          <li><strong>LOVON 기반 구조 결합</strong>: LOVON의 객체 탐지 및 목표 보정 구조를 InternVLA 파이프라인에 결합하여 저속 주행·모션 블러 환경에서의 추종 안정성을 개선했습니다.</li>
+          <li><strong>LOVON 기반 구조 결합</strong>: LOVON의 객체 탐지 및 목표 보정 구조를 InternVLA 파이프라인에 결합하여 저속 주행·모션 블러 환경에서의 추종 안정성을 개선</li>
 
-          <li><strong>LiDAR SLAM Runner</strong>: 실시간 SLAM 기반 closed-loop 제어를 통해 이동 경로를 추적하고, 필요 시 안전한 자율 백트래킹을 수행하도록 구성했습니다.</li>
+          <li><strong>LiDAR SLAM Runner</strong>: 실시간 SLAM 기반 closed-loop 제어를 통해 이동 경로를 추적하고, 필요 시 안전한 자율 백트래킹을 수행하도록 구성</li>
 
-          <li><strong>ROSA Agent + Qwen3.5-4B</strong>: 자연어 명령을 세부 작업 단위로 분해하고, 상황에 맞는 기능을 선택적으로 호출하는 LLM 기반 에이전트입니다.</li>
+          <li><strong>ROSA Agent + Qwen3.5-4B</strong>: 자연어 명령을 세부 작업 단위로 분해하고, 상황에 맞는 기능을 선택적으로 호출하는 LLM 기반 에이전트</li>
 
-          <li><strong>YOLO 입력단</strong>: VLA 모델을 전체 재학습하지 않고도 객체 기반 task를 확장할 수 있도록, YOLO 검출 결과를 pixel goal 형태로 변환해 입력에 주입했습니다.</li>
+          <li><strong>YOLO 입력단</strong>: VLA 모델을 전체 재학습하지 않고도 객체 기반 task를 확장할 수 있도록, YOLO 검출 결과를 pixel goal 형태로 변환해 입력에 주입</li>
           </ul>
         </div>
       </div>
