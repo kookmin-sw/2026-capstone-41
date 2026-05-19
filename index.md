@@ -441,8 +441,22 @@ main > section {
 }
 
 .mini-card h4 {
-  margin: 0 0 10px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
   font-size: 1.05rem;
+  position: relative;
+}
+
+.mini-card h4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  box-shadow: 0 0 12px rgba(255, 79, 117, 0.35), 0 0 16px rgba(155, 92, 255, 0.22);
 }
 
 .mini-card p {
