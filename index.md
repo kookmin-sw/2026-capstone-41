@@ -1452,7 +1452,6 @@ main > section {
             </h3>
             <ul class="timeline-list">
               <li>Pointing 추가</li>
-              <li>전체 코드 병합</li>
               <li>ROSA + Qwen3.5-4B 연결</li>
               <li>ROS2 도구 개선</li>
               <li>Task Planner 통합</li>
