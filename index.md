@@ -1175,7 +1175,7 @@ main > section {
             <strong>ROSA 에이전트 기반 명령 분해</strong>를 결합하여 안정적인 VLA 파이프라인을 구성했습니다.
           </p>
           <div class="hero-cta" style="margin-top:24px;">
-            <a class="btn" href="#stack">Hardware</a>
+            <a class="btn" href="#stack">Tech Stack</a>
             <a class="btn" href="#demo">Demo</a>
             <a class="btn" href="https://github.com/kookmin-sw/2026-capstone-41" target="_blank" rel="noreferrer">GitHub</a>
           </div>
