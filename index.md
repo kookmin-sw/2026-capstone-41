@@ -690,24 +690,26 @@ main > section {
 
 .timeline-stage {
   position: relative;
-  min-height: 590px;
-  padding: 18px 0 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(34px, 7vw, 130px);
+  min-height: 500px;
+  padding: 245px clamp(36px, 7vw, 120px) 42px;
 }
 
 .timeline-axis {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 178px;
   height: 2px;
-  transform: translateY(-50%);
   background: linear-gradient(90deg, rgba(255, 79, 117, 0.05), rgba(255, 79, 117, 0.88), rgba(155, 92, 255, 0.9), rgba(155, 92, 255, 0.05));
   box-shadow: 0 0 18px rgba(255, 79, 117, 0.35), 0 0 28px rgba(155, 92, 255, 0.25);
 }
 
 .timeline-node {
   position: absolute;
-  top: 50%;
+  top: 178px;
   z-index: 2;
   width: 18px;
   height: 18px;
@@ -722,14 +724,15 @@ main > section {
   content: "";
   position: absolute;
   left: 50%;
+  top: 100%;
   width: 1px;
-  height: 54px;
+  height: 68px;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.3));
+  background: linear-gradient(180deg, rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.22));
 }
 
 .timeline-node-1 {
-  left: 18%;
+  left: calc(clamp(36px, 7vw, 120px) + ((100% - (clamp(36px, 7vw, 120px) * 2) - (clamp(34px, 7vw, 130px) * 2)) / 6));
 }
 
 .timeline-node-2 {
@@ -737,43 +740,27 @@ main > section {
 }
 
 .timeline-node-3 {
-  left: 82%;
-}
-
-.timeline-node-1::after,
-.timeline-node-3::after {
-  top: 100%;
-}
-
-.timeline-node-2::after {
-  bottom: 100%;
-  background: linear-gradient(0deg, rgba(255, 79, 117, 0.85), rgba(155, 92, 255, 0.3));
+  left: calc(100% - clamp(36px, 7vw, 120px) - ((100% - (clamp(36px, 7vw, 120px) * 2) - (clamp(34px, 7vw, 130px) * 2)) / 6));
 }
 
 .timeline-entry {
-  position: absolute;
+  position: relative;
   z-index: 3;
-  width: min(330px, 28vw);
+  width: 100%;
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
 }
 
-.timeline-entry-1 {
-  left: 9%;
-  top: calc(50% + 70px);
-}
-
-.timeline-entry-2 {
-  left: 50%;
-  bottom: calc(50% + 70px);
-  transform: translateX(-50%);
-}
-
+.timeline-entry-1,
+.timeline-entry-2,
 .timeline-entry-3 {
-  right: 7%;
-  top: calc(50% + 70px);
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+  transform: none;
 }
 
 .timeline-entry-inner {
@@ -848,12 +835,13 @@ main > section {
 }
 
 .timeline-entry-2 .timeline-title-row svg {
-  color: var(--accent-b);
+  color: var(--accent-a);
 }
 
 @media (max-width: 900px) {
   .timeline-stage {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 28px;
     min-height: auto;
     padding: 8px 0 0;
