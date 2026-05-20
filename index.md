@@ -1213,7 +1213,7 @@ main > section {
         </div>
 
         <figure class="impact-image">
-          <img src="./image/go2_crazy.jpg" alt="Unitree Go2">
+          <img src="./image/go2_crazy_v2.jpg" alt="Unitree Go2">
         </figure>
       </div>
     </div>
