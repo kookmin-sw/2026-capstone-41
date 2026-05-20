@@ -1,0 +1,43 @@
+{
+  mode: "router",
+
+  listen: {
+    endpoints: [
+      "tcp/0.0.0.0:7447"
+    ]
+  },
+
+  scouting: {
+    multicast: {
+      enabled: false
+    },
+    gossip: {
+      enabled: false
+    }
+  },
+
+  transport: {
+    link: {
+      protocols: ["tcp"]
+    }
+  },
+
+  plugins: {
+    ros2dds: {
+      allow: {
+        publishers: [
+          "^/camera/color/image_raw/compressed$",
+          "^/utlidar/robot_odom$"
+        ],
+        subscribers: [
+          "^/camera/color/image_raw/compressed$",
+          "^/utlidar/robot_odom$"
+        ],
+        service_servers: [],
+        service_clients: [],
+        action_servers: [],
+        action_clients: []
+      }
+    }
+  }
+}

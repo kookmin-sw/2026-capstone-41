@@ -1,0 +1,90 @@
+set(bundle_dir "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/@GO2_MONITOR_PYTHON_DEPLOY_DIR@")
+
+file(GLOB module_candidates LIST_DIRECTORIES false "${bundle_dir}/go2_monitor*.so")
+list(FILTER module_candidates EXCLUDE REGEX "/go2_monitor_py[^/]*\\.so$")
+
+list(LENGTH module_candidates module_count)
+if(module_count EQUAL 0)
+  message(FATAL_ERROR "go2_monitor deployment module was not installed into ${bundle_dir}")
+endif()
+if(module_count GREATER 1)
+  message(FATAL_ERROR "go2_monitor deployment module is ambiguous: ${module_candidates}")
+endif()
+
+list(GET module_candidates 0 module_file)
+
+execute_process(
+  COMMAND
+    "${CMAKE_COMMAND}" -E env
+    "LD_LIBRARY_PATH=@GO2_MONITOR_ROS_LIB_DIR@:@GO2_MONITOR_LOCAL_LIB_DIR@"
+    ldd
+    "${module_file}"
+  RESULT_VARIABLE ldd_result
+  OUTPUT_VARIABLE ldd_output
+  ERROR_VARIABLE ldd_error
+)
+
+if(NOT ldd_result EQUAL 0)
+  message(FATAL_ERROR "ldd failed for ${module_file}: ${ldd_error}")
+endif()
+
+string(REPLACE "\r\n" "\n" ldd_output "${ldd_output}")
+string(REPLACE "\n" ";" ldd_lines "${ldd_output}")
+
+set(resolved_dependencies "")
+set(unresolved_dependencies "")
+
+foreach(line IN LISTS ldd_lines)
+  string(STRIP "${line}" line)
+
+  if(line STREQUAL "" OR line MATCHES "^linux-vdso\\.so")
+    continue()
+  endif()
+
+  if(line MATCHES "=> not found")
+    string(REGEX REPLACE "^(.*) => not found.*$" "\\1" missing_dependency "${line}")
+    list(APPEND unresolved_dependencies "${missing_dependency}")
+    continue()
+  endif()
+
+  set(dependency_path "")
+  if(line MATCHES "=> (/[^ ]+)")
+    string(REGEX REPLACE "^.*=> (/[^ ]+).*$" "\\1" dependency_path "${line}")
+  elseif(line MATCHES "^(/[^ ]+)")
+    string(REGEX REPLACE "^(/[^ ]+).*$" "\\1" dependency_path "${line}")
+  endif()
+
+  if(dependency_path STREQUAL "")
+    continue()
+  endif()
+
+  if(
+    dependency_path MATCHES "^/(usr/)?lib.*/ld-linux[^/]*$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libc\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libm\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libpthread\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libdl\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/librt\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libutil\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libnsl\\.so(\\..*)?$" OR
+    dependency_path MATCHES "^/(usr/)?lib.*/libresolv\\.so(\\..*)?$"
+  )
+    continue()
+  endif()
+
+  list(APPEND resolved_dependencies "${dependency_path}")
+endforeach()
+
+list(REMOVE_DUPLICATES resolved_dependencies)
+
+if(unresolved_dependencies)
+  list(REMOVE_DUPLICATES unresolved_dependencies)
+  message(FATAL_ERROR "Unresolved Python deployment dependencies: ${unresolved_dependencies}")
+endif()
+
+foreach(dependency IN LISTS resolved_dependencies)
+  get_filename_component(dependency_name "${dependency}" NAME)
+  file(COPY_FILE "${dependency}" "${bundle_dir}/${dependency_name}" ONLY_IF_DIFFERENT)
+endforeach()
+
+file(RPATH_SET FILE "${module_file}" NEW_RPATH "\$ORIGIN")

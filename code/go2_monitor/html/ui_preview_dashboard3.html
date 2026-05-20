@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>go2 monitor preview refined ios style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f7ff;
+      --bg-glow: #d7e5ff;
+      --panel: rgba(255, 255, 255, 0.66);
+      --panel-strong: rgba(255, 255, 255, 0.88);
+      --line: rgba(154, 177, 214, 0.22);
+      --line-strong: rgba(126, 160, 208, 0.30);
+      --text: #142033;
+      --muted: #72819a;
+      --accent: #3a84ff;
+      --accent-soft: rgba(58, 132, 255, 0.10);
+      --accent-warm: #ffad70;
+      --danger: #ff667d;
+      --success: #34c759;
+      --shadow: 0 20px 48px rgba(112, 138, 182, 0.14);
+      --radius: 26px;
+      --radius-sm: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Instrument Sans", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(58, 132, 255, 0.13), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 194, 138, 0.16), transparent 22%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 48%, #edf4ff 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 88px 88px;
+      mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent);
+    }
+
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px 18px 32px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .topbar-left {
+      min-width: 0;
+    }
+
+    .topbar-right {
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+      min-width: min(520px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 10px rgba(52, 199, 89, 0.26);
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      font-weight: 600;
+      text-wrap: balance;
+      text-rendering: optimizeLegibility;
+    }
+
+    .headline-accent {
+      color: #3c4759;
+      display: inline-block;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .system-status {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      min-width: min(520px, 100%);
+      width: 100%;
+    }
+
+    .status-chip {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.78),
+        0 8px 20px rgba(135, 164, 203, 0.10);
+    }
+
+    .status-label {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .status-value {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 56px;
+      height: 48px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(154, 177, 214, 0.28);
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.88),
+        0 6px 18px rgba(135, 164, 203, 0.08);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .quick-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(58, 132, 255, 0.26);
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .quick-link svg {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .quick-link.project svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .quick-link .link-label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .quick-link.youtube svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.24)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(26px) saturate(1.12);
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 24%);
+    }
+
+    .panel-body {
+      position: relative;
+      padding: 16px;
+    }
+
+    .topics-panel {
+      min-height: 100%;
+    }
+
+    .panel-titlebar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .panel-kicker {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-meta {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .topic-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .topic-item {
+      padding: 12px 12px 13px;
+      border: 1px solid rgba(154, 177, 214, 0.20);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.46);
+    }
+
+    .topic-item.active {
+      border-color: rgba(58, 132, 255, 0.24);
+      background: linear-gradient(180deg, rgba(58, 132, 255, 0.10), rgba(255, 255, 255, 0.56));
+      box-shadow: inset 0 0 0 1px rgba(58, 132, 255, 0.08);
+    }
+
+    .topic-name {
+      margin: 0;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .topic-type {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.68);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .button.primary {
+      background: linear-gradient(180deg, #6aa9ff, #3a84ff);
+      color: white;
+      box-shadow: 0 8px 20px rgba(58, 132, 255, 0.22);
+    }
+
+    .timeline-text {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .viewer-shell,
+    .stdout-shell {
+      padding: 16px;
+    }
+
+    .shell-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .shell-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .shell-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-warm);
+      box-shadow: 0 0 16px rgba(255, 138, 61, 0.75);
+      flex: 0 0 auto;
+    }
+
+    .shell-dot.cool {
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(76, 201, 240, 0.7);
+    }
+
+    .shell-title h2 {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .shell-caption {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .viewer-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #f8fbff;
+    }
+
+    .viewer-window {
+      border-radius: 18px;
+      border: 1px solid rgba(154, 177, 214, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 249, 255, 0.86));
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.94),
+        0 10px 24px rgba(135, 164, 203, 0.12);
+    }
+
+    .viewer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(154, 177, 214, 0.18);
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .viewer-toolbar-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .rgb-stage {
+      background:
+        linear-gradient(180deg, rgba(3, 10, 16, 0.18), rgba(3, 10, 16, 0.42)),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23212f3f'/><stop offset='48%' stop-color='%23567588'/><stop offset='100%' stop-color='%23979a71'/></linearGradient></defs><rect width='800' height='600' fill='url(%23g)'/><rect x='90' y='130' width='620' height='300' rx='28' fill='%23374455'/><circle cx='514' cy='298' r='72' fill='%23d69a67'/><circle cx='303' cy='276' r='58' fill='%235b7284'/><rect x='240' y='390' width='310' height='48' rx='14' fill='%23222f3d'/></svg>") center/cover no-repeat;
+    }
+
+    .viewer-hud {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px;
+      pointer-events: none;
+    }
+
+    .hud-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: #2c4c79;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 12px rgba(110, 231, 183, 0.85);
+    }
+
+    .badge.warm::before {
+      background: var(--accent-warm);
+      box-shadow: 0 0 12px rgba(255, 138, 61, 0.85);
+    }
+
+    .data-pill {
+      padding: 7px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(154, 177, 214, 0.16);
+      color: #556b86;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 11px;
+      backdrop-filter: blur(8px);
+    }
+
+    .goal-marker {
+      position: absolute;
+      left: 63%;
+      top: 40%;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 3px solid white;
+      background: var(--danger);
+      box-shadow: 0 0 0 6px rgba(255, 93, 115, 0.18);
+      transform: translate(-50%, -50%);
+    }
+
+    .goal-label {
+      position: absolute;
+      left: calc(63% + 20px);
+      top: calc(40% - 6px);
+      padding: 6px 9px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: #b04361;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .trajectory-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background:
+        linear-gradient(rgba(58, 132, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58, 132, 255, 0.07) 1px, transparent 1px),
+        radial-gradient(circle at center, rgba(58, 132, 255, 0.06), transparent 65%),
+        #f8fbff;
+      background-size: 40px 40px, 40px 40px, auto;
+    }
+
+    #trajectory-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .trajectory-note {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      margin: 0;
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: var(--muted);
+      font-size: 11px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .stdout-shell {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 18%);
+    }
+
+    .stdout-window {
+      border-radius: 18px;
+      border: 1px solid rgba(154, 177, 214, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(245, 249, 255, 0.90));
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.94),
+        0 10px 24px rgba(135, 164, 203, 0.12);
+    }
+
+    .stdout-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(154, 177, 214, 0.18);
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .traffic {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .traffic span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .traffic span:nth-child(1) { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .stdout-topic {
+      color: var(--muted);
+      font-size: 12px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .stdout-body {
+      display: grid;
+      gap: 12px;
+      min-height: 300px;
+      max-height: 340px;
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .chat-row {
+      display: flex;
+      width: 100%;
+    }
+
+    .chat-row.user {
+      justify-content: flex-end;
+    }
+
+    .chat-row.llm,
+    .chat-row.system {
+      justify-content: flex-start;
+    }
+
+    .chat-bubble {
+      max-width: min(78%, 720px);
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 8px 20px rgba(135, 164, 203, 0.08);
+    }
+
+    .chat-row.llm .chat-bubble {
+      background: linear-gradient(180deg, rgba(58, 132, 255, 0.10), rgba(255, 255, 255, 0.88));
+      border-color: rgba(58, 132, 255, 0.14);
+    }
+
+    .chat-row.user .chat-bubble {
+      background: linear-gradient(180deg, rgba(255, 173, 112, 0.18), rgba(255, 255, 255, 0.86));
+      border-color: rgba(255, 173, 112, 0.18);
+    }
+
+    .chat-row.system .chat-bubble {
+      background: rgba(255, 255, 255, 0.70);
+      border-style: dashed;
+      border-color: rgba(159, 178, 199, 0.18);
+    }
+
+    .chat-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 11px;
+    }
+
+    .chat-role {
+      color: var(--accent);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .chat-row.user .chat-role {
+      color: var(--accent-warm);
+    }
+
+    .chat-row.system .chat-role {
+      color: #9fb2c7;
+    }
+
+    .chat-time {
+      color: #6d8198;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .chat-text {
+      color: #243246;
+      font-size: 13px;
+      line-height: 1.7;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .composer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .composer input {
+      width: 100%;
+      border: 1px solid rgba(154, 177, 214, 0.18);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .composer input::placeholder {
+      color: #7389a2;
+    }
+
+    .preview-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1100px) {
+      .topbar,
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-right {
+        justify-items: stretch;
+        min-width: 0;
+      }
+
+      .quick-links {
+        justify-content: flex-start;
+      }
+
+      .system-status {
+        min-width: 0;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .system-status,
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-bubble {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="topbar">
+      <div class="topbar-left">
+        <div class="eyebrow">Live Monitor Preview</div>
+        <h1><span class="headline-accent">go2monitor</span></h1>
+        <p class="subtitle">
+          관제실 화면처럼 안정감 있게 정리한 시안입니다. 상단은 시각 정보에 집중하고,
+          하단 stdout은 실제 터미널처럼 읽기 쉽게 분리했습니다.
+        </p>
+      </div>
+
+      <div class="topbar-right">
+        <div class="quick-links">
+          <a class="quick-link github" href="#" aria-label="GitHub link placeholder">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.33 9.33 0 0 1 12 6.87c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.95-2.34 4.82-4.57 5.07.36.32.68.95.68 1.92 0 1.38-.01 2.5-.01 2.84 0 .28.18.61.69.5A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/>
+            </svg>
+            <span class="link-label">GitHub</span>
+          </a>
+          <a class="quick-link project" href="#" aria-label="Project page link placeholder">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 14 21 3"/>
+              <path d="M15 3h6v6"/>
+              <path d="M21 14v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h4"/>
+            </svg>
+            <span class="link-label">Project Page</span>
+          </a>
+          <a class="quick-link youtube" href="#" aria-label="YouTube link placeholder">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#FF4E45" d="M23.5 7.2a3 3 0 0 0-2.11-2.12C19.52 4.5 12 4.5 12 4.5s-7.52 0-9.39.58A3 3 0 0 0 .5 7.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 4.8 3 3 0 0 0 2.11 2.12C4.48 19.5 12 19.5 12 19.5s7.52 0 9.39-.58a3 3 0 0 0 2.11-2.12A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-4.8Z"/>
+              <path fill="#fff" d="m9.75 15.5 6.25-3.5-6.25-3.5v7Z"/>
+            </svg>
+            <span class="link-label">YouTube</span>
+          </a>
+        </div>
+
+        <div class="system-status">
+          <article class="status-chip">
+            <p class="status-label">Connection</p>
+            <p class="status-value">zenoh online</p>
+          </article>
+          <article class="status-chip">
+            <p class="status-label">Frame Rate</p>
+            <p class="status-value">14.8 fps</p>
+          </article>
+          <article class="status-chip">
+            <p class="status-label">Robot State</p>
+            <p class="status-value">tracking goal</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel topics-panel">
+        <div class="panel-body">
+          <div class="panel-titlebar">
+            <div>
+              <p class="panel-kicker">Telemetry</p>
+              <h2 class="panel-title">Topics</h2>
+            </div>
+            <div class="panel-meta">8 active</div>
+          </div>
+
+          <ul class="topic-list">
+            <li class="topic-item active">
+              <p class="topic-name">/camera/color/image_raw</p>
+              <p class="topic-type">rgb stream</p>
+            </li>
+            <li class="topic-item">
+              <p class="topic-name">/go2/trajectory</p>
+              <p class="topic-type">odometry</p>
+            </li>
+            <li class="topic-item">
+              <p class="topic-name">/go2/goal_pixel</p>
+              <p class="topic-type">planner target</p>
+            </li>
+            <li class="topic-item">
+              <p class="topic-name">/print</p>
+              <p class="topic-type">stdout stream</p>
+            </li>
+            <li class="topic-item">
+              <p class="topic-name">/llm/status</p>
+              <p class="topic-type">agent state</p>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <button class="button">Prev</button>
+            <button class="button primary">Play</button>
+            <button class="button">Next</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="timeline-text">Frame 183 / 640</span>
+            <span class="timeline-text">2026-04-10T09:31:22.184Z</span>
+          </div>
+        </div>
+
+        <div class="panel-grid">
+          <section class="panel viewer-shell">
+            <div class="shell-head">
+              <div class="shell-title">
+                <span class="shell-dot warm"></span>
+                <h2>RGB</h2>
+              </div>
+              <div class="shell-caption">/camera/color/image_raw</div>
+            </div>
+
+            <div class="viewer-window">
+              <div class="viewer-toolbar">
+                <div class="traffic"><span></span><span></span><span></span></div>
+                <div class="viewer-toolbar-label">rgb viewer</div>
+              </div>
+              <div class="viewer-stage rgb-stage">
+                <div class="viewer-hud">
+                  <div class="hud-row">
+                    <div class="badge warm">Live Vision</div>
+                    <div class="data-pill">goal [428, 190]</div>
+                  </div>
+                  <div class="hud-row">
+                    <div class="data-pill">mode tracking</div>
+                    <div class="data-pill">latency 68 ms</div>
+                  </div>
+                </div>
+                <div class="goal-marker"></div>
+                <div class="goal-label">pixel goal</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel viewer-shell">
+            <div class="shell-head">
+              <div class="shell-title">
+                <span class="shell-dot cool"></span>
+                <h2>Trajectory</h2>
+              </div>
+              <div class="shell-caption">x 1.842  y 0.614  yaw 18.4°</div>
+            </div>
+
+            <div class="viewer-window">
+              <div class="viewer-toolbar">
+                <div class="traffic"><span></span><span></span><span></span></div>
+                <div class="viewer-toolbar-label">trajectory map</div>
+              </div>
+              <div class="trajectory-stage">
+                <canvas id="trajectory-canvas" width="800" height="600"></canvas>
+                <p class="trajectory-note">planned path overlay + current pose indicator</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel stdout-shell">
+          <div class="shell-head">
+            <div class="shell-title">
+              <span class="shell-dot cool"></span>
+              <h2>Print / Stdout</h2>
+            </div>
+            <div class="shell-caption">streaming from /print</div>
+          </div>
+
+          <div class="stdout-window">
+            <div class="stdout-toolbar">
+              <div class="traffic"><span></span><span></span><span></span></div>
+              <div class="stdout-topic">stdout replay + live responses</div>
+            </div>
+
+            <div class="stdout-body">
+              <div class="chat-row system">
+                <div class="chat-bubble">
+                  <div class="chat-meta">
+                    <span class="chat-role">planner</span>
+                    <span class="chat-time">09:31:19</span>
+                  </div>
+                  <div class="chat-text">{"pixel_goal":[428,190],"trajectory":[[0.0,0.0],[0.48,0.12],[1.10,0.34],[1.82,0.62]]}</div>
+                </div>
+              </div>
+              <div class="chat-row llm">
+                <div class="chat-bubble">
+                  <div class="chat-meta">
+                    <span class="chat-role">llm</span>
+                    <span class="chat-time">09:31:20</span>
+                  </div>
+                  <div class="chat-text">Goal locked. Moving along planned arc toward the detected pixel target.</div>
+                </div>
+              </div>
+              <div class="chat-row user">
+                <div class="chat-bubble">
+                  <div class="chat-meta">
+                    <span class="chat-role">user</span>
+                    <span class="chat-time">09:31:21</span>
+                  </div>
+                  <div class="chat-text">조금 더 오른쪽으로 이동해</div>
+                </div>
+              </div>
+              <div class="chat-row llm">
+                <div class="chat-bubble">
+                  <div class="chat-meta">
+                    <span class="chat-role">llm</span>
+                    <span class="chat-time">09:31:21</span>
+                  </div>
+                  <div class="chat-text">Right-side adjustment accepted. Updating target heading and refining the local plan.</div>
+                </div>
+              </div>
+              <div class="chat-row system">
+                <div class="chat-bubble">
+                  <div class="chat-meta">
+                    <span class="chat-role">stdout</span>
+                    <span class="chat-time">09:31:22</span>
+                  </div>
+                  <div class="chat-text">controller stable | velocity 0.27 m/s | tracking confidence 0.91</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="composer">
+            <input type="text" placeholder="Type live instruction...">
+            <button class="button primary">Send</button>
+          </div>
+        </section>
+
+        <p class="preview-note">
+          이 시안은 실제 동작을 붙이기 전의 비주얼 프리뷰입니다. 마음에 들면 이 톤을
+          기준으로 [web_server.cpp](/home/alice/go2_monitor/src/go2_monitor_cpp/src/web_server.cpp)에 바로 옮겨드릴 수 있습니다.
+        </p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('trajectory-canvas');
+    const context = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const pathPoints = [
+      [92, 508],
+      [160, 470],
+      [250, 438],
+      [340, 378],
+      [418, 322],
+      [510, 278],
+      [620, 212]
+    ];
+
+    const planPoints = [
+      [418, 322],
+      [474, 292],
+      [540, 252],
+      [612, 208],
+      [684, 170]
+    ];
+
+    context.clearRect(0, 0, width, height);
+
+    context.strokeStyle = "rgba(76, 201, 240, 0.14)";
+    context.lineWidth = 1;
+    context.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+    context.beginPath();
+    pathPoints.forEach((point, index) => {
+      if (index === 0) {
+        context.moveTo(point[0], point[1]);
+      } else {
+        context.lineTo(point[0], point[1]);
+      }
+    });
+    context.strokeStyle = "#ff8a3d";
+    context.lineWidth = 5;
+    context.shadowColor = "rgba(255, 138, 61, 0.28)";
+    context.shadowBlur = 18;
+    context.stroke();
+
+    context.shadowBlur = 0;
+    context.setLineDash([12, 10]);
+    context.beginPath();
+    planPoints.forEach((point, index) => {
+      if (index === 0) {
+        context.moveTo(point[0], point[1]);
+      } else {
+        context.lineTo(point[0], point[1]);
+      }
+    });
+    context.strokeStyle = "#4cc9f0";
+    context.lineWidth = 4;
+    context.stroke();
+    context.setLineDash([]);
+
+    const current = pathPoints[pathPoints.length - 3];
+    context.beginPath();
+    context.arc(current[0], current[1], 11, 0, Math.PI * 2);
+    context.fillStyle = "#e6edf5";
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = "#09121c";
+    context.stroke();
+
+    const yaw = -0.38;
+    const tipX = current[0] + Math.cos(yaw) * 40;
+    const tipY = current[1] + Math.sin(yaw) * 40;
+
+    context.beginPath();
+    context.moveTo(current[0], current[1]);
+    context.lineTo(tipX, tipY);
+    context.strokeStyle = "#e6edf5";
+    context.lineWidth = 4;
+    context.stroke();
+
+    context.beginPath();
+    context.arc(planPoints[planPoints.length - 1][0], planPoints[planPoints.length - 1][1], 8, 0, Math.PI * 2);
+    context.fillStyle = "#4cc9f0";
+    context.shadowColor = "rgba(76, 201, 240, 0.42)";
+    context.shadowBlur = 16;
+    context.fill();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2527 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>go2 monitor preview dashboard 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f7ff;
+      --bg-glow: #d7e5ff;
+      --panel: rgba(255, 255, 255, 0.66);
+      --panel-strong: rgba(255, 255, 255, 0.88);
+      --line: rgba(154, 177, 214, 0.22);
+      --line-strong: rgba(126, 160, 208, 0.30);
+      --text: #142033;
+      --muted: #72819a;
+      --accent: #3a84ff;
+      --accent-soft: rgba(58, 132, 255, 0.10);
+      --accent-warm: #ffad70;
+      --danger: #ff667d;
+      --success: #34c759;
+      --shadow: 0 20px 48px rgba(112, 138, 182, 0.14);
+      --radius: 26px;
+      --radius-sm: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Instrument Sans", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(58, 132, 255, 0.13), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 194, 138, 0.16), transparent 22%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 48%, #edf4ff 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 88px 88px;
+      mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    main {
+      max-width: 1720px;
+      height: 100vh;
+      padding: 8px 10px;
+      margin: 0 auto;
+      overflow: hidden;
+      transition: filter 0.18s ease, opacity 0.18s ease;
+    }
+
+    main.pointing-mode .sidebar-stack,
+    main.pointing-mode .toolbar,
+    main.pointing-mode .stdout-shell {
+      opacity: 0.42;
+      filter: blur(2px) saturate(0.82);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      text-align: left;
+      gap: 8px;
+    }
+
+    .topbar-left {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: clamp(40px, 4.6vw, 62px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      font-weight: 600;
+      text-wrap: balance;
+      text-rendering: optimizeLegibility;
+      text-align: left;
+    }
+
+    .headline-accent {
+      color: #3c4759;
+      display: inline-block;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      gap: 8px;
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(154, 177, 214, 0.28);
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--text);
+      text-decoration: none;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.88),
+        0 6px 18px rgba(135, 164, 203, 0.08);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .quick-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(58, 132, 255, 0.26);
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .quick-link svg {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .quick-link.project svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .quick-link .link-label {
+      display: none;
+    }
+
+    .quick-link.youtube svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .sidebar-stack {
+      display: grid;
+      gap: 8px;
+      height: 100%;
+      min-height: 0;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .status-panel {
+      min-height: 0;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .status-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px;
+      border: 1px solid rgba(154, 177, 214, 0.20);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .status-item-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .status-item-value {
+      margin: 3px 0 0;
+      color: var(--text);
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .status-item-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 12px rgba(52, 199, 89, 0.30);
+      flex: 0 0 auto;
+    }
+
+    .status-item-dot.warn {
+      background: var(--accent-warm);
+      box-shadow: 0 0 12px rgba(255, 173, 112, 0.34);
+    }
+
+    .status-item-dot.info {
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(58, 132, 255, 0.28);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 390px minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+      height: calc(100vh - 78px);
+      min-height: 0;
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.24)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(26px) saturate(1.12);
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 24%);
+    }
+
+    .panel-body {
+      position: relative;
+      padding: 8px;
+    }
+
+    .topics-panel {
+      min-height: 0;
+      height: 100%;
+    }
+
+    .topics-panel .panel-body {
+      height: 100%;
+      display: flex;
+    }
+
+    .topics-section {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+    }
+
+    .panel-titlebar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .panel-kicker {
+      margin: 0 0 4px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-meta {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .topic-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1 1 auto;
+      overflow: auto;
+    }
+
+    .topic-list::after {
+      content: "";
+      flex: 1 1 auto;
+      min-height: 72px;
+      border-radius: 16px;
+      border: 1px dashed rgba(154, 177, 214, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18)),
+        rgba(255, 255, 255, 0.30);
+    }
+
+    .topic-item {
+      padding: 8px 9px 9px;
+      border: 1px solid rgba(154, 177, 214, 0.20);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.46);
+    }
+
+    .topic-item.active {
+      border-color: rgba(58, 132, 255, 0.24);
+      background: linear-gradient(180deg, rgba(58, 132, 255, 0.10), rgba(255, 255, 255, 0.56));
+      box-shadow: inset 0 0 0 1px rgba(58, 132, 255, 0.08);
+    }
+
+    .topic-name {
+      margin: 0;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .topic-type {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .content {
+      display: grid;
+      gap: 6px;
+      min-height: 0;
+      grid-template-rows: auto minmax(0, 1fr);
+      height: 100%;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .toolbar-left[hidden] {
+      display: none !important;
+    }
+
+    .toolbar-center {
+      display: none;
+    }
+
+    .button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 7px 11px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.68);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .button.primary {
+      background: linear-gradient(180deg, #6aa9ff, #3a84ff);
+      color: white;
+      box-shadow: 0 8px 20px rgba(58, 132, 255, 0.22);
+    }
+
+    .button.pointing-button {
+      border-color: rgba(126, 160, 208, 0.42);
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+
+    .button.pointing-button:hover {
+      background: rgba(235, 239, 244, 0.95);
+    }
+
+    .button.pointing-button.active {
+      border-color: #3a84ff;
+      background: rgba(58, 132, 255, 0.12);
+      color: #245fc7;
+    }
+
+    .timeline-text {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status-chip {
+      padding: 9px 11px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.78),
+        0 8px 20px rgba(135, 164, 203, 0.10);
+      min-width: 0;
+    }
+
+    .status-label {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .status-value {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.82fr);
+      gap: 6px;
+      min-height: 0;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    /* 핵심 수정: media-stack을 세로 flex로 바꾸고
+       trajectory가 남는 공간을 전부 먹게 함 */
+    .media-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .telemetry-mini {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+
+    .telemetry-mini .panel-body {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      height: 100%;
+      flex: 1 1 auto;
+    }
+
+    .viewer-shell,
+    .stdout-shell {
+      padding: 8px;
+    }
+
+    .viewer-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      flex: 0 0 52%;
+      overflow: hidden;
+    }
+
+    .shell-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+    }
+
+    .shell-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .shell-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-warm);
+      box-shadow: 0 0 16px rgba(255, 138, 61, 0.75);
+      flex: 0 0 auto;
+    }
+
+    .shell-dot.cool {
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(76, 201, 240, 0.7);
+    }
+
+    .shell-title h2 {
+      margin: 0;
+      font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .shell-caption {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .viewer-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 230px;
+      background: #f8fbff;
+    }
+
+    .viewer-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      z-index: 0;
+    }
+
+    .viewer-window {
+      border-radius: 16px;
+      border: 1px solid rgba(154, 177, 214, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 249, 255, 0.86));
+      overflow: hidden;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.94),
+        0 10px 24px rgba(135, 164, 203, 0.12);
+    }
+
+    .telemetry-mini .viewer-window {
+      min-height: 0;
+      height: 100%;
+      flex: 1 1 auto;
+    }
+
+    .viewer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(154, 177, 214, 0.18);
+      background: rgba(255, 255, 255, 0.66);
+      flex: 0 0 auto;
+    }
+
+    .viewer-toolbar-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .rgb-stage {
+      background:
+        linear-gradient(180deg, rgba(3, 10, 16, 0.18), rgba(3, 10, 16, 0.42)),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%23212f3f'/><stop offset='48%' stop-color='%23567588'/><stop offset='100%' stop-color='%23979a71'/></linearGradient></defs><rect width='800' height='600' fill='url(%23g)'/><rect x='90' y='130' width='620' height='300' rx='28' fill='%23374455'/><circle cx='514' cy='298' r='72' fill='%23d69a67'/><circle cx='303' cy='276' r='58' fill='%235b7284'/><rect x='240' y='390' width='310' height='48' rx='14' fill='%23222f3d'/></svg>") center/cover no-repeat;
+    }
+
+    .viewer-hud {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px;
+      pointer-events: none;
+    }
+
+    .hud-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: #2c4c79;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 12px rgba(110, 231, 183, 0.85);
+    }
+
+    .badge.warm::before {
+      background: var(--accent-warm);
+      box-shadow: 0 0 12px rgba(255, 138, 61, 0.85);
+    }
+
+    .data-pill {
+      padding: 5px 7px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(154, 177, 214, 0.16);
+      color: #556b86;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      font-size: 11px;
+      backdrop-filter: blur(8px);
+    }
+
+    .goal-marker {
+      position: absolute;
+      left: 63%;
+      top: 40%;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 3px solid white;
+      background: var(--danger);
+      box-shadow: 0 0 0 6px rgba(255, 93, 115, 0.18);
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .pointing-preview-marker {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 3px solid white;
+      background: var(--danger);
+      box-shadow: 0 0 0 6px rgba(255, 93, 115, 0.18);
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .goal-label {
+      position: absolute;
+      left: calc(63% + 20px);
+      top: calc(40% - 6px);
+      padding: 6px 9px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: #b04361;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      z-index: 2;
+    }
+
+    .goal-marker.hidden,
+    .pointing-preview-marker.hidden,
+    .goal-label.hidden,
+    .pointing-cursor.hidden {
+      display: none;
+    }
+
+    .pointing-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(255, 93, 115, 0.18);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .viewer-stage.pointing-active {
+      cursor: crosshair;
+    }
+
+    .trajectory-stage {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      flex: 1 1 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background:
+        linear-gradient(rgba(58, 132, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58, 132, 255, 0.07) 1px, transparent 1px),
+        radial-gradient(circle at center, rgba(58, 132, 255, 0.06), transparent 65%),
+        #f8fbff;
+      background-size: 40px 40px, 40px 40px, auto;
+    }
+
+    #trajectory-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .trajectory-note {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      margin: 0;
+      padding: 5px 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      color: var(--muted);
+      font-size: 11px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .stdout-shell {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 18%);
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-width: 0;
+    }
+
+    .stdout-window {
+      border-radius: 16px;
+      border: 1px solid rgba(154, 177, 214, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(245, 249, 255, 0.90));
+      overflow: hidden;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.94),
+        0 10px 24px rgba(135, 164, 203, 0.12);
+    }
+
+    .stdout-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(154, 177, 214, 0.18);
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .traffic {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .traffic span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .traffic span:nth-child(1) { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .stdout-topic {
+      color: var(--muted);
+      font-size: 12px;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .stdout-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 0;
+      padding: 6px;
+      flex: 1 1 auto;
+      overflow: auto;
+    }
+
+    .stdout-body::after {
+      content: "";
+      flex: 1 1 auto;
+      min-height: 88px;
+      border-radius: 14px;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(154, 177, 214, 0.08) 0,
+          rgba(154, 177, 214, 0.08) 1px,
+          transparent 1px,
+          transparent 24px
+        ),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08));
+      border: 1px dashed rgba(154, 177, 214, 0.14);
+    }
+
+    .chat-row {
+      display: flex;
+      width: 100%;
+    }
+
+    .chat-row.user {
+      justify-content: flex-end;
+    }
+
+    .chat-row.llm,
+    .chat-row.system {
+      justify-content: flex-start;
+    }
+
+    .chat-bubble {
+      max-width: min(78%, 720px);
+      padding: 8px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(154, 177, 214, 0.14);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 8px 20px rgba(135, 164, 203, 0.08);
+    }
+
+    .chat-row.llm .chat-bubble {
+      background: linear-gradient(180deg, rgba(58, 132, 255, 0.10), rgba(255, 255, 255, 0.88));
+      border-color: rgba(58, 132, 255, 0.14);
+    }
+
+    .chat-row.user .chat-bubble {
+      background: linear-gradient(180deg, rgba(255, 173, 112, 0.18), rgba(255, 255, 255, 0.86));
+      border-color: rgba(255, 173, 112, 0.18);
+    }
+
+    .chat-row.system .chat-bubble {
+      background: rgba(255, 255, 255, 0.70);
+      border-style: dashed;
+      border-color: rgba(159, 178, 199, 0.18);
+    }
+
+    .chat-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+      font-size: 11px;
+    }
+
+    .chat-role {
+      color: var(--accent);
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .chat-row.user .chat-role {
+      color: var(--accent-warm);
+    }
+
+    .chat-row.system .chat-role {
+      color: #9fb2c7;
+    }
+
+    .chat-time {
+      color: #6d8198;
+      font-family: "IBM Plex Mono", Consolas, monospace;
+    }
+
+    .chat-text {
+      color: #243246;
+      font-size: 13px;
+      line-height: 1.6;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .composer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+
+    .composer input {
+      width: 100%;
+      border: 1px solid rgba(154, 177, 214, 0.18);
+      border-radius: 12px;
+      padding: 7px 9px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .composer input::placeholder {
+      color: #7389a2;
+    }
+
+    @media (max-width: 1180px) {
+      html, body {
+        overflow: auto;
+      }
+
+      main {
+        height: auto;
+        overflow: visible;
+      }
+
+      .toolbar-left,
+      .toolbar-right {
+        justify-content: center;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+
+      .quick-links {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .layout {
+        height: auto;
+        align-items: start;
+      }
+
+      .content {
+        grid-template-rows: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .media-stack {
+        height: auto;
+      }
+
+      .viewer-shell {
+        flex: 0 0 auto;
+      }
+
+      .sidebar-stack {
+        height: auto;
+      }
+
+      .chat-bubble {
+        max-width: 100%;
+      }
+
+      .composer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app-root">
+    <section class="topbar">
+      <div class="topbar-left">
+        <h1><span class="headline-accent">go2monitor</span></h1>
+      </div>
+      <div class="quick-links">
+        <a class="quick-link github" href="#" aria-label="GitHub link placeholder" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.33 9.33 0 0 1 12 6.87c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.95-2.34 4.82-4.57 5.07.36.32.68.95.68 1.92 0 1.38-.01 2.5-.01 2.84 0 .28.18.61.69.5A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/>
+          </svg>
+          <span class="link-label">GitHub</span>
+        </a>
+        <a class="quick-link project" href="#" aria-label="Project page link placeholder" title="Project Page">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 14 21 3"/>
+            <path d="M15 3h6v6"/>
+            <path d="M21 14v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h4"/>
+          </svg>
+          <span class="link-label">Project Page</span>
+        </a>
+        <a class="quick-link youtube" href="#" aria-label="YouTube link placeholder" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#FF4E45" d="M23.5 7.2a3 3 0 0 0-2.11-2.12C19.52 4.5 12 4.5 12 4.5s-7.52 0-9.39.58A3 3 0 0 0 .5 7.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 4.8 3 3 0 0 0 2.11 2.12C4.48 19.5 12 19.5 12 19.5s7.52 0 9.39-.58a3 3 0 0 0 2.11-2.12A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-4.8Z"/>
+            <path fill="#fff" d="m9.75 15.5 6.25-3.5-6.25-3.5v7Z"/>
+          </svg>
+          <span class="link-label">YouTube</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="sidebar-stack">
+        <section class="panel status-panel">
+          <div class="panel-body">
+            <div class="panel-titlebar">
+              <div>
+                <p class="panel-kicker">Overview</p>
+                <h2 class="panel-title">System Status</h2>
+              </div>
+            </div>
+
+            <ul class="status-list">
+              <li class="status-item">
+                <div>
+                  <p class="status-item-label">Connection</p>
+                  <p class="status-item-value" id="status-connection">zenoh online</p>
+                </div>
+                <span class="status-item-dot" aria-hidden="true"></span>
+              </li>
+              <li class="status-item">
+                <div>
+                  <p class="status-item-label">Frame Rate</p>
+                  <p class="status-item-value" id="status-fps">-- fps</p>
+                </div>
+                <span class="status-item-dot info" aria-hidden="true"></span>
+              </li>
+              <li class="status-item">
+                <div>
+                  <p class="status-item-label">Robot State</p>
+                  <p class="status-item-value" id="status-state">waiting</p>
+                </div>
+                <span class="status-item-dot warn" aria-hidden="true"></span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel topics-panel">
+          <div class="panel-body">
+            <section class="topics-section">
+              <div class="panel-titlebar">
+                <div>
+                  <p class="panel-kicker">Telemetry</p>
+                  <h2 class="panel-title">Topics</h2>
+                </div>
+                <div class="panel-meta" id="topics-meta">loading...</div>
+              </div>
+
+              <ul class="topic-list" id="topics-list">
+                <li class="topic-item">
+                  <p class="topic-name">Loading topics...</p>
+                  <p class="topic-type">please wait</p>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <div class="toolbar">
+          <div class="toolbar-left" id="playback-controls" hidden>
+            <button class="button" id="btn-prev" type="button">Prev</button>
+            <button class="button primary" id="btn-play" type="button">Play</button>
+            <button class="button" id="btn-next" type="button">Next</button>
+          </div>
+          <div class="toolbar-left">
+            <button class="button pointing-button" id="btn-pointing" type="button">Pointing</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="timeline-text" id="frame-label">Loading frames...</span>
+            <span class="timeline-text" id="frame-time">viewer unavailable</span>
+          </div>
+        </div>
+
+        <div class="panel-grid">
+          <section class="media-stack">
+            <section class="panel viewer-shell">
+              <div class="shell-head">
+                <div class="shell-title">
+                  <span class="shell-dot warm"></span>
+                  <h2>RGB</h2>
+                </div>
+                <div class="shell-caption" id="rgb-topic-label">/camera/color/image_raw</div>
+              </div>
+
+              <div class="viewer-window">
+                <div class="viewer-stage rgb-stage">
+                  <img
+                    id="viewer-rgb"
+                    alt="RGB viewer"
+                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23f8fbff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='28' fill='%236d8198'>No image</text></svg>"
+                  >
+                  <div class="pointing-cursor hidden" id="pointing-cursor"></div>
+                  <div class="viewer-hud">
+                    <div class="hud-row">
+                      <div class="badge warm" id="viewer-mode-badge">Live Vision</div>
+                      <div class="data-pill" id="goal-pill">goal [--, --]</div>
+                    </div>
+                    <div class="hud-row">
+                      <div class="data-pill" id="mode-pill">mode waiting</div>
+                      <div class="data-pill" id="latency-pill">latency --</div>
+                    </div>
+                  </div>
+                  <div class="goal-marker hidden" id="goal-marker"></div>
+                  <div class="pointing-preview-marker hidden" id="pointing-preview-marker"></div>
+                  <div class="goal-label hidden" id="goal-label">pixel goal</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel telemetry-mini">
+              <div class="panel-body">
+                <div class="shell-head">
+                  <div class="shell-title">
+                    <span class="shell-dot cool"></span>
+                    <h2>Trajectory</h2>
+                  </div>
+                  <div class="shell-caption" id="pose-caption">odometry unavailable</div>
+                </div>
+
+                <div class="viewer-window">
+                  <div class="trajectory-stage">
+                    <canvas id="trajectory-canvas"></canvas>
+                    <p class="trajectory-note">planned path overlay + current pose indicator</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section class="panel stdout-shell">
+            <div class="shell-head">
+              <div class="shell-title">
+                <span class="shell-dot cool"></span>
+                <h2>Print / Stdout</h2>
+              </div>
+              <div class="shell-caption" id="stdout-caption">streaming from /print</div>
+            </div>
+
+            <div class="stdout-window">
+              <div class="stdout-toolbar">
+                <div class="traffic"><span></span><span></span><span></span></div>
+                <div class="stdout-topic">stdout replay + live responses</div>
+              </div>
+
+              <div class="stdout-body" id="stdout-body">
+                <div class="chat-row system">
+                  <div class="chat-bubble">
+                    <div class="chat-meta">
+                      <span class="chat-role">planner</span>
+                      <span class="chat-time">09:31:19</span>
+                    </div>
+                    <div class="chat-text">{"pixel_goal":[428,190],"trajectory":[[0.0,0.0],[0.48,0.12],[1.10,0.34],[1.82,0.62]]}</div>
+                  </div>
+                </div>
+                <div class="chat-row llm">
+                  <div class="chat-bubble">
+                    <div class="chat-meta">
+                      <span class="chat-role">llm</span>
+                      <span class="chat-time">09:31:20</span>
+                    </div>
+                    <div class="chat-text">Goal locked. Moving along planned arc toward the detected pixel target.</div>
+                  </div>
+                </div>
+                <div class="chat-row user">
+                  <div class="chat-bubble">
+                    <div class="chat-meta">
+                      <span class="chat-role">user</span>
+                      <span class="chat-time">09:31:21</span>
+                    </div>
+                    <div class="chat-text">조금 더 오른쪽으로 이동해</div>
+                  </div>
+                </div>
+                <div class="chat-row llm">
+                  <div class="chat-bubble">
+                    <div class="chat-meta">
+                      <span class="chat-role">llm</span>
+                      <span class="chat-time">09:31:21</span>
+                    </div>
+                    <div class="chat-text">Right-side adjustment accepted. Updating target heading and refining the local plan.</div>
+                  </div>
+                </div>
+                <div class="chat-row system">
+                  <div class="chat-bubble">
+                    <div class="chat-meta">
+                      <span class="chat-role">stdout</span>
+                      <span class="chat-time">09:31:22</span>
+                    </div>
+                    <div class="chat-text">controller stable | velocity 0.27 m/s | tracking confidence 0.91</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="composer">
+              <input id="live-instruction-input" type="text" placeholder="Type live instruction...">
+              <button id="live-instruction-send" class="button primary" type="button">Send</button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('trajectory-canvas');
+    const context = canvas.getContext('2d');
+    const stdoutBody = document.getElementById('stdout-body');
+    const liveInstructionInput = document.getElementById('live-instruction-input');
+    const liveInstructionSend = document.getElementById('live-instruction-send');
+    const fallbackViewerImageUrl = '/api/viewer/fallback-image';
+    const pointingPromptText = 'Analyze the object indicated by the red dot in the image and approach that object.';
+    const pointingPreviewMaxSide = 256;
+    const pointingPreviewJpegQuality = 0.55;
+    const topicsList = document.getElementById('topics-list');
+    const topicsMeta = document.getElementById('topics-meta');
+    const playbackControls = document.getElementById('playback-controls');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnPlay = document.getElementById('btn-play');
+    const btnNext = document.getElementById('btn-next');
+    const btnPointing = document.getElementById('btn-pointing');
+    const appRoot = document.getElementById('app-root');
+    const frameLabel = document.getElementById('frame-label');
+    const frameTime = document.getElementById('frame-time');
+    const viewerRgb = document.getElementById('viewer-rgb');
+    const viewerStage = viewerRgb.parentElement;
+    const trajectoryStage = canvas.parentElement;
+    const rgbTopicLabel = document.getElementById('rgb-topic-label');
+    const poseCaption = document.getElementById('pose-caption');
+    const stdoutCaption = document.getElementById('stdout-caption');
+    const statusConnection = document.getElementById('status-connection');
+    const statusFps = document.getElementById('status-fps');
+    const statusState = document.getElementById('status-state');
+    const viewerModeBadge = document.getElementById('viewer-mode-badge');
+    const goalPill = document.getElementById('goal-pill');
+    const modePill = document.getElementById('mode-pill');
+    const latencyPill = document.getElementById('latency-pill');
+    const goalMarker = document.getElementById('goal-marker');
+    const pointingPreviewMarker = document.getElementById('pointing-preview-marker');
+    const goalLabel = document.getElementById('goal-label');
+    const pointingCursor = document.getElementById('pointing-cursor');
+
+    const viewerState = {
+      frames: [],
+      timeline: [],
+      trajectory: [],
+      stdoutEntries: [],
+      localStdoutEntries: [],
+      supportsPlayback: false,
+      sourceMode: '',
+      currentIndex: 0,
+      timerId: null,
+      liveSocket: null,
+      liveRevision: -1,
+      liveRefreshPending: false,
+      liveRefreshInFlight: false,
+      liveRefreshTimerId: null,
+      pointingCursorTimerId: null,
+      trajectoryWaypointTargets: [],
+      currentPixelGoal: null,
+      currentPlannedTrajectory: null,
+      currentPointingPreview: null,
+      pointingMode: false,
+      rgbTopic: '/camera/color/image_raw',
+      rgbRevision: 0,
+      stdoutTopic: 'print',
+      lastFrameAtMs: 0,
+      frameRateEstimate: 0,
+      pointingRequestInFlight: false,
+    };
+
+    function makeTimeLabel(date = new Date()) {
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      });
+    }
+
+    function escapeHtml(text) {
+      return String(text ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+    }
+
+    function updateImageSrc(imageEl, nextUrl) {
+      if (!nextUrl || !imageEl) {
+        return;
+      }
+
+      if (imageEl.dataset.viewerSrc === nextUrl) {
+        return;
+      }
+
+      imageEl.dataset.viewerSrc = nextUrl;
+      imageEl.src = nextUrl;
+    }
+
+    function stopPlayback() {
+      if (viewerState.timerId !== null) {
+        clearInterval(viewerState.timerId);
+        viewerState.timerId = null;
+      }
+      updateControls();
+    }
+
+    function updateControls() {
+      const hasTimeline = viewerState.timeline.length > 0;
+      const playbackEnabled = viewerState.supportsPlayback && hasTimeline;
+      const atStart = viewerState.currentIndex <= 0;
+      const atEnd = viewerState.currentIndex >= viewerState.timeline.length - 1;
+
+      playbackControls.hidden = !viewerState.supportsPlayback;
+      btnPrev.disabled = !playbackEnabled || atStart;
+      btnPlay.disabled = !playbackEnabled;
+      btnNext.disabled = !playbackEnabled || atEnd;
+      btnPlay.textContent = viewerState.timerId !== null ? 'Stop' : 'Play';
+      btnPointing.classList.toggle('active', viewerState.pointingMode);
+      btnPointing.textContent = viewerState.pointingMode ? 'Pointing Mode' : 'Pointing';
+      viewerStage.classList.toggle('pointing-active', viewerState.pointingMode);
+      trajectoryStage.classList.toggle('pointing-active', viewerState.pointingMode);
+
+      const instructionEnabled = viewerState.sourceMode === 'zenoh';
+      liveInstructionInput.disabled = !instructionEnabled || liveInstructionSend.dataset.busy === 'true';
+      liveInstructionSend.disabled = !instructionEnabled || liveInstructionSend.dataset.busy === 'true';
+      if (!instructionEnabled) {
+        liveInstructionInput.placeholder = 'Live instruction is available in zenoh mode';
+      } else {
+        liveInstructionInput.placeholder = 'Type live instruction...';
+      }
+    }
+
+    function renderTopics(topics, sourceMode) {
+      topicsMeta.textContent = `${topics.length} active`;
+
+      if (!topics.length) {
+        topicsList.innerHTML = `
+          <li class="topic-item">
+            <p class="topic-name">No topics found</p>
+            <p class="topic-type">${escapeHtml(sourceMode || 'unavailable')}</p>
+          </li>
+        `;
+        return;
+      }
+
+      topicsList.innerHTML = topics.map((topic, index) => `
+        <li class="topic-item${index === 0 ? ' active' : ''}">
+          <p class="topic-name">${escapeHtml(topic.name)}</p>
+          <p class="topic-type">${escapeHtml(topic.type)}</p>
+        </li>
+      `).join('');
+    }
+
+    function normalizeStdoutEntry(entry) {
+      const rawMessage = entry && typeof entry.message === 'string' ? entry.message : '';
+      const explicitRole = entry && typeof entry.role === 'string' ? entry.role.trim() : '';
+      let role = explicitRole;
+      let message = rawMessage;
+
+      if (!role) {
+        const match = rawMessage.match(/^\s*([^:\n]+)\s*:\s*([\s\S]*)$/);
+        if (match) {
+          role = match[1].trim();
+          message = match[2];
+        }
+      }
+
+      const normalizedRole = role || 'stdout';
+      const lowerRole = normalizedRole.toLowerCase();
+      let side = 'system';
+      if (lowerRole === 'user') {
+        side = 'user';
+      } else if (lowerRole === 'go2' || lowerRole === 'assistant' || lowerRole === 'llm' || lowerRole === 'planner') {
+        side = 'llm';
+      }
+
+      return {
+        role: normalizedRole,
+        side,
+        message: typeof message === 'string' && message.length > 0 ? message : '(empty response)',
+        timestamp: entry && entry.timestamp ? entry.timestamp : '',
+      };
+    }
+
+    function renderChatEntries(entries, emptyMessage) {
+      if (!entries.length) {
+        stdoutBody.innerHTML = `
+          <div class="chat-row system">
+            <div class="chat-bubble">
+              <div class="chat-meta">
+                <span class="chat-role">stdout</span>
+                <span class="chat-time">${makeTimeLabel()}</span>
+              </div>
+              <div class="chat-text">${escapeHtml(emptyMessage)}</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      stdoutBody.innerHTML = entries.map((entry) => {
+        const normalized = normalizeStdoutEntry(entry);
+        const timeText = normalized.timestamp
+          ? escapeHtml(normalized.timestamp.split('T').pop()?.replace('Z', '') || normalized.timestamp)
+          : makeTimeLabel();
+        return `
+          <div class="chat-row ${normalized.side}">
+            <div class="chat-bubble">
+              <div class="chat-meta">
+                <span class="chat-role">${escapeHtml(normalized.role)}</span>
+                <span class="chat-time">${timeText}</span>
+              </div>
+              <div class="chat-text">${escapeHtml(normalized.message)}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      stdoutBody.scrollTop = stdoutBody.scrollHeight;
+    }
+
+    function appendLocalStdout(role, message) {
+      viewerState.localStdoutEntries.push({
+        role,
+        message,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    function drawRedDot(context2d, x, y, imageWidth, imageHeight) {
+      const radius = Math.max(7, Math.round(Math.min(imageWidth, imageHeight) * 0.018));
+
+      context2d.beginPath();
+      context2d.arc(x, y, radius + 4, 0, Math.PI * 2);
+      context2d.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      context2d.fill();
+
+      context2d.beginPath();
+      context2d.arc(x, y, radius, 0, Math.PI * 2);
+      context2d.fillStyle = '#ff2d2d';
+      context2d.fill();
+    }
+
+    function buildPointingPayload(imageX, imageY) {
+      if (!viewerRgb.naturalWidth || !viewerRgb.naturalHeight) {
+        return null;
+      }
+
+      const naturalWidth = viewerRgb.naturalWidth;
+      const naturalHeight = viewerRgb.naturalHeight;
+      const scale = Math.min(1, pointingPreviewMaxSide / Math.max(naturalWidth, naturalHeight));
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = Math.max(1, Math.round(naturalWidth * scale));
+      exportCanvas.height = Math.max(1, Math.round(naturalHeight * scale));
+
+      const exportContext = exportCanvas.getContext('2d');
+      if (!exportContext) {
+        return null;
+      }
+
+      exportContext.fillStyle = '#ffffff';
+      exportContext.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+      exportContext.drawImage(viewerRgb, 0, 0, exportCanvas.width, exportCanvas.height);
+      drawRedDot(
+        exportContext,
+        imageX * scale,
+        imageY * scale,
+        exportCanvas.width,
+        exportCanvas.height
+      );
+
+      const dataUrl = exportCanvas.toDataURL('image/jpeg', pointingPreviewJpegQuality);
+      const commaIndex = dataUrl.indexOf(',');
+      if (commaIndex < 0) {
+        return null;
+      }
+
+      const timelineEntry = viewerState.timeline[viewerState.currentIndex];
+      return JSON.stringify({
+        kind: 'pointing_image_goal',
+        prompt: pointingPromptText,
+        point: {
+          x: imageX,
+          y: imageY,
+        },
+        image: {
+          mime_type: 'image/jpeg',
+          width: exportCanvas.width,
+          height: exportCanvas.height,
+          original_width: naturalWidth,
+          original_height: naturalHeight,
+          base64: dataUrl.slice(commaIndex + 1),
+        },
+        meta: {
+          source_mode: viewerState.sourceMode,
+          rgb_topic: viewerState.rgbTopic,
+          viewer_frame_index: timelineEntry ? timelineEntry.viewer_frame_index : null,
+        },
+      });
+    }
+
+    async function submitPointingRequest(imageX, imageY) {
+      if (viewerState.pointingRequestInFlight) {
+        return;
+      }
+
+      const payloadBody = buildPointingPayload(imageX, imageY);
+      if (!payloadBody) {
+        appendLocalStdout('system', 'Failed to build pointing image payload');
+        renderStdout();
+        return;
+      }
+
+      viewerState.pointingRequestInFlight = true;
+      appendLocalStdout('user', `${pointingPromptText} [${imageX}, ${imageY}]`);
+      renderStdout();
+
+      try {
+        const response = await fetch('/api/live/pointing', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: payloadBody,
+        });
+
+        const payload = await response.json();
+        appendLocalStdout(
+          payload && payload.ok ? 'go2' : 'system',
+          payload && payload.ok
+            ? (typeof payload.response === 'string' && payload.response.length > 0 ? payload.response : '(empty response)')
+            : (payload && typeof payload.error === 'string' && payload.error.length > 0 ? payload.error : 'Failed to send pointing request')
+        );
+      } catch (error) {
+        appendLocalStdout(
+          'system',
+          error && typeof error.message === 'string' && error.message.length > 0
+            ? `Failed to send pointing request: ${error.message}`
+            : 'Failed to send pointing request'
+        );
+      } finally {
+        viewerState.pointingRequestInFlight = false;
+        renderStdout();
+      }
+    }
+
+    function getRenderedImageMetrics() {
+      const naturalWidth = viewerRgb.naturalWidth;
+      const naturalHeight = viewerRgb.naturalHeight;
+      const boxWidth = viewerRgb.clientWidth;
+      const boxHeight = viewerRgb.clientHeight;
+
+      if (naturalWidth <= 0 || naturalHeight <= 0 || boxWidth <= 0 || boxHeight <= 0) {
+        return null;
+      }
+
+      const imageAspect = naturalWidth / naturalHeight;
+      const boxAspect = boxWidth / boxHeight;
+      let renderedWidth = 0;
+      let renderedHeight = 0;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      if (imageAspect > boxAspect) {
+        renderedWidth = boxWidth;
+        renderedHeight = boxWidth / imageAspect;
+        offsetY = (boxHeight - renderedHeight) / 2;
+      } else {
+        renderedHeight = boxHeight;
+        renderedWidth = boxHeight * imageAspect;
+        offsetX = (boxWidth - renderedWidth) / 2;
+      }
+
+      return {
+        naturalWidth,
+        naturalHeight,
+        renderedWidth,
+        renderedHeight,
+        offsetX,
+        offsetY,
+      };
+    }
+
+    function buildTrajectoryWaypoints(points) {
+      if (!Array.isArray(points) || points.length === 0) {
+        return [];
+      }
+
+      if (points.length === 1) {
+        return [{
+          index: 0,
+          x: points[0].x,
+          y: points[0].y,
+          timestamp: points[0].timestamp || '',
+        }];
+      }
+
+      let totalLength = 0;
+      for (let i = 1; i < points.length; i += 1) {
+        totalLength += Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y);
+      }
+
+      const spacing = Math.min(1.25, Math.max(0.35, totalLength / 10));
+      const waypoints = [{
+        index: 0,
+        x: points[0].x,
+        y: points[0].y,
+        timestamp: points[0].timestamp || '',
+      }];
+
+      let nextDistance = spacing;
+      let accumulated = 0;
+
+      for (let i = 1; i < points.length; i += 1) {
+        const start = points[i - 1];
+        const end = points[i];
+        const segmentLength = Math.hypot(end.x - start.x, end.y - start.y);
+        if (segmentLength <= 1e-6) {
+          continue;
+        }
+
+        while (accumulated + segmentLength >= nextDistance) {
+          const ratio = (nextDistance - accumulated) / segmentLength;
+          waypoints.push({
+            index: i,
+            x: start.x + (end.x - start.x) * ratio,
+            y: start.y + (end.y - start.y) * ratio,
+            timestamp: end.timestamp || '',
+          });
+          nextDistance += spacing;
+        }
+
+        accumulated += segmentLength;
+      }
+
+      const lastPoint = points[points.length - 1];
+      const lastWaypoint = waypoints[waypoints.length - 1];
+      if (
+        !lastWaypoint ||
+        Math.hypot(lastWaypoint.x - lastPoint.x, lastWaypoint.y - lastPoint.y) > 1e-6
+      ) {
+        waypoints.push({
+          index: points.length - 1,
+          x: lastPoint.x,
+          y: lastPoint.y,
+          timestamp: lastPoint.timestamp || '',
+        });
+      }
+
+      return waypoints;
+    }
+
+    function extractPixelGoal(message) {
+      if (typeof message !== 'string' || message.length === 0) {
+        return null;
+      }
+
+      const match = message.match(/"pixel_goal"\s*:\s*\[\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\]/);
+      if (!match) {
+        return null;
+      }
+
+      const x = Number(match[1]);
+      const y = Number(match[2]);
+      if (!Number.isFinite(x) || !Number.isFinite(y)) {
+        return null;
+      }
+
+      return { x, y };
+    }
+
+    function extractPlannedTrajectory(message) {
+      if (typeof message !== 'string' || message.length === 0) {
+        return null;
+      }
+
+      const jsonStart = message.indexOf('{');
+      if (jsonStart < 0) {
+        return null;
+      }
+
+      try {
+        const payload = JSON.parse(message.slice(jsonStart));
+        if (!payload || !Array.isArray(payload.trajectory)) {
+          return null;
+        }
+
+        const points = [];
+        for (const item of payload.trajectory) {
+          if (!Array.isArray(item) || item.length < 2) {
+            continue;
+          }
+
+          const x = Number(item[0]);
+          const y = Number(item[1]);
+          if (!Number.isFinite(x) || !Number.isFinite(y)) {
+            continue;
+          }
+          points.push({ x, y });
+        }
+
+        return points.length > 0 ? points : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function updateCurrentFrameAnnotations() {
+      viewerState.currentPixelGoal = null;
+      viewerState.currentPlannedTrajectory = null;
+
+      if (!viewerState.timeline.length || !viewerState.stdoutEntries.length) {
+        return;
+      }
+
+      const timelineEntry = viewerState.timeline[viewerState.currentIndex];
+      if (!timelineEntry || !timelineEntry.has_stdout) {
+        return;
+      }
+
+      const prevTimelineEntry = viewerState.currentIndex > 0 ? viewerState.timeline[viewerState.currentIndex - 1] : null;
+      const startIndex = prevTimelineEntry && prevTimelineEntry.has_stdout ? prevTimelineEntry.stdout_index + 1 : 0;
+      const endIndex = Math.min(timelineEntry.stdout_index, viewerState.stdoutEntries.length - 1);
+
+      for (let i = startIndex; i <= endIndex; i += 1) {
+        const entry = viewerState.stdoutEntries[i];
+        const goal = extractPixelGoal(entry && entry.message);
+        if (goal) {
+          viewerState.currentPixelGoal = goal;
+        }
+
+        const trajectory = extractPlannedTrajectory(entry && entry.message);
+        if (trajectory) {
+          viewerState.currentPlannedTrajectory = trajectory;
+        }
+      }
+    }
+
+    function renderPixelGoalOverlay() {
+      const goal = viewerState.currentPixelGoal;
+      const metrics = getRenderedImageMetrics();
+
+      if (
+        !goal ||
+        !Number.isFinite(goal.x) ||
+        !Number.isFinite(goal.y) ||
+        !metrics
+      ) {
+        goalMarker.classList.add('hidden');
+        goalLabel.classList.add('hidden');
+        goalPill.textContent = 'goal [--, --]';
+        return;
+      }
+
+      const x = metrics.offsetX + (goal.x / metrics.naturalWidth) * metrics.renderedWidth;
+      const y = metrics.offsetY + (goal.y / metrics.naturalHeight) * metrics.renderedHeight;
+
+      goalMarker.style.left = `${x}px`;
+      goalMarker.style.top = `${y}px`;
+      goalLabel.style.left = `${x + 20}px`;
+      goalLabel.style.top = `${y - 6}px`;
+      goalMarker.classList.remove('hidden');
+      goalLabel.classList.remove('hidden');
+      goalPill.textContent = `goal [${Math.round(goal.x)}, ${Math.round(goal.y)}]`;
+    }
+
+    function renderPointingPreviewOverlay() {
+      const preview = viewerState.currentPointingPreview;
+      const metrics = getRenderedImageMetrics();
+
+      if (
+        !preview ||
+        !Number.isFinite(preview.x) ||
+        !Number.isFinite(preview.y) ||
+        !metrics
+      ) {
+        pointingPreviewMarker.classList.add('hidden');
+        return;
+      }
+
+      const x = metrics.offsetX + (preview.x / metrics.naturalWidth) * metrics.renderedWidth;
+      const y = metrics.offsetY + (preview.y / metrics.naturalHeight) * metrics.renderedHeight;
+      pointingPreviewMarker.style.left = `${x}px`;
+      pointingPreviewMarker.style.top = `${y}px`;
+      pointingPreviewMarker.classList.remove('hidden');
+    }
+
+    function setPointingMode(enabled) {
+      viewerState.pointingMode = enabled;
+      appRoot.classList.toggle('pointing-mode', enabled);
+      if (!enabled) {
+        if (viewerState.pointingCursorTimerId === null) {
+          pointingCursor.classList.add('hidden');
+        }
+      }
+      updateControls();
+      drawTrajectory(canvas.clientWidth || 1, canvas.clientHeight || 1);
+    }
+
+    function updatePointingCursor(event) {
+      if (!viewerState.pointingMode) {
+        if (viewerState.pointingCursorTimerId === null) {
+          pointingCursor.classList.add('hidden');
+        }
+        return;
+      }
+
+      const rect = viewerStage.getBoundingClientRect();
+      pointingCursor.style.left = `${event.clientX - rect.left}px`;
+      pointingCursor.style.top = `${event.clientY - rect.top}px`;
+      pointingCursor.classList.remove('hidden');
+    }
+
+    function handlePointingClick(event) {
+      if (!viewerState.pointingMode) {
+        return;
+      }
+
+      const metrics = getRenderedImageMetrics();
+      if (!metrics) {
+        setPointingMode(false);
+        return;
+      }
+
+      const rect = viewerStage.getBoundingClientRect();
+      const localX = event.clientX - rect.left;
+      const localY = event.clientY - rect.top;
+      const insideImage =
+        localX >= metrics.offsetX &&
+        localX <= metrics.offsetX + metrics.renderedWidth &&
+        localY >= metrics.offsetY &&
+        localY <= metrics.offsetY + metrics.renderedHeight;
+
+      if (!insideImage) {
+        setPointingMode(false);
+        return;
+      }
+
+      const imageX = Math.round(((localX - metrics.offsetX) / metrics.renderedWidth) * metrics.naturalWidth);
+      const imageY = Math.round(((localY - metrics.offsetY) / metrics.renderedHeight) * metrics.naturalHeight);
+      viewerState.currentPointingPreview = { x: imageX, y: imageY };
+      appendLocalStdout('stdout', `pointing x=${imageX}, y=${imageY}`);
+      renderStdout();
+      renderPointingPreviewOverlay();
+      if (viewerState.pointingCursorTimerId !== null) {
+        clearTimeout(viewerState.pointingCursorTimerId);
+      }
+      pointingCursor.style.left = `${localX}px`;
+      pointingCursor.style.top = `${localY}px`;
+      pointingCursor.classList.remove('hidden');
+      viewerState.pointingCursorTimerId = window.setTimeout(() => {
+        viewerState.pointingCursorTimerId = null;
+        if (!viewerState.pointingMode) {
+          pointingCursor.classList.add('hidden');
+        }
+      }, 3000);
+      setPointingMode(false);
+      submitPointingRequest(imageX, imageY);
+    }
+
+    function buildTrajectoryBacktrackingInstruction(waypoint) {
+      const timestamp = waypoint && typeof waypoint.timestamp === 'string' ? waypoint.timestamp : '';
+      if (!timestamp) {
+        return null;
+      }
+
+      return `Backtrack to the robot trajectory waypoint at timestamp ${timestamp}.`;
+    }
+
+    async function submitTrajectoryBacktrackingRequest(waypoint) {
+      if (viewerState.pointingRequestInFlight) {
+        return;
+      }
+
+      const instruction = buildTrajectoryBacktrackingInstruction(waypoint);
+      if (!instruction) {
+        appendLocalStdout('system', 'Failed to build trajectory backtracking instruction');
+        renderStdout();
+        return;
+      }
+
+      viewerState.pointingRequestInFlight = true;
+      appendLocalStdout('user', instruction);
+      renderStdout();
+
+      try {
+        const response = await fetch('/api/live/instruction', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=UTF-8',
+          },
+          body: instruction,
+        });
+
+        const payload = await response.json();
+        appendLocalStdout(
+          payload && payload.ok ? 'go2' : 'system',
+          payload && payload.ok
+            ? (typeof payload.response === 'string' && payload.response.length > 0 ? payload.response : '(empty response)')
+            : (payload && typeof payload.error === 'string' && payload.error.length > 0 ? payload.error : 'Failed to send trajectory backtracking request')
+        );
+      } catch (error) {
+        appendLocalStdout(
+          'system',
+          error && typeof error.message === 'string' && error.message.length > 0
+            ? `Failed to send trajectory backtracking request: ${error.message}`
+            : 'Failed to send trajectory backtracking request'
+        );
+      } finally {
+        viewerState.pointingRequestInFlight = false;
+        renderStdout();
+      }
+    }
+
+    function handleTrajectoryPointingClick(event) {
+      if (!viewerState.pointingMode) {
+        return;
+      }
+
+      const rect = canvas.getBoundingClientRect();
+      const localX = event.clientX - rect.left;
+      const localY = event.clientY - rect.top;
+      const targets = viewerState.trajectoryWaypointTargets;
+      let bestTarget = null;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      for (const target of targets) {
+        const distance = Math.hypot(target.screenX - localX, target.screenY - localY);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestTarget = target;
+        }
+      }
+
+      if (!bestTarget || bestDistance > 14) {
+        setPointingMode(false);
+        return;
+      }
+
+      appendLocalStdout(
+        'stdout',
+        `waypoint timestamp=${bestTarget.timestamp || 'unavailable'} x=${bestTarget.x.toFixed(3)}, y=${bestTarget.y.toFixed(3)}`
+      );
+      renderStdout();
+      setPointingMode(false);
+      submitTrajectoryBacktrackingRequest(bestTarget);
+    }
+
+    function renderStdout() {
+      const mergedEntries = [];
+
+      if (viewerState.timeline.length) {
+        const timelineEntry = viewerState.timeline[viewerState.currentIndex];
+        if (timelineEntry && timelineEntry.has_stdout && viewerState.stdoutEntries.length) {
+          const stdoutIndex = Math.min(timelineEntry.stdout_index, viewerState.stdoutEntries.length - 1);
+          mergedEntries.push(...viewerState.stdoutEntries.slice(0, stdoutIndex + 1));
+        }
+      } else {
+        mergedEntries.push(...viewerState.stdoutEntries);
+      }
+
+      mergedEntries.push(...viewerState.localStdoutEntries);
+      renderChatEntries(mergedEntries, 'No stdout data');
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      drawTrajectory(rect.width, rect.height);
+    }
+
+    function drawTrajectory(width, height) {
+      context.clearRect(0, 0, width, height);
+      viewerState.trajectoryWaypointTargets = [];
+
+      const points = viewerState.trajectory;
+      if (!points.length) {
+        poseCaption.textContent = 'odometry unavailable';
+        context.fillStyle = '#6d8198';
+        context.font = '14px Segoe UI, sans-serif';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText('No trajectory data', width / 2, height / 2);
+        return;
+      }
+
+      const timelineEntry = viewerState.timeline[viewerState.currentIndex];
+      const currentPose = timelineEntry && timelineEntry.has_odom
+        ? viewerState.trajectory[Math.min(timelineEntry.odom_index, points.length - 1)]
+        : null;
+      const worldPlan = [];
+
+      if (currentPose && currentPose.has_yaw && Array.isArray(viewerState.currentPlannedTrajectory)) {
+        const cosYaw = Math.cos(currentPose.yaw);
+        const sinYaw = Math.sin(currentPose.yaw);
+        for (const localPoint of viewerState.currentPlannedTrajectory) {
+          worldPlan.push({
+            x: currentPose.x + cosYaw * localPoint.x - sinYaw * localPoint.y,
+            y: currentPose.y + sinYaw * localPoint.x + cosYaw * localPoint.y,
+          });
+        }
+      }
+
+      let minX = Number.POSITIVE_INFINITY;
+      let minY = Number.POSITIVE_INFINITY;
+      let maxX = Number.NEGATIVE_INFINITY;
+      let maxY = Number.NEGATIVE_INFINITY;
+
+      for (const point of [...points, ...worldPlan]) {
+        minX = Math.min(minX, point.x);
+        minY = Math.min(minY, point.y);
+        maxX = Math.max(maxX, point.x);
+        maxY = Math.max(maxY, point.y);
+      }
+
+      const padding = 24;
+      const minTrajectorySpan = 2.0;
+      const centerX = (minX + maxX) / 2;
+      const centerY = (minY + maxY) / 2;
+      const spanX = Math.max(maxX - minX, minTrajectorySpan);
+      const spanY = Math.max(maxY - minY, minTrajectorySpan);
+      const viewMinX = centerX - spanX / 2;
+      const viewMinY = centerY - spanY / 2;
+      const scale = Math.min((width - padding * 2) / spanX, (height - padding * 2) / spanY);
+      const offsetX = (width - spanX * scale) / 2;
+      const offsetY = (height - spanY * scale) / 2;
+
+      function project(point) {
+        return {
+          x: offsetX + (point.x - viewMinX) * scale,
+          y: height - (offsetY + (point.y - viewMinY) * scale),
+        };
+      }
+
+      context.strokeStyle = 'rgba(76, 201, 240, 0.14)';
+      context.lineWidth = 1;
+      context.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+      context.beginPath();
+      points.forEach((point, index) => {
+        const projected = project(point);
+        if (index === 0) {
+          context.moveTo(projected.x, projected.y);
+        } else {
+          context.lineTo(projected.x, projected.y);
+        }
+      });
+      context.strokeStyle = '#ff8a3d';
+      context.lineWidth = 4;
+      context.stroke();
+
+      if (worldPlan.length > 1) {
+        context.setLineDash([12, 10]);
+        context.beginPath();
+        worldPlan.forEach((point, index) => {
+          const projected = project(point);
+          if (index === 0) {
+            context.moveTo(projected.x, projected.y);
+          } else {
+            context.lineTo(projected.x, projected.y);
+          }
+        });
+        context.strokeStyle = '#4cc9f0';
+        context.lineWidth = 3;
+        context.stroke();
+        context.setLineDash([]);
+      }
+
+      if (viewerState.pointingMode) {
+        const waypointTargets = buildTrajectoryWaypoints(points).map((waypoint) => {
+          const projected = project(waypoint);
+          return {
+            ...waypoint,
+            screenX: projected.x,
+            screenY: projected.y,
+          };
+        });
+
+        viewerState.trajectoryWaypointTargets = waypointTargets;
+
+        for (const waypoint of waypointTargets) {
+          context.beginPath();
+          context.arc(waypoint.screenX, waypoint.screenY, 5, 0, Math.PI * 2);
+          context.fillStyle = '#ffffff';
+          context.fill();
+          context.lineWidth = 2;
+          context.strokeStyle = '#3a84ff';
+          context.stroke();
+        }
+      }
+
+      if (!currentPose) {
+        poseCaption.textContent = 'odometry unavailable';
+        return;
+      }
+
+      const projected = project(currentPose);
+      context.beginPath();
+      context.arc(projected.x, projected.y, 8, 0, Math.PI * 2);
+      context.fillStyle = '#e6edf5';
+      context.fill();
+      context.lineWidth = 4;
+      context.strokeStyle = '#09121c';
+      context.stroke();
+
+      if (currentPose.has_yaw) {
+        const tipX = projected.x + Math.cos(currentPose.yaw) * 28;
+        const tipY = projected.y - Math.sin(currentPose.yaw) * 28;
+        context.beginPath();
+        context.moveTo(projected.x, projected.y);
+        context.lineTo(tipX, tipY);
+        context.strokeStyle = '#e6edf5';
+        context.lineWidth = 4;
+        context.stroke();
+      }
+
+      const yawText = currentPose.has_yaw ? ` · yaw ${(currentPose.yaw * 180 / Math.PI).toFixed(1)}°` : '';
+      poseCaption.textContent = `x ${currentPose.x.toFixed(3)}  y ${currentPose.y.toFixed(3)}${yawText}`;
+    }
+
+    function updateStatus() {
+      statusConnection.textContent = viewerState.sourceMode === 'zenoh' ? 'zenoh online' : (viewerState.sourceMode || 'offline');
+      statusFps.textContent = viewerState.frameRateEstimate > 0 ? `${viewerState.frameRateEstimate.toFixed(1)} fps` : '-- fps';
+      statusState.textContent = viewerState.currentPixelGoal ? 'tracking goal' : 'waiting';
+      viewerModeBadge.textContent = viewerState.supportsPlayback ? 'Playback' : 'Live Vision';
+      modePill.textContent = `mode ${viewerState.currentPixelGoal ? 'tracking' : 'waiting'}`;
+      latencyPill.textContent = viewerState.supportsPlayback ? 'latency replay' : 'latency live';
+      rgbTopicLabel.textContent = viewerState.rgbTopic || '/camera/color/image_raw';
+      stdoutCaption.textContent = `streaming from ${viewerState.stdoutTopic || '/print'}`;
+    }
+
+    function renderFrame() {
+      if (!viewerState.timeline.length) {
+        updateImageSrc(viewerRgb, fallbackViewerImageUrl);
+        frameLabel.textContent = viewerState.sourceMode === 'zenoh' ? 'Waiting for live frames' : 'No frames';
+        frameTime.textContent = 'viewer unavailable';
+        renderStdout();
+        updateCurrentFrameAnnotations();
+        renderPixelGoalOverlay();
+        renderPointingPreviewOverlay();
+        drawTrajectory(canvas.clientWidth || 1, canvas.clientHeight || 1);
+        updateStatus();
+        updateControls();
+        return;
+      }
+
+      const timelineEntry = viewerState.timeline[viewerState.currentIndex];
+      const frame = viewerState.frames[timelineEntry.viewer_frame_index];
+
+      if (frame) {
+        updateImageSrc(viewerRgb, frame.rgb_url);
+      }
+
+      frameLabel.textContent = viewerState.supportsPlayback
+        ? `Frame ${viewerState.currentIndex + 1} / ${viewerState.timeline.length}`
+        : 'Live frame';
+      frameTime.textContent = timelineEntry.timestamp || 'timestamp unavailable';
+
+      updateCurrentFrameAnnotations();
+      renderPixelGoalOverlay();
+      renderPointingPreviewOverlay();
+      renderStdout();
+      resizeCanvas();
+      updateStatus();
+      updateControls();
+    }
+
+    async function loadTopics() {
+      try {
+        const response = await fetch('/api/topics');
+        const payload = await response.json();
+        if (!payload.ok) {
+          topicsMeta.textContent = 'unavailable';
+          topicsList.innerHTML = `
+            <li class="topic-item">
+              <p class="topic-name">${escapeHtml(payload.error || 'Topic data unavailable')}</p>
+              <p class="topic-type">error</p>
+            </li>
+          `;
+          return;
+        }
+
+        renderTopics(payload.topics || [], payload.source_mode || '');
+      } catch (error) {
+        topicsMeta.textContent = 'unavailable';
+        topicsList.innerHTML = `
+          <li class="topic-item">
+            <p class="topic-name">Failed to load /api/topics</p>
+            <p class="topic-type">error</p>
+          </li>
+        `;
+      }
+    }
+
+    async function loadViewerFrames() {
+      try {
+        const response = await fetch('/api/viewer/frames');
+        const payload = await response.json();
+
+        if (!payload.ok) {
+          viewerState.sourceMode = payload.source_mode || viewerState.sourceMode;
+          viewerState.frames = [];
+          viewerState.timeline = [];
+          viewerState.trajectory = [];
+          viewerState.stdoutEntries = [];
+          renderFrame();
+          return;
+        }
+
+        const previousTimestamp = viewerState.timeline[viewerState.currentIndex]?.timestamp || '';
+        const previousRgbRevision = viewerState.rgbRevision;
+        viewerState.supportsPlayback = Boolean(payload.supports_playback);
+        viewerState.sourceMode = payload.source_mode || '';
+        viewerState.liveRevision = Number(payload.revision) || 0;
+        viewerState.rgbRevision = Number(payload.rgb_revision) || 0;
+        viewerState.rgbTopic = payload.rgb_topic || viewerState.rgbTopic;
+        viewerState.stdoutTopic = payload.stdout_topic || viewerState.stdoutTopic;
+        viewerState.frames = payload.frames || [];
+        viewerState.timeline = payload.timeline || [];
+        viewerState.trajectory = payload.trajectory || [];
+        viewerState.stdoutEntries = payload.stdout_entries || [];
+
+        if (
+          viewerState.currentPointingPreview &&
+          previousRgbRevision > 0 &&
+          viewerState.rgbRevision !== previousRgbRevision
+        ) {
+          viewerState.currentPointingPreview = null;
+        }
+
+        if (viewerState.supportsPlayback) {
+          viewerState.currentIndex = Math.min(viewerState.currentIndex, Math.max(viewerState.timeline.length - 1, 0));
+        } else if (viewerState.timeline.length > 0) {
+          const matchedIndex = viewerState.timeline.findIndex((entry) => entry.timestamp === previousTimestamp);
+          viewerState.currentIndex = matchedIndex >= 0 ? matchedIndex : viewerState.timeline.length - 1;
+        } else {
+          viewerState.currentIndex = 0;
+        }
+
+        const now = performance.now();
+        if (viewerState.lastFrameAtMs > 0) {
+          const deltaMs = now - viewerState.lastFrameAtMs;
+          if (deltaMs > 0) {
+            viewerState.frameRateEstimate = 1000 / deltaMs;
+          }
+        }
+        viewerState.lastFrameAtMs = now;
+
+        renderFrame();
+      } catch (error) {
+        frameLabel.textContent = 'No frames';
+        frameTime.textContent = 'Failed to load viewer frames';
+        updateControls();
+      }
+    }
+
+    function scheduleLiveRefresh() {
+      if (viewerState.supportsPlayback || viewerState.sourceMode !== 'zenoh') {
+        return;
+      }
+
+      if (viewerState.liveRefreshInFlight) {
+        viewerState.liveRefreshPending = true;
+        return;
+      }
+
+      if (viewerState.liveRefreshTimerId !== null) {
+        return;
+      }
+
+      viewerState.liveRefreshTimerId = window.setTimeout(async () => {
+        viewerState.liveRefreshTimerId = null;
+        viewerState.liveRefreshInFlight = true;
+        try {
+          await loadViewerFrames();
+        } finally {
+          viewerState.liveRefreshInFlight = false;
+          if (viewerState.liveRefreshPending) {
+            viewerState.liveRefreshPending = false;
+            scheduleLiveRefresh();
+          }
+        }
+      }, 80);
+    }
+
+    function connectLiveViewer() {
+      if (viewerState.supportsPlayback || viewerState.sourceMode !== 'zenoh' || viewerState.liveSocket !== null) {
+        return;
+      }
+
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const socket = new WebSocket(`${protocol}//${window.location.host}/ws`);
+      viewerState.liveSocket = socket;
+
+      socket.addEventListener('message', (event) => {
+        let payload = null;
+        try {
+          payload = JSON.parse(event.data);
+        } catch (error) {
+          return;
+        }
+
+        if (!payload || payload.kind !== 'viewer_update') {
+          return;
+        }
+
+        const revision = Number(payload.revision);
+        if (Number.isFinite(revision) && revision === viewerState.liveRevision) {
+          return;
+        }
+        scheduleLiveRefresh();
+      });
+
+      socket.addEventListener('close', () => {
+        viewerState.liveSocket = null;
+        window.setTimeout(connectLiveViewer, 1000);
+      });
+
+      socket.addEventListener('error', () => {
+        socket.close();
+      });
+    }
+
+    async function submitLiveInstruction() {
+      if (liveInstructionSend.disabled) {
+        return;
+      }
+
+      const instruction = liveInstructionInput.value.trim();
+      if (!instruction) {
+        liveInstructionInput.focus();
+        return;
+      }
+
+      liveInstructionInput.value = '';
+      appendLocalStdout('user', instruction);
+      renderStdout();
+
+      liveInstructionSend.dataset.busy = 'true';
+      liveInstructionSend.textContent = 'Sending...';
+      updateControls();
+
+      try {
+        const response = await fetch('/api/live/instruction', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=UTF-8',
+          },
+          body: instruction,
+        });
+
+        const payload = await response.json();
+        appendLocalStdout(
+          payload && payload.ok ? 'go2' : 'system',
+          payload && payload.ok
+            ? (typeof payload.response === 'string' && payload.response.length > 0 ? payload.response : '(empty response)')
+            : (payload && typeof payload.error === 'string' && payload.error.length > 0 ? payload.error : 'Failed to update instruction')
+        );
+      } catch (error) {
+        appendLocalStdout(
+          'system',
+          error && typeof error.message === 'string' && error.message.length > 0
+            ? `Failed to update instruction: ${error.message}`
+            : 'Failed to update instruction'
+        );
+      } finally {
+        liveInstructionSend.dataset.busy = 'false';
+        liveInstructionSend.textContent = 'Send';
+        renderStdout();
+        updateControls();
+        liveInstructionInput.focus();
+      }
+    }
+
+    btnPlay.addEventListener('click', () => {
+      if (!viewerState.supportsPlayback || !viewerState.timeline.length) {
+        return;
+      }
+
+      if (viewerState.timerId !== null) {
+        stopPlayback();
+        return;
+      }
+
+      viewerState.timerId = window.setInterval(() => {
+        if (viewerState.currentIndex >= viewerState.timeline.length - 1) {
+          stopPlayback();
+          return;
+        }
+
+        viewerState.currentIndex += 1;
+        renderFrame();
+      }, 120);
+
+      updateControls();
+    });
+
+    btnPrev.addEventListener('click', () => {
+      if (viewerState.currentIndex <= 0) {
+        return;
+      }
+      stopPlayback();
+      viewerState.currentIndex -= 1;
+      renderFrame();
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (viewerState.currentIndex >= viewerState.timeline.length - 1) {
+        return;
+      }
+      stopPlayback();
+      viewerState.currentIndex += 1;
+      renderFrame();
+    });
+
+    btnPointing.addEventListener('click', () => {
+      setPointingMode(true);
+    });
+
+    liveInstructionSend.dataset.busy = 'false';
+    viewerRgb.addEventListener('load', () => {
+      renderPixelGoalOverlay();
+      renderPointingPreviewOverlay();
+    });
+    viewerStage.addEventListener('mousemove', updatePointingCursor);
+    viewerStage.addEventListener('mouseleave', () => {
+      if (viewerState.pointingMode || viewerState.pointingCursorTimerId === null) {
+        pointingCursor.classList.add('hidden');
+      }
+    });
+    viewerStage.addEventListener('click', handlePointingClick);
+    trajectoryStage.addEventListener('click', handleTrajectoryPointingClick);
+    window.addEventListener('resize', () => {
+      renderPixelGoalOverlay();
+      renderPointingPreviewOverlay();
+      resizeCanvas();
+    });
+    liveInstructionSend.addEventListener('click', submitLiveInstruction);
+    liveInstructionInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+        event.preventDefault();
+        submitLiveInstruction();
+      }
+    });
+
+    loadTopics();
+    loadViewerFrames().then(connectLiveViewer);
+    resizeCanvas();
+    updateControls();
+  </script>
+</body>
+</html>

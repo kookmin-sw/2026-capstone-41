@@ -1,0 +1,47 @@
+---
+METADATA
+cargo 1.94.0 (85eff7c80 2026-01-15)
+rustc 1.94.0 (4a4ef493e 2026-03-02)
+zenoh-c: 1.8.0
+zenoh-cpp: 1.8.0
+zenoh-bridge-ros2dds: 1.8.0
+
+---
+
+mkdir -p src
+cd src
+source /opt/ros/humble/setup.bash
+ros2 pkg create --build-type ament_cmake --license Apache-2.0 go2_monitor_cpp
+
+sudo apt update
+sudo apt install -y curl git cmake build-essential ninja-build pkg-config clang libasio-dev libssl-dev zlib1g-dev
+
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source "$HOME/.cargo/env"
+rustup update
+cargo --version
+rustc --version
+
+mkdir zenoh
+cd zenoh/
+git clone https://github.com/eclipse-zenoh/zenoh-c.git
+cd zenoh-c
+mkdir -p build
+cd build
+cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=$HOME/.local
+cmake --build .
+cmake --install .
+
+cd ../..
+git clone https://github.com/eclipse-zenoh/zenoh-cpp.git
+cd zenoh-cpp
+mkdir -p build
+cd build
+cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=$HOME/.local
+cmake --build .
+cmake --install .
+
+python3 -m pip install --user pybind11
+
+---
+

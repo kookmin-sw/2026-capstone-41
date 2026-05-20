@@ -1,0 +1,74 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test-noetic:
+    runs-on: ubuntu-latest
+    container:
+      image: osrf/ros:noetic-desktop
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y libc6 libc6-dev python3.9 python3-pip curl build-essential
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          export PATH="/root/.cargo/bin:${PATH}"
+          python3.9 -m pip install --upgrade pip
+          python3.9 -m pip install --break-system-packages --ignore-installed -e .
+        shell: bash
+
+      - name: Run tests
+        run: |
+          . /opt/ros/noetic/setup.bash
+          python3.9 -m unittest discover -s tests --verbose
+        shell: bash
+        env:
+          ROS_VERSION: 1
+
+  test-humble:
+    runs-on: ubuntu-22.04
+    container:
+      image: osrf/ros:humble-desktop
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          DEBIAN_FRONTEND=noninteractive apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y python3.10 python3-pip curl build-essential
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          export PATH="/root/.cargo/bin:${PATH}"
+          python3.10 -m pip install --upgrade pip
+          python3.10 -m pip install --break-system-packages --ignore-installed -e .
+        shell: bash
+
+      - name: Run tests
+        run: |
+          . /opt/ros/humble/setup.bash
+          python3.10 -m unittest discover -s tests --verbose
+        shell: bash
+        env:
+          ROS_VERSION: 2
