@@ -612,6 +612,20 @@ main > section {
   min-height: 1.4em;
 }
 
+.team-card .role strong {
+  font-weight: 800;
+  color: inherit;
+  opacity: 1;
+}
+
+.team-card .responsibility {
+  margin: 0;
+  color: inherit;
+  opacity: 0.84;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .team-card .gh {
   margin-top: auto;
   display: inline-flex;
@@ -1514,7 +1528,8 @@ main > section {
             <img src="./profile/임민석.png" alt="임민석 profile photo">
           </div>
           <h3>임민석</h3>
-          <p class="role">MI LAB의 아이돌☆</p>
+          <p class="role"><strong>MI LAB의 아이돌☆</strong></p>
+          <p class="responsibility">Local LLM Serving, LOVON 재현, YOLO-26 통합, Task Planner</p>
           <a class="gh" href="https://github.com/dla020501" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
@@ -1525,7 +1540,8 @@ main > section {
             <img src="./profile/조원영.png" alt="조원영 profile photo">
           </div>
           <h3>조원영</h3>
-          <p class="role">FOSCAR의 지도자</p>
+          <p class="role"><strong>FOSCAR의 지도자</strong></p>
+          <p class="responsibility">Zenoh Bridge, DualVLN 개선, HTTP 비동기, Tool List, Local LLM 인터페이스</p>
           <a class="gh" href="https://github.com/Reveroftrillion" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
@@ -1536,7 +1552,8 @@ main > section {
             <img src="./profile/정유진.jpg" alt="정유진 profile photo">
           </div>
           <h3>정유진</h3>
-          <p class="role">이상한 사람</p>
+          <p class="role"><strong>이상한 사람</strong></p>
+          <p class="responsibility">LOVON 재현, LOVON-NaVILA 논문 분석, Go2 Monitor UI/UX, 정량 평가, Git 관리, GitHub 페이지, 서기</p>
           <a class="gh" href="https://github.com/alicex-x02" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
@@ -1547,7 +1564,8 @@ main > section {
             <img src="./profile/성재승.jpg" alt="성재승 profile photo">
           </div>
           <h3>성재승</h3>
-          <p class="role">예비 세계 정복자</p>
+          <p class="role"><strong>예비 세계 정복자</strong></p>
+          <p class="responsibility">무선 포팅, DualVLN 재현, Go2 Monitor 백엔드, ROSA 적용, 복합 Tool, 정량 평가, Code Generation</p>
           <a class="gh" href="https://github.com/Sung-Jae-Seong" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
@@ -1558,7 +1576,8 @@ main > section {
             <img src="./profile/조유빈.png" alt="조유빈 profile photo">
           </div>
           <h3>조유빈</h3>
-          <p class="role">야돈</p>
+          <p class="role"><strong>야돈</strong></p>
+          <p class="responsibility">Zenoh Bridge, DualVLN 개선, ROS2 비동기, 정량 평가</p>
           <a class="gh" href="https://github.com/yubincho3" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
@@ -1569,7 +1588,8 @@ main > section {
             <img src="./profile/유리안.jpg" alt="유리안 profile photo">
           </div>
           <h3>유리안</h3>
-          <p class="role">세계관 최강자</p>
+          <p class="role"><strong>세계관 최강자</strong></p>
+          <p class="responsibility">디버깅 모듈, DualVLN 재현, LiDAR SLAM Runner, 포스터, DualVLN 논문 분석, Isaac Sim 검증</p>
           <a class="gh" href="https://github.com/ryurian001" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.76-.2-3.62-.88-3.62-3.91 0-.86.31-1.57.82-2.13-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.13 0 3.04-1.86 3.7-3.63 3.9.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
             <span>GitHub</span>
